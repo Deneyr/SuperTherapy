@@ -17,14 +17,6 @@ namespace GameJam2020.Model.Data
             set;
         }
 
-        [XmlIgnore]
-        private int currentIndexToken;
-
-        public Dialogue()
-        {
-            this.DialoguesToken = new List<DialogueToken>();
-        }
-
         public void AddToken(DialogueToken token)
         {
             this.DialoguesToken.Add(token);

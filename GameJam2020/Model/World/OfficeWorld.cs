@@ -24,6 +24,8 @@ namespace GameJam2020.Model.World
 
         public event Action<AObject, Vector2f> ObjectPositionChanged;
 
+        public event Action<AObject, AObject, Vector2f> TextPositionChanged;
+
         public event Action<AObject, string> ObjectTextChanged;
 
         public event Action<AObject, int> ObjectAnimationChanged;
@@ -76,9 +78,14 @@ namespace GameJam2020.Model.World
 
         public void AddObject(AObject lObject, int indexLayer)
         {
-            this.objectsById.Add(lObject.Id, lObject);
+            this.objectsById.Add(lObject.Alias, lObject);
 
             this.layers[indexLayer].AddObject(this, lObject);
+
+            if (lObject is DialogueObject)
+            {
+                (lObject as DialogueObject).AddTokenToWorld(this, indexLayer);
+            }
         }
 
         public AObject GetObjectFromId(string Id)
@@ -167,6 +174,14 @@ namespace GameJam2020.Model.World
             if (this.ObjectPositionChanged != null)
             {
                 this.ObjectPositionChanged(lObject, newPosition);
+            }
+        }
+
+        public void NotifyTextPositionChanged(AObject lObject, AObject previousObject, Vector2f newPosition)
+        {
+            if (this.TextPositionChanged != null)
+            {
+                this.TextPositionChanged(lObject, previousObject, newPosition);
             }
         }
 

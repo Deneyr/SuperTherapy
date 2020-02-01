@@ -16,7 +16,7 @@ namespace GameJam2020.Model.GraphLogic
 
         public StartPhase()
         {
-            this.periodPhase = Time.FromSeconds(30);
+            this.periodPhase = Time.FromSeconds(100);
 
             this.timeElapsed = Time.Zero;
         }
@@ -30,10 +30,15 @@ namespace GameJam2020.Model.GraphLogic
 
             AObject test = world.GetObjectFromId("test");
 
+            DialogueObject dialogue = world.GetObjectFromId("dialogue") as DialogueObject;
+
             test.SetAnimationIndex(1);
-            test.SetKinematicParameters(new Vector2f(0.5f, 0.5f), new Vector2f(0.05f, 0));
+            test.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(10, 0));
 
             test.IsFocused = true;
+
+            dialogue.SetKinematicParameters(new Vector2f(-100f, -100f), new Vector2f(0f, 0f));
+            dialogue.LaunchDialogue();
         }
 
         public override void VisitEnd(OfficeWorld world)

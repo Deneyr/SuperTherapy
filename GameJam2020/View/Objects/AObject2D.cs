@@ -40,14 +40,28 @@ namespace GameJam2020.View.Objects
             this.AddAnimation(zoomAnimation);
         }
 
+        public FloatRect TextGlobalBounds
+        {
+            get
+            {
+                return this.text.GetGlobalBounds();
+            }
+        }
+
         public virtual void AssignTextures(List<Texture> textures)
         {
-            this.sprite.Texture = textures[0];
+            if (textures.Count > 0)
+            {
+                this.sprite.Texture = textures[0];
+            }
         }
 
         public virtual void AssignFonts(List<Font> fonts)
         {
-            this.text.Font = fonts[0];
+            if (fonts.Count > 0)
+            {
+                this.text.Font = fonts[0];
+            }
         }
 
         public void SetText(string newText)
@@ -90,6 +104,11 @@ namespace GameJam2020.View.Objects
             Vector2f realPosition = new Vector2f(newPosition.X * sizeScreen.X, newPosition.Y * sizeScreen.Y);
 
             this.sprite.Position = realPosition;
+        }
+
+        public void SetPosition(Vector2f newPosition)
+        {
+            this.sprite.Position = new Vector2f(newPosition.X, newPosition.Y);
         }
 
         public static IntRect[] CreateAnimation(int leftStart, int topStart, int width, int height, int nbFrame)

@@ -3,24 +3,15 @@
   <PatientDialogue>
     <DialogueTokens>
       <Token>
-        <Token>test </Token>
+        <Token>test ceci est test, et oui c'est comme ça, et oui, voilà</Token>
         <Type>NORMAL</Type>
       </Token>
       <Token>
-        <Token>tëst, ..Nouveau.
-çdede</Token>
-        <Type>FIELD</Type>
+        <Token>tëst, ..Nouveau.</Token>
+        <Type>SANCTUARY</Type>
       </Token>
       <Token>
-        <Token>test </Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>tëst, ..Nouveau </Token>
-        <Type>FIELD</Type>
-      </Token>
-      <Token>
-        <Token>test </Token>
+        <Token>bla bla, et oui bravo, ceci est un bravo et oui hahaha</Token>
         <Type>NORMAL</Type>
       </Token>
     </DialogueTokens>

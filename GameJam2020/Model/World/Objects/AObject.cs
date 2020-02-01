@@ -9,7 +9,8 @@ namespace GameJam2020.Model.World.Objects
 {
     public class AObject
     {
-        private Vector2f position;
+        protected Vector2f previousPosition;
+        protected Vector2f position;
 
         private Vector2f speedVector;
 
@@ -25,6 +26,7 @@ namespace GameJam2020.Model.World.Objects
         {
             this.id = id;
 
+            this.previousPosition = new Vector2f(0, 0);
             this.position = new Vector2f(0, 0);
             this.speedVector = new Vector2f(0, 0);
 
@@ -43,11 +45,19 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
+        public virtual string Alias
+        {
+            get
+            {
+                return this.Id;
+            }
+        }
+
         public Vector2f Position
         {
             get
             {
-                return this.Position;
+                return this.position;
             }
         }
 
@@ -73,7 +83,7 @@ namespace GameJam2020.Model.World.Objects
         }
 
 
-        public void SetKinematicParameters(Vector2f position, Vector2f speedVector)
+        public virtual void SetKinematicParameters(Vector2f position, Vector2f speedVector)
         {
             this.position = position;
             this.speedVector = speedVector;
@@ -104,8 +114,14 @@ namespace GameJam2020.Model.World.Objects
                 && (this.speedVector.X != 0 || this.speedVector.Y != 0))
             {
                 this.position += this.speedVector * TimeElapsed.AsSeconds();
+            }
 
+            if(this.previousPosition.X != this.position.X 
+                || this.previousPosition.Y != this.position.Y)
+            {
                 officeWorld.NotifyObjectPositionChanged(this, this.position);
+
+                this.previousPosition = new Vector2f(this.position.X, this.position.Y);
             }
         }
 

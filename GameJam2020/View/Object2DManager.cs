@@ -14,8 +14,6 @@ namespace GameJam2020.View
 {
     public class Object2DManager
     {
-        private static Vector2f SIZE_SCREEN = new Vector2f(800, 600);
-
         private TextureManager textureManager;
         private FontManager fontManager;
 
@@ -30,6 +28,8 @@ namespace GameJam2020.View
 
         public Object2DManager(OfficeWorld world)
         {
+            //this.SizeScreen = new Vector2f(800, 600);
+
             this.textureManager = new TextureManager();
             this.fontManager = new FontManager();
 
@@ -49,6 +49,7 @@ namespace GameJam2020.View
             world.ObjectDestroyed += OnObjectDestroyed;
 
             world.ObjectPositionChanged += OnObjectPositionChanged;
+            world.TextPositionChanged += OnTextPositionChanged;
             world.ObjectFocusChanged += OnObjectFocusChanged;
             world.ObjectAnimationChanged += OnObjectAnimationChanged;
             world.ObjectTextChanged += OnObjectTextChanged;    
@@ -66,8 +67,15 @@ namespace GameJam2020.View
 
             this.mappingIdObjectToFonts = new Dictionary<string, List<string>>();
 
-            this.mappingIdObjectToFonts.Add("test", new List<string> { @"Resources\testFont.ttf", @"Resources\testFont2.ttf" });
+            this.mappingIdObjectToFonts.Add("normalToken", new List<string> { @"Resources\lemon.otf" });
+            this.mappingIdObjectToFonts.Add("sanctuaryToken", new List<string> { @"Resources\Quentin.otf"});
         }
+
+        /*public Vector2f SizeScreen
+        {
+            get;
+            set;
+        }*/
 
         public void DrawIn(RenderWindow window)
         {
@@ -125,9 +133,31 @@ namespace GameJam2020.View
         {
             AObject2D object2D = this.mappingObjectToObject2D[arg1];
 
-            object2D.SetPosition(arg2, SIZE_SCREEN);
+            object2D.SetPosition(arg2);
         }
 
+        private void OnTextPositionChanged(AObject arg1, AObject arg2, Vector2f arg3)
+        {
+            AObject2D object2D = this.mappingObjectToObject2D[arg1];
+
+            if(arg2 == null)
+            {
+                object2D.SetPosition(arg3);
+            }
+            else
+            {
+                AObject2D previousObject2D = this.mappingObjectToObject2D[arg2];
+
+                FloatRect bounds = previousObject2D.TextGlobalBounds;
+
+                float newPositionX = bounds.Width + bounds.Left;
+                float newPositionY = arg3.Y;
+
+                Vector2f newPosition = new Vector2f(newPositionX, newPositionY);
+
+                object2D.SetPosition(newPosition);
+            }
+        }
 
         private void OnObjectTextChanged(AObject arg1, string arg2)
         {
@@ -138,11 +168,14 @@ namespace GameJam2020.View
 
         private void OnObjectDestroyed(ALayer arg1, AObject arg2)
         {
-            LayerObject2D layer = this.mappingLayerToLayerObject2D[arg1];
-            AObject2D object2D = this.mappingObjectToObject2D[arg2];
+            if (this.mappingObjectToObject2D.ContainsKey(arg2))
+            {
+                LayerObject2D layer = this.mappingLayerToLayerObject2D[arg1];
+                AObject2D object2D = this.mappingObjectToObject2D[arg2];
 
-            layer.RemoveObject2D(object2D);
-            this.mappingObjectToObject2D.Remove(arg2);
+                layer.RemoveObject2D(object2D);
+                this.mappingObjectToObject2D.Remove(arg2);
+            }
         }
 
         private void OnObjectCreated(ALayer arg1, AObject arg2)
@@ -184,13 +217,16 @@ namespace GameJam2020.View
                 case "normalToken":
                     object2D = new NormalTokenObject2D();
                     break;
+                case "sanctuaryToken":
+                    object2D = new SanctuaryTokenObject2D();
+                    break;
             }
-
-            object2D.AssignTextures(listTextures);
-            object2D.AssignFonts(listFonts);
 
             if (object2D != null)
             {
+                object2D.AssignTextures(listTextures);
+                object2D.AssignFonts(listFonts);
+
                 this.mappingObjectToObject2D.Add(arg2, object2D);
                 layer.AddObject2D(object2D);
             }
@@ -212,6 +248,8 @@ namespace GameJam2020.View
 
         public void Dispose(OfficeWorld world)
         {
+            world.ResourcesToLoad -= OnResourcesToLoad;
+
             world.LayerCreated -= OnLayerCreated;
             world.LayerDestroyed -= OnLayerDestroyed;
 
@@ -220,6 +258,7 @@ namespace GameJam2020.View
 
             world.ObjectPositionChanged -= OnObjectPositionChanged;
             world.ObjectFocusChanged -= OnObjectFocusChanged;
+            world.TextPositionChanged -= OnTextPositionChanged;
             world.ObjectAnimationChanged -= OnObjectAnimationChanged;
             world.ObjectTextChanged -= OnObjectTextChanged;
         }

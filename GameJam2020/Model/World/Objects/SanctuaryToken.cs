@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GameJam2020.Model.World.Objects
 {
-    public class NormalToken : AToken
+    public class SanctuaryToken: AToken
     {
-        public NormalToken(AToken previousToken, string text) : base(previousToken, "normalToken", text)
+        public SanctuaryToken(AToken previousToken, string text) : base(previousToken, "sanctuaryToken", text)
         {
-            
+
         }
     }
 }

@@ -49,23 +49,31 @@ namespace GameJam2020.Model.GraphLogic
 
             TestObject test = new TestObject();
 
+            DialogueObject dialoguePatient = DialogueFactory.CreateDialogueFactory(this.levelData.PatientDialogue);
+
             // Create layers
             Layer layer = new Layer();
+            Layer layer2 = new Layer();
 
             // Add Resources
             List<string> resourcesToLoad = new List<string>();
             resourcesToLoad.Add(test.Id);
+            resourcesToLoad.Add("normalToken");
+            resourcesToLoad.Add("sanctuaryToken");
             /*resourcesToLoad.Add(patient.Id);
             resourcesToLoad.Add(toubib.Id);*/
             world.NotifyResourcesToLoad(resourcesToLoad);
 
             // Add Layers
             world.AddLayer(layer);
+            world.AddLayer(layer2);
 
             // Add Objects
             world.AddObject(test, 0);
             /*world.AddObject(patient, 0);
             world.AddObject(toubib, 0);*/
+
+            world.AddObject(dialoguePatient, 1);
         }
 
         public override void VisitEnd(OfficeWorld world)

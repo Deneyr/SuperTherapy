@@ -21,9 +21,16 @@ namespace GameJam2020
             this.officeWorld = new OfficeWorld();
             this.object2DManager = new Object2DManager(this.officeWorld);
 
-            var mode = new SFML.Window.VideoMode(800, 600);
-            var window = new SFML.Graphics.RenderWindow(mode, "Repair Project");
+            //var mode = new SFML.Window.VideoMode(800, 600);
+            var window = new SFML.Graphics.RenderWindow(SFML.Window.VideoMode.FullscreenModes[0], "Repair Project", SFML.Window.Styles.Fullscreen);
             window.KeyPressed += Window_KeyPressed;
+
+            //this.object2DManager.SizeScreen = window.GetView().Size;
+
+
+            SFML.Graphics.View view = window.GetView();
+            view.Center = new Vector2f(0, 0);
+            window.SetView(view);
 
             window.SetVerticalSyncEnabled(true);
 

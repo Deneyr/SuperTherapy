@@ -41,6 +41,7 @@ namespace GameJam2020.Model.Data
     public enum TokenType
     {
         NORMAL,
+        SANCTUARY,
         FIELD
     }
 }
