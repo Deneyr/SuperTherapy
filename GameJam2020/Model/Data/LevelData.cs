@@ -31,6 +31,13 @@ namespace GameJam2020.Model.Data
             set;
         }
 
+        [XmlElement(ElementName = "Timer")]
+        public int Timer
+        {
+            get;
+            set;
+        }
+
         [XmlElement(ElementName = "PatientSuccessAnswer")]
         public string PatientSuccessAnswer
         {

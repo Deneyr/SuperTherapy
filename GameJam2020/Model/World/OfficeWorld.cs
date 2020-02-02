@@ -34,7 +34,7 @@ namespace GameJam2020.Model.World
 
         public event Action<AObject, bool> ObjectFocusChanged;
 
-        public event Action<AObject, string> InternalGameEvent;
+        public event Action<OfficeWorld, AObject, string> InternalGameEvent;
 
 
         private Dictionary<string, AObject> objectsById;
@@ -57,6 +57,15 @@ namespace GameJam2020.Model.World
 
             this.levelNode = tutoLevelNode;
         }
+
+        public LevelNode CurrentLevel
+        {
+            get
+            {
+                return this.levelNode;
+            }
+        }
+
 
         public void StartLevel()
         {
@@ -259,7 +268,7 @@ namespace GameJam2020.Model.World
         {
             if (this.InternalGameEvent != null)
             {
-                this.InternalGameEvent(lObject, details);
+                this.InternalGameEvent(this, lObject, details);
             }
         }
     }

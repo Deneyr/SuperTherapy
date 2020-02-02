@@ -17,7 +17,8 @@ namespace GameJam2020.Model.World.Objects
             foreach (DialogueToken token in data.DialoguesToken)
             {
                 string[] words;
-                if (token.Type != TokenType.ANSWER && token.Type != TokenType.FIELD)
+                if (token.Type != TokenType.ANSWER 
+                    && token.Type != TokenType.FIELD)
                 {
                     words = token.Token.Split(' ');
                 }
@@ -69,7 +70,8 @@ namespace GameJam2020.Model.World.Objects
             AToken previousToken = null;
 
             string[] words;
-            if (type != TokenType.ANSWER && type != TokenType.FIELD)
+            if (type != TokenType.ANSWER 
+                && type != TokenType.FIELD)
             {
                 words = data.Split(' ');
             }

@@ -36,19 +36,19 @@
     <DialogueTokens>
       <Token>
         <Token>test </Token>
-        <Type>NORMAL</Type>
+        <Type>FIELD</Type>
       </Token>
       <Token>
         <Token>tëst, ..Nouveau </Token>
-        <Type>FIELD</Type>
+        <Type>NORMAL</Type>
       </Token>
       <Token>
         <Token>test </Token>
-        <Type>NORMAL</Type>
+        <Type>FIELD</Type>
       </Token>
       <Token>
         <Token>tëst, ..Nouveau </Token>
-        <Type>FIELD</Type>
+        <Type>NORMAL</Type>
       </Token>
       <Token>
         <Token>test </Token>
@@ -57,6 +57,52 @@
     </DialogueTokens>
   </ToubibDialogue>
   <AnswerTokens>
-    <DialogueTokens />
+    <DialogueTokens>
+      <Token>
+        <Token>aubergine</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>cabinet</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>ENCLUME !</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>	
+      <Token>
+        <Token>salopette</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>abeille</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>débouche-chiotte</Token>
+        <Type>ANSWER</Type>
+      </Token>
+    </DialogueTokens>
   </AnswerTokens>
+<Timer>30</Timer>
 </LevelData>

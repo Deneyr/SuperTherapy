@@ -67,9 +67,15 @@ namespace GameJam2020.View
             this.mappingIdObjectToTextures.Add("arrow", new List<string> { @"Resources\foreground\arrow.png" });
             this.mappingIdObjectToTextures.Add("bubbleHeader", new List<string> { @"Resources\foreground\bulleTitreAnim.png" });
             this.mappingIdObjectToTextures.Add("bubbleTuto", new List<string> { @"Resources\foreground\Bulle_Tuto.png" });
+            this.mappingIdObjectToTextures.Add("bubble", new List<string> { @"Resources\foreground\bubble.png" });
 
-            this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_399_157.png" });
+            this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_567_225.png" });
             this.mappingIdObjectToTextures.Add("toubib", new List<string> { @"Resources\middleground\Spritemap_Psy_417_419.png" });
+
+            this.mappingIdObjectToTextures.Add("queueDream", new List<string> { @"Resources\foreground\queueDream.png" });
+            this.mappingIdObjectToTextures.Add("queueTalk", new List<string> { @"Resources\foreground\queueTalk2.png" });
+
+            this.mappingIdObjectToTextures.Add("notebook", new List<string> { @"Resources\foreground\Carnet_Psy.png" });
 
             this.mappingIdObjectToTextures.Add("test", new List<string> { @"Resources\testSprite.jpg" });
 
@@ -310,6 +316,9 @@ namespace GameJam2020.View
                 case "bubbleTuto":
                     object2D = new BubbleTutoObject2D();
                     break;
+                case "bubble":
+                    object2D = new BubbleObject2D();
+                    break;
                 case "office":
                     object2D = new OfficeObject2D();
                     break;
@@ -321,6 +330,15 @@ namespace GameJam2020.View
                     break;
                 case "toubib":
                     object2D = new ToubibObject2D();
+                    break;
+                case "queueDream":
+                    object2D = new QueueDreamObject2D();
+                    break;
+                case "queueTalk":
+                    object2D = new QueueTalkObject2D();
+                    break;
+                case "notebook":
+                    object2D = new NotebookObject2D();
                     break;
                 case "test":
                     object2D = new TestObject2D();

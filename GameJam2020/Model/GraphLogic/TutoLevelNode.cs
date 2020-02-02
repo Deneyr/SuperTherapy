@@ -33,18 +33,18 @@ namespace GameJam2020.Model.GraphLogic
             DialogueObject header = DialogueFactory.CreateDialogueFactory("Docteur IPSO", TokenType.HEADER);
             header.Alias = "header";
             DialogueObject answer = DialogueFactory.CreateDialogueFactory("Déplacer", TokenType.ANSWER);
-            header.Alias = "answer";
+            answer.Alias = "answer";
             DialogueObject question = DialogueFactory.CreateDialogueFactory("Déplacer", TokenType.FIELD);
-            header.Alias = "question";
+            question.Alias = "question";
             DialogueObject text = DialogueFactory.CreateDialogueFactory("  pour commencer !", TokenType.NORMAL);
-            header.Alias = "text";
+            text.Alias = "text";
 
             // Create layers
             Layer background = new Layer();
             Layer middleground = new Layer();
             Layer foreground = new Layer();
-            Layer TextLayer = new Layer();
-            Layer AnswerLayer = new Layer();
+            Layer textLayer = new Layer();
+            Layer answerLayer = new Layer();
 
             // Add Resources
             List<string> resourcesToLoad = new List<string>();
@@ -65,8 +65,8 @@ namespace GameJam2020.Model.GraphLogic
             world.AddLayer(background);
             world.AddLayer(middleground);
             world.AddLayer(foreground);
-            world.AddLayer(TextLayer);
-            world.AddLayer(AnswerLayer);
+            world.AddLayer(textLayer);
+            world.AddLayer(answerLayer);
 
             // Add Objects
             /*world.AddObject(test, 0);
@@ -80,7 +80,7 @@ namespace GameJam2020.Model.GraphLogic
 
             world.AddObject(header, 3);
             world.AddObject(question, 3);
-            world.AddObject(answer, 3);
+            world.AddObject(answer, 4);
             world.AddObject(text, 3);
 
             // Set Object Position.
@@ -89,18 +89,18 @@ namespace GameJam2020.Model.GraphLogic
             arrow.SetKinematicParameters(new Vector2f(-200, 50), new Vector2f(0, 0));
 
             header.SetKinematicParameters(new Vector2f(-160, -260), new Vector2f(0, 0));
-            header.LaunchDialogue();
+            header.LaunchDialogue(2);
 
             answer.SetKinematicParameters(new Vector2f(-250, -30), new Vector2f(0, 0));
-            answer.LaunchDialogue();
+            answer.LaunchDialogue(2);
 
             question.SetKinematicParameters(new Vector2f(120, -30), new Vector2f(0, 0));
-            question.LaunchDialogue();
+            question.LaunchDialogue(2);
 
             text.SetKinematicParameters(new Vector2f(220, -30), new Vector2f(0, 0));
-            text.LaunchDialogue();
+            text.LaunchDialogue(2);
 
-            bubbleHeader.SetKinematicParameters(new Vector2f(-220, -300), new Vector2f(0, 0));
+            bubbleHeader.SetKinematicParameters(new Vector2f(-240, -320), new Vector2f(0, 0));
             bubbleTuto.SetKinematicParameters(new Vector2f(80, -70), new Vector2f(0, 0));
             //arrow.IsFocused = true;
             bubbleHeader.SetAnimationIndex(1);

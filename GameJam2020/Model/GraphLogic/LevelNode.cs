@@ -33,7 +33,15 @@ namespace GameJam2020.Model.GraphLogic
 
             this.phaseNodes = new List<APhaseNode>();
 
-            this.phaseNodes.Add(new StartPhase());
+            APhaseNode startPhase = new StartPhase();
+            APhaseNode explainPhase = new ExplainPhase();
+            APhaseNode thinkPhase = new ThinkPhase();
+
+            startPhase.NextNode = explainPhase;
+            explainPhase.NextNode = thinkPhase;
+
+            this.phaseNodes.Add(startPhase);
+            this.phaseNodes.Add(explainPhase);
             this.currentPhaseNode = null;
         }
 
@@ -58,16 +66,33 @@ namespace GameJam2020.Model.GraphLogic
             patient.Alias = "main";
             ToubibObject toubib = new ToubibObject();
             toubib.Alias = "main";
+            NotebookObject notebook = new NotebookObject();
+            notebook.Alias = "main";
+            BubbleObject bubble = new BubbleObject();
+            bubble.Alias = "main";
+
+            QueueTalkObject queueTalk = new QueueTalkObject();
+            queueTalk.Alias = "main";
+            QueueDreamObject queueDream = new QueueDreamObject();
+            queueDream.Alias = "main";
 
             //TestObject test = new TestObject();
 
             DialogueObject dialoguePatient = DialogueFactory.CreateDialogueFactory(this.levelData.PatientDialogue);
             dialoguePatient.Alias = "patient";
 
+            DialogueObject dialogueToubib = DialogueFactory.CreateDialogueFactory(this.levelData.ToubibDialogue);
+            dialogueToubib.Alias = "toubib";
+
+            DialogueObject dialogueAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.AnswerTokens);
+            dialogueAnswer.Alias = "answer";
+
             // Create layers
             Layer background = new Layer();
             Layer middleground = new Layer();
             Layer foreground = new Layer();
+            Layer textLayer = new Layer();
+            Layer answerLayer = new Layer();
 
             // Add Resources
             List<string> resourcesToLoad = new List<string>();
@@ -75,6 +100,12 @@ namespace GameJam2020.Model.GraphLogic
 
             resourcesToLoad.Add(toubib.Id);
             resourcesToLoad.Add(patient.Id);
+
+            resourcesToLoad.Add(notebook.Id);
+            resourcesToLoad.Add(bubble.Id);
+
+            resourcesToLoad.Add(queueTalk.Id);
+            resourcesToLoad.Add(queueDream.Id);
 
             resourcesToLoad.Add("normalToken");
             resourcesToLoad.Add("sanctuaryToken");
@@ -87,6 +118,8 @@ namespace GameJam2020.Model.GraphLogic
             world.AddLayer(background);
             world.AddLayer(middleground);
             world.AddLayer(foreground);
+            world.AddLayer(textLayer);
+            world.AddLayer(answerLayer);
 
             // Add Objects
             /*world.AddObject(test, 0);
@@ -97,13 +130,30 @@ namespace GameJam2020.Model.GraphLogic
             world.AddObject(toubib, 1);
             world.AddObject(patient, 1);
 
-            world.AddObject(dialoguePatient, 2);
+            world.AddObject(queueTalk, 2);
+            world.AddObject(queueDream, 2);
+
+            world.AddObject(notebook, 2);
+            world.AddObject(bubble, 2);
+
+            world.AddObject(dialoguePatient, 3);
+            world.AddObject(dialogueToubib, 3);
+            world.AddObject(dialogueAnswer, 4);
 
             // Set Object Position.
             office.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(0, 0));
 
             toubib.SetKinematicParameters(new Vector2f(150, 160), new Vector2f(0, 0));
             patient.SetKinematicParameters(new Vector2f(-550, 140), new Vector2f(0, 0));
+
+            notebook.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+            bubble.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+
+            queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+            queueDream.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+
+            queueTalk.SetAnimationIndex(1);
+            queueDream.SetAnimationIndex(1);
         }
 
         public override void VisitEnd(OfficeWorld world)

@@ -15,27 +15,27 @@ namespace GameJam2020.View.Objects
         {
             Time periode = Time.FromMilliseconds(200);
 
-            IntRect[] testAnim = AObject2D.CreateAnimation(0, 0, 399, 157, 5);
+            IntRect[] testAnim = AObject2D.CreateAnimation(0, 0, 570, 225, 5);
             Animation animation = new Animation(testAnim, periode, AnimationType.ONETIME);
             this.AddAnimation(animation);
 
-            testAnim = AObject2D.CreateAnimation(0, 399, 1139, 157, 5);
+            testAnim = AObject2D.CreateAnimation(0, 225, 570, 225, 5);
             animation = new Animation(testAnim, periode, AnimationType.LOOP);
             this.AddAnimation(animation);
 
-            testAnim = AObject2D.CreateAnimation(0, 399 * 2, 1139, 157, 2);
+            testAnim = AObject2D.CreateAnimation(0, 225 * 2, 570, 225, 2);
             animation = new Animation(testAnim, periode, AnimationType.LOOP);
             this.AddAnimation(animation);
 
-            testAnim = AObject2D.CreateAnimation(0, 399 * 3, 1139, 157, 5);
+            testAnim = AObject2D.CreateAnimation(0, 225 * 3, 570, 225, 5);
             animation = new Animation(testAnim, periode, AnimationType.LOOP);
             this.AddAnimation(animation);
 
-            testAnim = AObject2D.CreateAnimation(0, 399 * 4, 1139, 157, 5);
+            testAnim = AObject2D.CreateAnimation(0, 225 * 4, 570, 225, 5);
             animation = new Animation(testAnim, periode, AnimationType.LOOP);
             this.AddAnimation(animation);
 
-            testAnim = AObject2D.CreateAnimation(0, 399 * 5, 1139, 157, 1);
+            testAnim = AObject2D.CreateAnimation(0, 225 * 5, 570, 225, 1);
             animation = new Animation(testAnim, periode, AnimationType.LOOP);
             this.AddAnimation(animation);
 

@@ -13,11 +13,11 @@ namespace GameJam2020.View.Objects
 
         public ATokenObject2D()
         {
-            this.text.OutlineColor = Color.Black;
+            //this.text.OutlineColor = Color.Black;
 
             this.text.FillColor = Color.White;
 
-            this.text.OutlineThickness = 2;
+            //this.text.OutlineThickness = 2;
 
             this.text.CharacterSize = 40;
         }

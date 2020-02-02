@@ -18,6 +18,8 @@ namespace GameJam2020.Model.World.Objects
 
         private bool isDialogueLaunched;
 
+        private float speedFactor;
+
         public DialogueObject() : base("dialogue")
         {
             this.tokensList = new List<List<AToken>>();
@@ -31,6 +33,8 @@ namespace GameJam2020.Model.World.Objects
             this.dialogueLength = 30;
             this.rowHeight = 50f;
             this.position = new Vector2f(0.1f, 0.1f);
+
+            this.speedFactor = 1;
         }
 
         public float WidthDialogue
@@ -66,6 +70,19 @@ namespace GameJam2020.Model.World.Objects
             currentList.Add(token);
         }
 
+       /* public override void SetKinematicParameters(Vector2f position, Vector2f speedVector)
+        {
+            base.SetKinematicParameters(position, speedVector);
+
+            foreach(List<AToken> tokens in this.tokensList)
+            {
+                foreach (AToken token in tokens)
+                {
+                    token.SetKinematicParameters(position, speedVector);
+                }
+            }
+        }*/
+
         public void AddTokenToWorld(OfficeWorld world, int indexLayer)
         {
             foreach(List<AToken> tokens in this.tokensList)
@@ -87,10 +104,24 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
-        public void LaunchDialogue()
+        public void ResetDialogue()
+        {
+            foreach (List<AToken> tokens in this.tokensList)
+            {
+                foreach (AToken token in tokens)
+                {
+                    token.DisplayText = string.Empty;
+                    token.SetKinematicParameters(new Vector2f(10000, 1000), new Vector2f(0, 0));
+                }
+            }
+        }
+
+        public void LaunchDialogue(float speedFactor)
         {
             this.currentTokenIndex = -1;
             this.currentTokenRowIndex = 0;
+
+            this.speedFactor = speedFactor;
 
             this.isDialogueLaunched = true;
         }
@@ -115,13 +146,15 @@ namespace GameJam2020.Model.World.Objects
 
                         this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].InitialPosition = newPosition;
                         this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].SetKinematicParameters(newPosition, new Vector2f(0, 0));
-                        this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].LaunchText();
+                        this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].LaunchText(this.speedFactor);
                     }
                 }
             }
 
             if(this.IsDialogueFull && this.isDialogueLaunched)
             {
+                officeWorld.NotifyInternalGameEvent(this, "endDialogue");
+
                 this.isDialogueLaunched = false;
             }
         }

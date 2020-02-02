@@ -47,7 +47,7 @@ namespace GameJam2020.Model.GraphLogic
 
         }
 
-        protected virtual void OnInternalGameEvent(AObject lObject, string details)
+        protected virtual void OnInternalGameEvent(OfficeWorld world, AObject lObject, string details)
         {
             
         }

@@ -15,6 +15,7 @@ namespace GameJam2020.Model.World.Objects
 
         private int indexText;
         private float speedText;
+        private float speedFactor;
         private float nbCharacterToAdd;
 
         private bool isTextLaunched;
@@ -36,6 +37,7 @@ namespace GameJam2020.Model.World.Objects
             this.indexText = 0;
             this.nbCharacterToAdd = 0;
             this.speedText = 8;
+            this.speedFactor = 1;
 
             this.isTextLaunched = false;
         }
@@ -79,9 +81,23 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
-        public void LaunchText()
+        public string DisplayText
+        {
+            get
+            {
+                return this.displayedText;
+            }
+            set
+            {
+                this.displayedText = value;
+            }
+        }
+
+        public void LaunchText(float speedFactor)
         {
             this.indexText = 0;
+
+            this.speedFactor = speedFactor;
 
             this.isTextLaunched = true;
         }
@@ -135,7 +151,7 @@ namespace GameJam2020.Model.World.Objects
 
             if (this.isTextLaunched && this.speedText > 0 && this.indexText < this.text.Length)
             {
-                this.nbCharacterToAdd += this.speedText * timeElapsed.AsSeconds();
+                this.nbCharacterToAdd += this.speedText * timeElapsed.AsSeconds() * this.speedFactor;
 
                 int nbCharacterToAddInteger = (int)this.nbCharacterToAdd;
 

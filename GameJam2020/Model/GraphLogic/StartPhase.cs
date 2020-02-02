@@ -16,7 +16,7 @@ namespace GameJam2020.Model.GraphLogic
 
         public StartPhase()
         {
-            this.periodPhase = Time.FromSeconds(100);
+            this.periodPhase = Time.FromSeconds(3);
 
             this.timeElapsed = Time.Zero;
         }
@@ -31,12 +31,11 @@ namespace GameJam2020.Model.GraphLogic
             //AObject test = world.GetObjectFromId("test");
 
             patient.SetAnimationIndex(1);
-            toubib.SetAnimationIndex(1);
+            toubib.SetAnimationIndex(2);
 
             DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;    
 
             dialogue.SetKinematicParameters(new Vector2f(-100f, -200f), new Vector2f(0f, 0f));
-            dialogue.LaunchDialogue();
         }
 
         public override void VisitEnd(OfficeWorld world)

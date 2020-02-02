@@ -23,7 +23,7 @@ namespace GameJam2020.View.Objects
 
         public override void DrawIn(RenderWindow window)
         {
-            this.answerRectangle.Position = new Vector2f(this.text.Position.X - 10, this.text.Position.Y - 5);
+            this.answerRectangle.Position = new Vector2f(this.text.Position.X - 5, this.text.Position.Y - 5);
 
             FloatRect boundsText = this.text.GetGlobalBounds();
             float police = this.text.CharacterSize;
