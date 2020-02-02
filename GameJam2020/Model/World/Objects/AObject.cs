@@ -9,6 +9,10 @@ namespace GameJam2020.Model.World.Objects
 {
     public class AObject
     {
+        private static int nbInstances;
+        private int idInstance;
+        private string aliasPart;
+
         protected Vector2f previousPosition;
         protected Vector2f position;
 
@@ -17,13 +21,20 @@ namespace GameJam2020.Model.World.Objects
         private int previousAnimationIndex;
         private int currentAnimationIndex;
 
-        private bool previousIsFocused;
-        private bool isFocused;
+        protected bool previousIsFocused;
+        protected bool isFocused;
 
         private string id;
 
+        static AObject()
+        {
+            AObject.nbInstances = 0;
+        }
+
         public AObject(string id)
         {
+            this.idInstance = AToken.nbInstances++;
+
             this.id = id;
 
             this.previousPosition = new Vector2f(0, 0);
@@ -37,19 +48,30 @@ namespace GameJam2020.Model.World.Objects
             this.isFocused = false;
         }
 
+        public virtual string Alias
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.aliasPart))
+                {
+                    return this.Id + " " + this.idInstance;
+                }
+                else
+                {
+                    return this.Id + " " + this.aliasPart;
+                }
+            }
+            set
+            {
+                this.aliasPart = value;
+            }
+        }
+
         public string Id
         {
             get
             {
                 return this.id;
-            }
-        }
-
-        public virtual string Alias
-        {
-            get
-            {
-                return this.Id;
             }
         }
 
@@ -94,7 +116,7 @@ namespace GameJam2020.Model.World.Objects
             this.currentAnimationIndex = animationIndex;
         }
 
-        public virtual void UpdateLogic(OfficeWorld officeWorld, Time TimeElapsed)
+        public virtual void UpdateLogic(OfficeWorld officeWorld, Time timeElapsed)
         {
             if (this.isFocused != this.previousIsFocused)
             {
@@ -110,13 +132,13 @@ namespace GameJam2020.Model.World.Objects
                 this.previousAnimationIndex = this.currentAnimationIndex;
             }
 
-            if(this.speedVector != null 
+            if (this.speedVector != null
                 && (this.speedVector.X != 0 || this.speedVector.Y != 0))
             {
-                this.position += this.speedVector * TimeElapsed.AsSeconds();
+                this.position += this.speedVector * timeElapsed.AsSeconds();
             }
 
-            if(this.previousPosition.X != this.position.X 
+            if (this.previousPosition.X != this.position.X
                 || this.previousPosition.Y != this.position.Y)
             {
                 officeWorld.NotifyObjectPositionChanged(this, this.position);
@@ -125,5 +147,9 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
+        public virtual void Dispose(OfficeWorld world)
+        {
+
+        }
     }
 }

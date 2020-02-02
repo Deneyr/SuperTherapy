@@ -9,9 +9,9 @@ namespace GameJam2020.Model.World.Objects
 {
     public abstract class AToken : AObject
     {
-        private static int nbInstances; 
-
         protected string text;
+        protected string previousDisplayedText;
+        protected string displayedText;
 
         private int indexText;
         private float speedText;
@@ -19,34 +19,43 @@ namespace GameJam2020.Model.World.Objects
 
         private bool isTextLaunched;
 
-        private float policeWidth;
-
-        private int idInstance;
-
         private AToken previousToken;
+        private AToken nextToken;
 
         private float widthDialogue;
 
-        static AToken()
-        {
-            AToken.nbInstances = 0;
-        }
-
         public AToken(AToken previousToken, string id, string text) : base(id)
         {
-            this.idInstance = AToken.nbInstances++;
-
             this.previousToken = previousToken;
+            this.nextToken = null;
 
             this.text = text;
+            this.previousDisplayedText = string.Empty;
+            this.displayedText = string.Empty;
 
             this.indexText = 0;
             this.nbCharacterToAdd = 0;
-            this.speedText = 6;
+            this.speedText = 8;
 
             this.isTextLaunched = false;
+        }
 
-            this.policeWidth = 0.025f;
+        public AToken NextToken
+        {
+            get
+            {
+                return this.nextToken;
+            }
+            set
+            {
+                this.nextToken = value;
+            }
+        }
+
+        public Vector2f InitialPosition
+        {
+            get;
+            set;
         }
 
         public AToken PreviousToken
@@ -64,7 +73,8 @@ namespace GameJam2020.Model.World.Objects
 
         public string Text
         {
-            get {
+            get
+            {
                 return this.text;
             }
         }
@@ -76,14 +86,6 @@ namespace GameJam2020.Model.World.Objects
             this.isTextLaunched = true;
         }
 
-        public override string Alias
-        {
-            get
-            {
-                return this.Id + " " + this.idInstance;
-            }
-        }
-
         public bool IsTextFull
         {
             get
@@ -92,22 +94,43 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
-        public float LengthFullText
-        {
-            get
-            {
-                return this.text.Length * this.policeWidth;
-            }
-        }
-
         public override void UpdateLogic(OfficeWorld officeWorld, Time timeElapsed)
         {
             if (this.previousPosition.X != this.position.X
                 || this.previousPosition.Y != this.position.Y)
             {
-                officeWorld.NotifyTextPositionChanged(this, this.previousToken, this.position);
-
+                if (this.isFocused == false)
+                {
+                    officeWorld.NotifyTextPositionChanged(this, this.previousToken, this.position);
+                }
+                else
+                {
+                    officeWorld.NotifyObjectPositionChanged(this, this.position);
+                }
                 this.previousPosition = new Vector2f(this.position.X, this.position.Y);
+            }
+
+            if (this.isFocused != this.previousIsFocused)
+            {
+                officeWorld.NotifyObjectFocusChanged(this, this.isFocused);
+
+                this.previousIsFocused = this.isFocused;
+            }
+
+            if(this.displayedText.Equals(this.previousDisplayedText) == false){
+                officeWorld.NotifyObjectTextChanged(this, this.displayedText);
+
+                this.previousDisplayedText = this.displayedText;
+
+                AToken nextToken = this.NextToken;
+                if (nextToken != null && nextToken.IsTextFull)
+                {
+                    while (nextToken != null)
+                    {
+                        nextToken.SetKinematicParameters(nextToken.InitialPosition, new SFML.System.Vector2f(0, 0));
+                        nextToken = nextToken.NextToken;
+                    }
+                }
             }
 
             if (this.isTextLaunched && this.speedText > 0 && this.indexText < this.text.Length)
@@ -122,7 +145,7 @@ namespace GameJam2020.Model.World.Objects
 
                 this.nbCharacterToAdd -= nbCharacterToAddInteger;
 
-                officeWorld.NotifyObjectTextChanged(this, this.text.Substring(0, this.indexText));
+                this.displayedText = this.text.Substring(0, this.indexText);
             }
 
             if (this.IsTextFull && this.isTextLaunched)

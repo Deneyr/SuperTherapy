@@ -1,4 +1,5 @@
 using GameJam2020.Model.World;
+using GameJam2020.Model.World.Objects;
 using GameJam2020.View;
 using GameJam2020.View.Objects;
 using GameJam2020.View.Textures;
@@ -16,19 +17,33 @@ namespace GameJam2020
 
         private Object2DManager object2DManager;
 
-        public void Run()
+        private AObject objectFocused;
+
+        private Vector2f resolutionScreen;
+
+        public MainWindow()
         {
             this.officeWorld = new OfficeWorld();
             this.object2DManager = new Object2DManager(this.officeWorld);
 
+            this.objectFocused = null;
+        }
+
+        public void Run()
+        {
             //var mode = new SFML.Window.VideoMode(800, 600);
             var window = new SFML.Graphics.RenderWindow(SFML.Window.VideoMode.FullscreenModes[0], "Repair Project", SFML.Window.Styles.Fullscreen);
             window.KeyPressed += Window_KeyPressed;
+
+            window.MouseButtonPressed += OnMouseButtonPressed;
+            window.MouseButtonReleased += OnMouseButtonReleased;
+            window.MouseMoved += OnMouseMoved;
 
             //this.object2DManager.SizeScreen = window.GetView().Size;
 
 
             SFML.Graphics.View view = window.GetView();
+            this.resolutionScreen = new Vector2f(view.Size.X, view.Size.Y);
             view.Center = new Vector2f(0, 0);
             window.SetView(view);
 
@@ -65,9 +80,42 @@ namespace GameJam2020
             AObject2D.StopAnimationManager();
         }
 
-        private void UpdateGame(Time deltaTime)
+        private void OnMouseMoved(object sender, SFML.Window.MouseMoveEventArgs e)
         {
+            if(this.objectFocused != null)
+            {
+                this.officeWorld.OnMouseDragOnObject(this.objectFocused, new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
+            }
+        }
 
+        private void OnMouseButtonReleased(object sender, SFML.Window.MouseButtonEventArgs e)
+        {
+            if(e.Button == SFML.Window.Mouse.Button.Left)
+            {
+                if (this.objectFocused != null)
+                {
+                    AObject lObject = this.object2DManager.getFieldTokenAt(new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
+
+                    this.officeWorld.OnMouseUpOnObject(this.objectFocused, lObject);
+
+                    this.objectFocused = null;
+                }
+            }
+        }
+
+        private void OnMouseButtonPressed(object sender, SFML.Window.MouseButtonEventArgs e)
+        {
+            if (e.Button == SFML.Window.Mouse.Button.Left)
+            {
+                AObject lObject = this.object2DManager.getAnswerTokenAt(new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
+
+                if(lObject != null)
+                {
+                    this.officeWorld.OnMouseDownOnObject(lObject);
+
+                    this.objectFocused = lObject;
+                }
+            }
         }
 
         /// <summary>

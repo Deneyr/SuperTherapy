@@ -36,6 +36,8 @@ namespace GameJam2020.Model.World
         {
             foreach(AObject lObject in this.objectsInsideLayer)
             {
+                lObject.Dispose(world);
+
                 world.NotifyObjectDestroyed(this, lObject);
             }
 

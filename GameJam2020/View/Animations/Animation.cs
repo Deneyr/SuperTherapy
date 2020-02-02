@@ -116,9 +116,14 @@ namespace GameJam2020.View.Animations
             this.mutex.ReleaseMutex();
         }
 
-        public void Stop()
+        public void Stop(bool reset)
         {
             this.mutex.WaitOne();
+
+            if (reset)
+            {
+                this.currentIndex = 0;
+            }
 
             this.currentState = AnimationState.ENDING;
 

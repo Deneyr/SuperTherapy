@@ -4,7 +4,7 @@ using SFML.System;
 
 namespace GameJam2020.View.Objects
 {
-    class TestObject2D: AObject2D
+    public class TestObject2D: AObject2D
     {
 
         public TestObject2D()

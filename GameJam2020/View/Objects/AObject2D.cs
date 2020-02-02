@@ -36,7 +36,7 @@ namespace GameJam2020.View.Objects
             this.currentCanevas = new IntRect();
 
             Time periode = Time.FromMilliseconds(2000);
-            ZoomAnimation zoomAnimation = new ZoomAnimation(1, 1.3f, periode, AnimationType.LOOP);
+            ZoomAnimation zoomAnimation = new ZoomAnimation(1, 1.1f, periode, AnimationType.LOOP);
             this.AddAnimation(zoomAnimation);
         }
 
@@ -45,6 +45,14 @@ namespace GameJam2020.View.Objects
             get
             {
                 return this.text.GetGlobalBounds();
+            }
+        }
+
+        public Vector2f Position
+        {
+            get
+            {
+                return this.sprite.Position;
             }
         }
 
@@ -89,8 +97,7 @@ namespace GameJam2020.View.Objects
             }
             else
             {
-                animation.Stop();
-                this.sprite.Scale = new Vector2f(1, 1);
+                animation.Stop(true);
             }
         }
 
@@ -99,12 +106,12 @@ namespace GameJam2020.View.Objects
             this.sprite.Scale = new Vector2f(zoom, zoom);
         }
 
-        public void SetPosition(Vector2f newPosition, Vector2f sizeScreen)
+        /*public void SetPosition(Vector2f newPosition, Vector2f sizeScreen)
         {
             Vector2f realPosition = new Vector2f(newPosition.X * sizeScreen.X, newPosition.Y * sizeScreen.Y);
 
             this.sprite.Position = realPosition;
-        }
+        }*/
 
         public void SetPosition(Vector2f newPosition)
         {

@@ -19,6 +19,14 @@ namespace GameJam2020.Model.GraphLogic
 
         protected LevelData levelData;
 
+        public LevelNode()
+        {
+            this.pathLevel = string.Empty;
+
+            this.phaseNodes = new List<APhaseNode>();
+            this.currentPhaseNode = null;
+        }
+
         public LevelNode(string pathLevel)
         {
             this.pathLevel = pathLevel;
@@ -44,36 +52,58 @@ namespace GameJam2020.Model.GraphLogic
             this.levelData = Serializer.Deserialize(this.pathLevel);
 
             // Create Objects
-            PatientObject patient = new PatientObject();
-            ToubibObject toubib = new ToubibObject();
+            OfficeObject office = new OfficeObject();
 
-            TestObject test = new TestObject();
+            PatientObject patient = new PatientObject();
+            patient.Alias = "main";
+            ToubibObject toubib = new ToubibObject();
+            toubib.Alias = "main";
+
+            //TestObject test = new TestObject();
 
             DialogueObject dialoguePatient = DialogueFactory.CreateDialogueFactory(this.levelData.PatientDialogue);
+            dialoguePatient.Alias = "patient";
 
             // Create layers
-            Layer layer = new Layer();
-            Layer layer2 = new Layer();
+            Layer background = new Layer();
+            Layer middleground = new Layer();
+            Layer foreground = new Layer();
 
             // Add Resources
             List<string> resourcesToLoad = new List<string>();
-            resourcesToLoad.Add(test.Id);
+            resourcesToLoad.Add(office.Id);
+
+            resourcesToLoad.Add(toubib.Id);
+            resourcesToLoad.Add(patient.Id);
+
             resourcesToLoad.Add("normalToken");
             resourcesToLoad.Add("sanctuaryToken");
+            resourcesToLoad.Add("answerToken");
             /*resourcesToLoad.Add(patient.Id);
             resourcesToLoad.Add(toubib.Id);*/
             world.NotifyResourcesToLoad(resourcesToLoad);
 
             // Add Layers
-            world.AddLayer(layer);
-            world.AddLayer(layer2);
+            world.AddLayer(background);
+            world.AddLayer(middleground);
+            world.AddLayer(foreground);
 
             // Add Objects
-            world.AddObject(test, 0);
-            /*world.AddObject(patient, 0);
+            /*world.AddObject(test, 0);
+            world.AddObject(patient, 0);
             world.AddObject(toubib, 0);*/
+            world.AddObject(office, 0);
 
-            world.AddObject(dialoguePatient, 1);
+            world.AddObject(toubib, 1);
+            world.AddObject(patient, 1);
+
+            world.AddObject(dialoguePatient, 2);
+
+            // Set Object Position.
+            office.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(0, 0));
+
+            toubib.SetKinematicParameters(new Vector2f(150, 160), new Vector2f(0, 0));
+            patient.SetKinematicParameters(new Vector2f(-550, 140), new Vector2f(0, 0));
         }
 
         public override void VisitEnd(OfficeWorld world)

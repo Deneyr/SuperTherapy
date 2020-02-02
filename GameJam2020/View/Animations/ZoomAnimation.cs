@@ -128,8 +128,13 @@ namespace GameJam2020.View.Animations
             this.currentState = AnimationState.STARTING;
         }
 
-        public void Stop()
+        public void Stop(bool reset)
         {
+            if (reset)
+            {
+                this.currentZoom = 1;
+            }
+
             this.currentState = AnimationState.ENDING;
         }
 

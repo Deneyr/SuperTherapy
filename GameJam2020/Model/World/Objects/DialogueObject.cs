@@ -51,10 +51,16 @@ namespace GameJam2020.Model.World.Objects
                 nbLetter += tokenInList.Text.Length;
             }
 
-            if (nbLetter > this.WidthDialogue){
+            if (nbLetter > this.WidthDialogue)
+            {
                 currentList = new List<AToken>();
                 this.tokensList.Add(currentList);
-                token.PreviousToken = null;
+
+                if (token.PreviousToken != null)
+                {
+                    token.PreviousToken.NextToken = null;
+                    token.PreviousToken = null;
+                }
             }
 
             currentList.Add(token);
@@ -68,7 +74,7 @@ namespace GameJam2020.Model.World.Objects
                 {
                     world.AddObject(token, indexLayer);
 
-                    token.SetKinematicParameters(new Vector2f(-10, -10), new Vector2f(0, 0));
+                    token.SetKinematicParameters(new Vector2f(-1000, -1000), new Vector2f(0, 0));
                 }
             }
         }
@@ -107,6 +113,7 @@ namespace GameJam2020.Model.World.Objects
                     {
                         Vector2f newPosition = new Vector2f(this.position.X, this.position.Y + this.currentTokenRowIndex * this.rowHeight);
 
+                        this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].InitialPosition = newPosition;
                         this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].SetKinematicParameters(newPosition, new Vector2f(0, 0));
                         this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].LaunchText();
                     }
@@ -116,6 +123,18 @@ namespace GameJam2020.Model.World.Objects
             if(this.IsDialogueFull && this.isDialogueLaunched)
             {
                 this.isDialogueLaunched = false;
+            }
+        }
+
+        public override void Dispose(OfficeWorld world)
+        {
+            foreach(List<AToken> tokens in this.tokensList)
+            {
+                foreach(AToken token in tokens)
+                {
+                    token.NextToken = null;
+                    token.PreviousToken = null;
+                }
             }
         }
     }

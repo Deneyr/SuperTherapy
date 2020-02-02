@@ -26,6 +26,8 @@ namespace GameJam2020.Model.World
 
         public event Action<AObject, AObject, Vector2f> TextPositionChanged;
 
+        public event Action<AObject, AObject, AObject, Vector2f> TextUpdated;
+
         public event Action<AObject, string> ObjectTextChanged;
 
         public event Action<AObject, int> ObjectAnimationChanged;
@@ -46,8 +48,14 @@ namespace GameJam2020.Model.World
 
             this.layers = new List<ALayer>();
 
-            // test 
-            this.levelNode = new LevelNode("test.xml");
+            // Level creation
+            TutoLevelNode tutoLevelNode = new TutoLevelNode();
+            LevelNode mainLevelNode = new LevelNode("test.xml");
+
+            // Level links
+            tutoLevelNode.NextNode = mainLevelNode;
+
+            this.levelNode = tutoLevelNode;
         }
 
         public void StartLevel()
@@ -110,6 +118,7 @@ namespace GameJam2020.Model.World
                     else
                     {
                         this.levelNode = this.levelNode.NextNode as LevelNode;
+                        this.levelNode.VisitStart(this);
                     }
                 }
             }
@@ -117,6 +126,43 @@ namespace GameJam2020.Model.World
             foreach(ALayer layer in this.layers)
             {
                 layer.UpdateLogic(this, timeElapsed);
+            }
+        }
+
+        public void OnMouseDownOnObject(AObject lObject)
+        {
+            if (lObject is AnswerToken)
+            {
+                lObject.IsFocused = true;
+            }
+        }
+
+        public void OnMouseUpOnObject(AObject lAnswer, AObject lField)
+        {
+            if (lAnswer is AnswerToken)
+            {
+                AnswerToken answerToken = lAnswer as AnswerToken;
+
+                // test field token
+                if (lField != null)
+                {
+                    FieldToken fieldToken = lField as FieldToken;
+
+                    fieldToken.AssociatedToken = answerToken;
+
+                    fieldToken.ChangeDisplayText(answerToken.Text);
+                }
+
+                answerToken.IsFocused = false;
+                answerToken.SetKinematicParameters(answerToken.InitialPosition, new Vector2f(0, 0));
+            }
+        }
+
+        public void OnMouseDragOnObject(AObject lObject, Vector2f mousePosition)
+        {
+            if (lObject is AnswerToken)
+            {
+                lObject.SetKinematicParameters(mousePosition, new Vector2f(0, 0));
             }
         }
 
@@ -182,6 +228,14 @@ namespace GameJam2020.Model.World
             if (this.TextPositionChanged != null)
             {
                 this.TextPositionChanged(lObject, previousObject, newPosition);
+            }
+        }
+
+        public void NotifyTextUpdated(AObject lObject, AObject previousObject, AObject associatedObject, Vector2f newPosition)
+        {
+            if (this.TextUpdated != null)
+            {
+                this.TextUpdated(lObject, previousObject, associatedObject,  newPosition);
             }
         }
 

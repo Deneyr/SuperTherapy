@@ -52,23 +52,37 @@ namespace GameJam2020.View
             world.TextPositionChanged += OnTextPositionChanged;
             world.ObjectFocusChanged += OnObjectFocusChanged;
             world.ObjectAnimationChanged += OnObjectAnimationChanged;
-            world.ObjectTextChanged += OnObjectTextChanged;    
+            world.ObjectTextChanged += OnObjectTextChanged;
+            world.TextUpdated += OnTextUpdated;  
         }
 
         private void initializeResources()
         {
             this.mappingIdObjectToTextures = new Dictionary<string, List<string>>();
 
-            this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\testSprite.jpg" });
-            this.mappingIdObjectToTextures.Add("toubib", new List<string> { @"Resources\testSprite.jpg" });
+            this.mappingIdObjectToTextures.Add("office", new List<string> { @"Resources\background\Fond_Cabinet.png",
+                @"Resources\background\Lampe.png" });
+            this.mappingIdObjectToTextures.Add("darkOffice", new List<string> { @"Resources\background\Fond_Cabinet_Dark.png" });
+
+            this.mappingIdObjectToTextures.Add("arrow", new List<string> { @"Resources\foreground\arrow.png" });
+            this.mappingIdObjectToTextures.Add("bubbleHeader", new List<string> { @"Resources\foreground\bulleTitreAnim.png" });
+            this.mappingIdObjectToTextures.Add("bubbleTuto", new List<string> { @"Resources\foreground\Bulle_Tuto.png" });
+
+            this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_399_157.png" });
+            this.mappingIdObjectToTextures.Add("toubib", new List<string> { @"Resources\middleground\Spritemap_Psy_417_419.png" });
 
             this.mappingIdObjectToTextures.Add("test", new List<string> { @"Resources\testSprite.jpg" });
 
+            this.mappingIdObjectToTextures.Add("answerToken", new List<string> { @"Resources\foreground\RectangleMot.png" });
+            this.mappingIdObjectToTextures.Add("fieldToken", new List<string> { @"Resources\foreground\RectangleMot.png" });
 
             this.mappingIdObjectToFonts = new Dictionary<string, List<string>>();
 
             this.mappingIdObjectToFonts.Add("normalToken", new List<string> { @"Resources\lemon.otf" });
+            this.mappingIdObjectToFonts.Add("answerToken", new List<string> { @"Resources\lemon.otf" });
+            this.mappingIdObjectToFonts.Add("fieldToken", new List<string> { @"Resources\lemon.otf" });
             this.mappingIdObjectToFonts.Add("sanctuaryToken", new List<string> { @"Resources\Quentin.otf"});
+            this.mappingIdObjectToFonts.Add("headerToken", new List<string> { @"Resources\lemon.otf" });
         }
 
         /*public Vector2f SizeScreen
@@ -76,6 +90,52 @@ namespace GameJam2020.View
             get;
             set;
         }*/
+
+        public AObject getAnswerTokenAt(Vector2f position)
+        {
+            foreach(KeyValuePair<AObject, AObject2D> pair in this.mappingObjectToObject2D)
+            {
+                if(pair.Value is AnswerTokenObject2D)
+                {
+                    ATokenObject2D token = pair.Value as ATokenObject2D;
+                    FloatRect bounds = token.TextGlobalBounds;
+
+                    if(position.X > bounds.Left && position.X < bounds.Left + bounds.Width
+                        && position.Y > bounds.Top && position.Y < bounds.Top + bounds.Height)
+                    {
+                        return pair.Key;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public AObject getFieldTokenAt(Vector2f position)
+        {
+            foreach (KeyValuePair<AObject, AObject2D> pair in this.mappingObjectToObject2D)
+            {
+                if (pair.Value is FieldTokenObject2D)
+                {
+                    ATokenObject2D token = pair.Value as ATokenObject2D;
+                    FloatRect bounds = token.TextGlobalBounds;
+
+                    float BoundTop = bounds.Top;
+                    float BoundHeight = bounds.Height;
+                    if ( bounds.Height < 40)
+                    {
+                        BoundTop -= 40 - bounds.Height;
+                        BoundHeight = 40;
+                    }
+
+                    if (position.X > bounds.Left && position.X < bounds.Left + bounds.Width
+                        && position.Y > BoundTop && position.Y < BoundTop + BoundHeight)
+                    {
+                        return pair.Key;
+                    }
+                }
+            }
+            return null;
+        }
 
         public void DrawIn(RenderWindow window)
         {
@@ -92,6 +152,8 @@ namespace GameJam2020.View
 
             foreach (string idObject in obj)
             {
+                //string idObject = aliasObject.Split(' ')[0];
+
                 if (this.mappingIdObjectToTextures.ContainsKey(idObject))
                 {
                     List<string> resourcesPerObject = this.mappingIdObjectToTextures[idObject];
@@ -159,6 +221,40 @@ namespace GameJam2020.View
             }
         }
 
+        private void OnTextUpdated(AObject arg1, AObject arg2, AObject arg3, Vector2f arg4)
+        {
+            AObject2D object2D = this.mappingObjectToObject2D[arg1];
+
+            if (arg2 == null)
+            {
+                object2D.SetPosition(arg4);
+            }
+            else
+            {
+                AObject2D previousObject2D = this.mappingObjectToObject2D[arg2];
+                AObject2D associtedObject2D = null;
+                if (arg3 != null)
+                {
+                    associtedObject2D = this.mappingObjectToObject2D[arg3];
+                }
+
+                FloatRect boundsPrevious = previousObject2D.TextGlobalBounds;
+
+                float width = previousObject2D.TextGlobalBounds.Width;
+                if (associtedObject2D != null)
+                {
+                    width = associtedObject2D.TextGlobalBounds.Width;
+                }
+
+                float newPositionX = width + previousObject2D.Position.X;
+                float newPositionY = arg4.Y;
+
+                Vector2f newPosition = new Vector2f(newPositionX, newPositionY);
+
+                object2D.SetPosition(newPosition);
+            }
+        }
+
         private void OnObjectTextChanged(AObject arg1, string arg2)
         {
             AObject2D object2D = this.mappingObjectToObject2D[arg1];
@@ -205,6 +301,21 @@ namespace GameJam2020.View
             AObject2D object2D = null;
             switch (arg2.Id)
             {
+                case "arrow":
+                    object2D = new ArrowObject2D();
+                    break;
+                case "bubbleHeader":
+                    object2D = new BubbleHeaderObject2D();
+                    break;
+                case "bubbleTuto":
+                    object2D = new BubbleTutoObject2D();
+                    break;
+                case "office":
+                    object2D = new OfficeObject2D();
+                    break;
+                case "darkOffice":
+                    object2D = new DarkOfficeObject2D();
+                    break;
                 case "patient":
                     object2D = new PatientObject2D();
                     break;
@@ -217,8 +328,17 @@ namespace GameJam2020.View
                 case "normalToken":
                     object2D = new NormalTokenObject2D();
                     break;
+                case "answerToken":
+                    object2D = new AnswerTokenObject2D();
+                    break;
+                case "fieldToken":
+                    object2D = new FieldTokenObject2D();
+                    break;
                 case "sanctuaryToken":
                     object2D = new SanctuaryTokenObject2D();
+                    break;
+                case "headerToken":
+                    object2D = new HeaderTokenObject2D();
                     break;
             }
 
@@ -261,6 +381,7 @@ namespace GameJam2020.View
             world.TextPositionChanged -= OnTextPositionChanged;
             world.ObjectAnimationChanged -= OnObjectAnimationChanged;
             world.ObjectTextChanged -= OnObjectTextChanged;
+            world.TextUpdated -= OnTextUpdated;
         }
     }
 }

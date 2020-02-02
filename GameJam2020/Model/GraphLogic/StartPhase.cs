@@ -25,19 +25,17 @@ namespace GameJam2020.Model.GraphLogic
         {
             base.VisitStart(world);
 
-            /*AObject patient = world.GetObjectFromId("patient");
-            AObject toubib = world.GetObjectFromId("toubib");*/
+            AObject patient = world.GetObjectFromId("patient main");
+            AObject toubib = world.GetObjectFromId("toubib main");
 
-            AObject test = world.GetObjectFromId("test");
+            //AObject test = world.GetObjectFromId("test");
 
-            DialogueObject dialogue = world.GetObjectFromId("dialogue") as DialogueObject;
+            patient.SetAnimationIndex(1);
+            toubib.SetAnimationIndex(1);
 
-            test.SetAnimationIndex(1);
-            test.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(10, 0));
+            DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;    
 
-            test.IsFocused = true;
-
-            dialogue.SetKinematicParameters(new Vector2f(-100f, -100f), new Vector2f(0f, 0f));
+            dialogue.SetKinematicParameters(new Vector2f(-100f, -200f), new Vector2f(0f, 0f));
             dialogue.LaunchDialogue();
         }
 
@@ -55,18 +53,6 @@ namespace GameJam2020.Model.GraphLogic
             {
                 this.NodeState = NodeState.NOT_ACTIVE;
             }
-            else if(this.timeElapsed > periodPhase / 2 && testBool)
-            {
-                AObject test = world.GetObjectFromId("test");
-
-                test.SetKinematicParameters(new Vector2f(0.5f, 0.5f), new Vector2f(-0.05f, 0));
-
-                test.IsFocused = false;
-
-                testBool = false;
-            }
         }
-
-        bool testBool = true;
     }
 }

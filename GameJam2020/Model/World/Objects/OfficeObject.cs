@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace GameJam2020.Model.World.Objects
 {
-    public class ToubibObject : AObject
+    class OfficeObject : AObject
     {
-        public ToubibObject() : base("toubib")
+        public OfficeObject() : base("office")
         {
-            
         }
     }
 }

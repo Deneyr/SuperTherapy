@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace GameJam2020.Model.World.Objects
 {
-    public class ToubibObject : AObject
+    public class HeaderToken : AToken
     {
-        public ToubibObject() : base("toubib")
+        public HeaderToken(AToken previousToken, string text) : base(previousToken, "headerToken", text)
         {
-            
         }
     }
 }

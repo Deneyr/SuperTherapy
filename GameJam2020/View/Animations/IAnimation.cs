@@ -18,7 +18,7 @@ namespace GameJam2020.View.Animations
 
         void Reset();
 
-        void Stop();
+        void Stop(bool reset);
 
         void Visit(AObject2D parentObject2D);
     }

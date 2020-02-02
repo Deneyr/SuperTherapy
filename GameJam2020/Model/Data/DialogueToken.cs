@@ -42,6 +42,8 @@ namespace GameJam2020.Model.Data
     {
         NORMAL,
         SANCTUARY,
+        ANSWER,
+        HEADER,
         FIELD
     }
 }
