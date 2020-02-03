@@ -57,6 +57,7 @@ namespace GameJam2020.Model.GraphLogic
             resourcesToLoad.Add("normalToken");
             resourcesToLoad.Add("sanctuaryToken");
             resourcesToLoad.Add("answerToken");
+
             /*resourcesToLoad.Add(patient.Id);
             resourcesToLoad.Add(toubib.Id);*/
             world.NotifyResourcesToLoad(resourcesToLoad);

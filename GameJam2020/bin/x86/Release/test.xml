@@ -35,19 +35,19 @@
   <ToubibDialogue>
     <DialogueTokens>
       <Token>
-        <Token>test </Token>
+        <Token>aubergine</Token>
         <Type>FIELD</Type>
       </Token>
       <Token>
-        <Token>tëst, ..Nouveau </Token>
+        <Token> tëst, ..Nouveau </Token>
         <Type>NORMAL</Type>
       </Token>
       <Token>
-        <Token>test </Token>
+        <Token>cabinet</Token>
         <Type>FIELD</Type>
       </Token>
       <Token>
-        <Token>tëst, ..Nouveau </Token>
+        <Token> tëst, ..Nouveau </Token>
         <Type>NORMAL</Type>
       </Token>
       <Token>
@@ -105,4 +105,6 @@
     </DialogueTokens>
   </AnswerTokens>
 <Timer>30</Timer>
+<PatientSuccessAnswer>Bravo docteur ! vous êtes le meilleur, vous avez compris ce qui n'allait pas, venez on baise !</PatientSuccessAnswer>
+<PatientFailAnswer>C'est vous le débouche-chiotte espèce d'escroc ! je me barre et vous pouvez vous coller vos honoraires au cul !</PatientFailAnswer>
 </LevelData>

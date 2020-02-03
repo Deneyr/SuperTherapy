@@ -34,6 +34,24 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
+        public bool ValidateField(OfficeWorld world)
+        {
+            if (this.associatedToken != null)
+            {
+                this.text = this.associatedToken.Text;
+
+                if (this.trueText.ToLower().Equals(this.associatedToken.Text))
+                {
+                    world.NotifyObjectTextStateChanged(this, true);
+
+                    return true;
+                }
+            }
+            world.NotifyObjectTextStateChanged(this, false);
+
+            return false;
+        }
+
         private static string fillUserText(string text)
         {
             StringBuilder builder = new StringBuilder();
@@ -78,7 +96,7 @@ namespace GameJam2020.Model.World.Objects
                     officeWorld.NotifyInternalGameEvent(this, "association");
                 }
 
-                this.associatedToken = this.previousAssociatedToken;
+                this.previousAssociatedToken = this.associatedToken;
             }
 
             base.UpdateLogic(officeWorld, timeElapsed);

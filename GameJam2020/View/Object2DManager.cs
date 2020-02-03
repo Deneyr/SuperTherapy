@@ -1,7 +1,9 @@
 ﻿using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using GameJam2020.View.Objects;
+using GameJam2020.View.Sounds;
 using GameJam2020.View.Textures;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -16,9 +18,12 @@ namespace GameJam2020.View
     {
         private TextureManager textureManager;
         private FontManager fontManager;
+        private SoundManager soundManager;
 
         Dictionary<string, List<string>> mappingIdObjectToTextures;
         Dictionary<string, List<string>> mappingIdObjectToFonts;
+        Dictionary<string, List<string>> mappingIdObjectToSounds;
+        Dictionary<string, List<string>> mappingIdObjectToMusics;
 
         private List<LayerObject2D> layersList;
         private Dictionary<ALayer, LayerObject2D> mappingLayerToLayerObject2D;
@@ -32,12 +37,12 @@ namespace GameJam2020.View
 
             this.textureManager = new TextureManager();
             this.fontManager = new FontManager();
+            this.soundManager = new SoundManager();
 
             this.layersList = new List<LayerObject2D>();
             this.initializeResources();
 
             this.mappingLayerToLayerObject2D = new Dictionary<ALayer, LayerObject2D>();
-
             this.mappingObjectToObject2D = new Dictionary<AObject, AObject2D>();
 
             world.ResourcesToLoad += OnResourcesToLoad;
@@ -53,7 +58,9 @@ namespace GameJam2020.View
             world.ObjectFocusChanged += OnObjectFocusChanged;
             world.ObjectAnimationChanged += OnObjectAnimationChanged;
             world.ObjectTextChanged += OnObjectTextChanged;
-            world.TextUpdated += OnTextUpdated;  
+            world.ObjectTextStateChanged += OnObjectTextStateChanged;
+            world.TextUpdated += OnTextUpdated;
+            world.GameStateChanged += OnGameStateChanged;
         }
 
         private void initializeResources()
@@ -69,7 +76,7 @@ namespace GameJam2020.View
             this.mappingIdObjectToTextures.Add("bubbleTuto", new List<string> { @"Resources\foreground\Bulle_Tuto.png" });
             this.mappingIdObjectToTextures.Add("bubble", new List<string> { @"Resources\foreground\bubble.png" });
 
-            this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_567_225.png" });
+            this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_574_226.png" });
             this.mappingIdObjectToTextures.Add("toubib", new List<string> { @"Resources\middleground\Spritemap_Psy_417_419.png" });
 
             this.mappingIdObjectToTextures.Add("queueDream", new List<string> { @"Resources\foreground\queueDream.png" });
@@ -89,6 +96,21 @@ namespace GameJam2020.View
             this.mappingIdObjectToFonts.Add("fieldToken", new List<string> { @"Resources\lemon.otf" });
             this.mappingIdObjectToFonts.Add("sanctuaryToken", new List<string> { @"Resources\Quentin.otf"});
             this.mappingIdObjectToFonts.Add("headerToken", new List<string> { @"Resources\lemon.otf" });
+
+            // Sounds & Musics
+            this.mappingIdObjectToSounds = new Dictionary<string, List<string>>();
+
+            /*this.mappingIdObjectToSounds.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_574_226.png" });
+            this.mappingIdObjectToSounds.Add("toubib", new List<string> { @"Resources\sounds\Bruitages" });*/
+            this.mappingIdObjectToSounds.Add("lampClipped", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Clic_Lampe_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("moved", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Deplacement_Mot_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("bubbleClosed", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Fermeture_Bulle_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("bubbleOpened", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Ouverture_Bulle_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("wordPlaced", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Placement_Mot_Trou_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("wordDroped", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Relacher_Mot_Mixed.mp3" });
+
+            this.mappingIdObjectToMusics = new Dictionary<string, List<string>>();
+            this.mappingIdObjectToMusics.Add("level", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
         }
 
         /*public Vector2f SizeScreen
@@ -151,10 +173,29 @@ namespace GameJam2020.View
             }
         }
 
+        private void OnGameStateChanged(string levelName, GameState obj)
+        {
+            switch (obj)
+            {
+                case GameState.START:
+                    if (this.mappingIdObjectToMusics.ContainsKey(levelName))
+                    {
+                        string pathMusic = this.mappingIdObjectToMusics[levelName][0];
+                        Music music = this.soundManager.GetMusic(pathMusic);
+
+                        music.Play();
+                    }
+                    break;
+            }
+        }
+
         private void OnResourcesToLoad(List<string> obj)
         {
             HashSet<string> texturesToLoad = new HashSet<string>();
             HashSet<string> fontsToLoad = new HashSet<string>();
+
+            HashSet<string> soundsToLoad = new HashSet<string>();
+            HashSet<string> musicsToLoad = new HashSet<string>();
 
             foreach (string idObject in obj)
             {
@@ -177,10 +218,31 @@ namespace GameJam2020.View
                         fontsToLoad.Add(resource);
                     }
                 }
+
+                if (this.mappingIdObjectToSounds.ContainsKey(idObject))
+                {
+                    List<string> resourcesPerObject = this.mappingIdObjectToSounds[idObject];
+                    foreach (string resource in resourcesPerObject)
+                    {
+                        soundsToLoad.Add(resource);
+                    }
+                }
+
+                if (this.mappingIdObjectToMusics.ContainsKey(idObject))
+                {
+                    List<string> resourcesPerObject = this.mappingIdObjectToMusics[idObject];
+                    foreach (string resource in resourcesPerObject)
+                    {
+                        musicsToLoad.Add(resource);
+                    }
+                }
             }
 
             this.textureManager.LoadTextures(texturesToLoad);
             this.fontManager.LoadFonts(fontsToLoad);
+
+            this.soundManager.LoadSounds(soundsToLoad);
+            this.soundManager.LoadMusics(musicsToLoad);
         }
 
         private void OnObjectAnimationChanged(AObject arg1, int arg2)
@@ -258,6 +320,17 @@ namespace GameJam2020.View
                 Vector2f newPosition = new Vector2f(newPositionX, newPositionY);
 
                 object2D.SetPosition(newPosition);
+            }
+        }
+
+
+        private void OnObjectTextStateChanged(AObject arg1, bool arg2)
+        {
+            AObject2D object2D = this.mappingObjectToObject2D[arg1];
+
+            if(object2D != null && object2D is ATokenObject2D)
+            {
+                object2D.SetTextState(arg2);
             }
         }
 
@@ -399,7 +472,9 @@ namespace GameJam2020.View
             world.TextPositionChanged -= OnTextPositionChanged;
             world.ObjectAnimationChanged -= OnObjectAnimationChanged;
             world.ObjectTextChanged -= OnObjectTextChanged;
+            world.ObjectTextStateChanged -= OnObjectTextStateChanged;
             world.TextUpdated -= OnTextUpdated;
+            world.GameStateChanged -= OnGameStateChanged;
         }
     }
 }

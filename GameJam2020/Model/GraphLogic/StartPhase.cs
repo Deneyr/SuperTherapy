@@ -36,6 +36,11 @@ namespace GameJam2020.Model.GraphLogic
             DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;    
 
             dialogue.SetKinematicParameters(new Vector2f(-100f, -200f), new Vector2f(0f, 0f));
+
+            this.periodPhase = Time.FromSeconds(3);
+            this.timeElapsed = Time.Zero;
+
+            world.NotifyGameStateChanged("level", GameState.START);
         }
 
         public override void VisitEnd(OfficeWorld world)

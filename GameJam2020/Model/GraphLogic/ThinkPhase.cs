@@ -72,8 +72,8 @@ namespace GameJam2020.Model.GraphLogic
                         DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
                         dialogue.LaunchDialogue(3);
 
-                        AObject queueTalk = world.GetObjectFromId("queueDream main");
-                        queueTalk.SetKinematicParameters(new Vector2f(100f, 100f), new Vector2f(0f, 0f));
+                        AObject queueDream = world.GetObjectFromId("queueDream main");
+                        queueDream.SetKinematicParameters(new Vector2f(100f, 100f), new Vector2f(0f, 0f));
 
                         AObject bubble = world.GetObjectFromId("bubble main");
                         bubble.SetAnimationIndex(2);
@@ -86,7 +86,7 @@ namespace GameJam2020.Model.GraphLogic
 
                         DialogueObject dialogueAnswer = world.GetObjectFromId("dialogue answer") as DialogueObject;
                         dialogueAnswer.SetKinematicParameters(new Vector2f(-550f, 200f), new Vector2f(0f, 0f));
-                        dialogueAnswer.LaunchDialogue(3);
+                        dialogueAnswer.LaunchDialogue(4);
 
                         this.timeElapsed = Time.Zero;
                         this.periodPhase = Time.FromSeconds(world.CurrentLevel.Data.Timer);
@@ -105,7 +105,7 @@ namespace GameJam2020.Model.GraphLogic
                         bubble = world.GetObjectFromId("bubble main");
                         bubble.SetAnimationIndex(3);
 
-                        AObject queueDream = world.GetObjectFromId("queueDream main");
+                        queueDream = world.GetObjectFromId("queueDream main");
                         queueDream.SetKinematicParameters(new Vector2f(1000, 1000), new Vector2f(0f, 0f));
 
                         this.timeElapsed = Time.Zero;
@@ -113,6 +113,9 @@ namespace GameJam2020.Model.GraphLogic
                         this.moment = ThinkPhaseMoment.END;
                         break;
                     case ThinkPhaseMoment.END:
+                        dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
+                        dialogue.ValidateDialogue(world);
+
                         this.NodeState = NodeState.NOT_ACTIVE;
                         break;
                 }

@@ -77,6 +77,19 @@ namespace GameJam2020.View.Objects
             this.text.DisplayedString = newText;
         }
 
+        public void SetTextState(bool state)
+        {
+            if (state)
+            {
+                this.text.FillColor = Color.Green;
+            }
+            else
+            {
+                this.text.Style = Text.Styles.Bold;
+                this.text.FillColor = Color.Red;
+            }
+        }
+
         public void AddAnimation(IAnimation animation)
         {
             this.animationsList.Add(animation);

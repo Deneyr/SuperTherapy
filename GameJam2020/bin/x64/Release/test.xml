@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LevelData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PatientDialogue>
+    <DialogueTokens>
+      <Token>
+        <Token>test </Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>click here</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>tëst, ..Nouveau.</Token>
+        <Type>SANCTUARY</Type>
+      </Token>
+      <Token>
+        <Token>bla bla, </Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>click here</Token>
+        <Type>FIELD</Type>
+      </Token>
+      <Token>
+        <Token>bla bla, et oui bravo, ceci est un bravo et oui hahaha</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>Another Answer, yes yes YES !</Token>
+        <Type>ANSWER</Type>
+      </Token>
+    </DialogueTokens>
+  </PatientDialogue>
+  <ToubibDialogue>
+    <DialogueTokens>
+      <Token>
+        <Token>aubergine</Token>
+        <Type>FIELD</Type>
+      </Token>
+      <Token>
+        <Token> tëst, ..Nouveau </Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>cabinet</Token>
+        <Type>FIELD</Type>
+      </Token>
+      <Token>
+        <Token> tëst, ..Nouveau </Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>test </Token>
+        <Type>NORMAL</Type>
+      </Token>
+    </DialogueTokens>
+  </ToubibDialogue>
+  <AnswerTokens>
+    <DialogueTokens>
+      <Token>
+        <Token>aubergine</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>cabinet</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>ENCLUME !</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>	
+      <Token>
+        <Token>salopette</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>abeille</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>		</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>débouche-chiotte</Token>
+        <Type>ANSWER</Type>
+      </Token>
+    </DialogueTokens>
+  </AnswerTokens>
+<Timer>30</Timer>
+<PatientSuccessAnswer>Bravo docteur ! vous êtes le meilleur, vous avez compris ce qui n'allait pas, venez on baise !</PatientSuccessAnswer>
+<PatientFailAnswer>C'est vous le débouche-chiotte espèce d'escroc ! je me barre et vous pouvez vous coller vos honoraires au cul !</PatientFailAnswer>
+</LevelData>

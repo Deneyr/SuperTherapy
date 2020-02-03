@@ -79,8 +79,10 @@
     <Compile Include="Model\Events\GameEvent.cs" />
     <Compile Include="Model\GraphLogic\ANode.cs" />
     <Compile Include="Model\GraphLogic\ExplainPhase.cs" />
+    <Compile Include="Model\GraphLogic\ExposePhase.cs" />
     <Compile Include="Model\GraphLogic\LevelNode.cs" />
     <Compile Include="Model\GraphLogic\APhaseNode.cs" />
+    <Compile Include="Model\GraphLogic\ResolvePhase.cs" />
     <Compile Include="Model\GraphLogic\ThinkPhase.cs" />
     <Compile Include="Model\World\Objects\BubbleObject.cs" />
     <Compile Include="Model\World\Objects\NotebookObject.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="View\Objects\SanctuaryTokenObject2D.cs" />
     <Compile Include="View\Objects\TestObject2D.cs" />
     <Compile Include="View\Objects\ToubibObject2D.cs" />
+    <Compile Include="View\Sounds\SoundManager.cs" />
     <Compile Include="View\Textures\FontManager.cs" />
     <Compile Include="View\Textures\TextureManager.cs" />
   </ItemGroup>

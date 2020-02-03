@@ -16,6 +16,9 @@ namespace GameJam2020.Model.World.Objects
         private int dialogueLength;
         private float rowHeight;
 
+        private int nbAnswer;
+        private int nbGoodAnswer;
+
         private bool isDialogueLaunched;
 
         private float speedFactor;
@@ -28,6 +31,9 @@ namespace GameJam2020.Model.World.Objects
             this.currentTokenIndex = -1;
             this.currentTokenRowIndex = 0;
 
+            this.nbAnswer = 0;
+            this.nbGoodAnswer = 0;
+
             this.isDialogueLaunched = false;
 
             this.dialogueLength = 30;
@@ -35,6 +41,14 @@ namespace GameJam2020.Model.World.Objects
             this.position = new Vector2f(0.1f, 0.1f);
 
             this.speedFactor = 1;
+        }
+
+        public bool IsSuccess
+        {
+            get
+            {
+                return this.nbGoodAnswer >= this.nbAnswer / 2;
+            }
         }
 
         public float WidthDialogue
@@ -70,7 +84,27 @@ namespace GameJam2020.Model.World.Objects
             currentList.Add(token);
         }
 
-       /* public override void SetKinematicParameters(Vector2f position, Vector2f speedVector)
+        public void ValidateDialogue(OfficeWorld world)
+        {
+            this.nbAnswer = 0;
+            this.nbGoodAnswer = 0;
+            foreach (List<AToken> tokens in this.tokensList)
+            {
+                IEnumerable<AToken> fieldTokens = tokens.Where(pElem => pElem is FieldToken);
+
+                this.nbAnswer += fieldTokens.Count();
+
+                foreach (FieldToken fieldToken in fieldTokens)
+                {
+                    if (fieldToken.ValidateField(world))
+                    {
+                        this.nbGoodAnswer++;
+                    }
+                }
+            }
+        }
+
+        /* public override void SetKinematicParameters(Vector2f position, Vector2f speedVector)
         {
             base.SetKinematicParameters(position, speedVector);
 

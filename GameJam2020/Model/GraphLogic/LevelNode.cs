@@ -36,12 +36,18 @@ namespace GameJam2020.Model.GraphLogic
             APhaseNode startPhase = new StartPhase();
             APhaseNode explainPhase = new ExplainPhase();
             APhaseNode thinkPhase = new ThinkPhase();
+            APhaseNode exposePhase = new ExposePhase();
+            APhaseNode resolvePhase = new ResolvePhase();
 
             startPhase.NextNode = explainPhase;
             explainPhase.NextNode = thinkPhase;
+            thinkPhase.NextNode = exposePhase;
+            exposePhase.NextNode = resolvePhase;
 
             this.phaseNodes.Add(startPhase);
             this.phaseNodes.Add(explainPhase);
+            this.phaseNodes.Add(exposePhase);
+            this.phaseNodes.Add(resolvePhase);
             this.currentPhaseNode = null;
         }
 
@@ -87,6 +93,12 @@ namespace GameJam2020.Model.GraphLogic
             DialogueObject dialogueAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.AnswerTokens);
             dialogueAnswer.Alias = "answer";
 
+            DialogueObject dialogueSuccessAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.PatientSuccessAnswer, TokenType.NORMAL);
+            dialogueSuccessAnswer.Alias = "successAnswer";
+
+            DialogueObject dialogueFailAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.PatientFailAnswer, TokenType.NORMAL);
+            dialogueFailAnswer.Alias = "failAnswer";
+
             // Create layers
             Layer background = new Layer();
             Layer middleground = new Layer();
@@ -110,6 +122,14 @@ namespace GameJam2020.Model.GraphLogic
             resourcesToLoad.Add("normalToken");
             resourcesToLoad.Add("sanctuaryToken");
             resourcesToLoad.Add("answerToken");
+
+            resourcesToLoad.Add("level");
+            resourcesToLoad.Add("lampClipped");
+            resourcesToLoad.Add("moved");
+            resourcesToLoad.Add("bubbleClosed");
+            resourcesToLoad.Add("bubbleOpened");
+            resourcesToLoad.Add("wordPlaced");
+            resourcesToLoad.Add("wordDroped");
             /*resourcesToLoad.Add(patient.Id);
             resourcesToLoad.Add(toubib.Id);*/
             world.NotifyResourcesToLoad(resourcesToLoad);
@@ -139,6 +159,8 @@ namespace GameJam2020.Model.GraphLogic
             world.AddObject(dialoguePatient, 3);
             world.AddObject(dialogueToubib, 3);
             world.AddObject(dialogueAnswer, 4);
+            world.AddObject(dialogueFailAnswer, 3);
+            world.AddObject(dialogueSuccessAnswer, 3);
 
             // Set Object Position.
             office.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(0, 0));

@@ -30,9 +30,13 @@ namespace GameJam2020.Model.World
 
         public event Action<AObject, string> ObjectTextChanged;
 
+        public event Action<AObject, bool> ObjectTextStateChanged;
+
         public event Action<AObject, int> ObjectAnimationChanged;
 
         public event Action<AObject, bool> ObjectFocusChanged;
+
+        public event Action<string, GameState> GameStateChanged;
 
         public event Action<OfficeWorld, AObject, string> InternalGameEvent;
 
@@ -248,6 +252,14 @@ namespace GameJam2020.Model.World
             }
         }
 
+        public void NotifyObjectTextStateChanged(AObject lObject, bool state)
+        {
+            if (this.ObjectTextStateChanged != null)
+            {
+                this.ObjectTextStateChanged(lObject, state);
+            }
+        }
+
         public void NotifyObjectFocusChanged(AObject lObject, bool newFocus)
         {
             if (this.ObjectFocusChanged != null)
@@ -264,6 +276,14 @@ namespace GameJam2020.Model.World
             }
         }
 
+        public void NotifyGameStateChanged(string levelName, GameState gameState)
+        {
+            if (this.GameStateChanged != null)
+            {
+                this.GameStateChanged(levelName, gameState);
+            }
+        }
+
         public void NotifyInternalGameEvent(AObject lObject, string details)
         {
             if (this.InternalGameEvent != null)
@@ -271,5 +291,12 @@ namespace GameJam2020.Model.World
                 this.InternalGameEvent(this, lObject, details);
             }
         }
+    }
+
+    public enum GameState
+    {
+        START,
+        GOOD_ENDING,
+        BAD_ENDING
     }
 }
