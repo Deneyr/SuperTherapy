@@ -94,19 +94,19 @@ namespace GameJam2020.Model.GraphLogic
 
             //TestObject test = new TestObject();
 
-            DialogueObject dialoguePatient = DialogueFactory.CreateDialogueFactory(this.levelData.PatientDialogue);
+            DialogueObject dialoguePatient = DialogueFactory.CreateDialogueFactory(60, this.levelData.PatientDialogue);
             dialoguePatient.Alias = "patient";
 
-            DialogueObject dialogueToubib = DialogueFactory.CreateDialogueFactory(this.levelData.ToubibDialogue);
+            DialogueObject dialogueToubib = DialogueFactory.CreateDialogueFactory(60, this.levelData.ToubibDialogue);
             dialogueToubib.Alias = "toubib";
 
-            DialogueObject dialogueAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.AnswerTokens);
+            DialogueObject dialogueAnswer = DialogueFactory.CreateDialogueFactory(30, this.levelData.AnswerTokens);
             dialogueAnswer.Alias = "answer";
 
-            DialogueObject dialogueSuccessAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.PatientSuccessAnswer, TokenType.NORMAL);
+            DialogueObject dialogueSuccessAnswer = DialogueFactory.CreateDialogueFactory(60, this.levelData.PatientSuccessAnswer, TokenType.NORMAL);
             dialogueSuccessAnswer.Alias = "successAnswer";
 
-            DialogueObject dialogueFailAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.PatientFailAnswer, TokenType.NORMAL);
+            DialogueObject dialogueFailAnswer = DialogueFactory.CreateDialogueFactory(60, this.levelData.PatientFailAnswer, TokenType.NORMAL);
             dialogueFailAnswer.Alias = "failAnswer";
 
             AToken timerToken = DialogueFactory.CreateToken(string.Empty, TokenType.TIMER);

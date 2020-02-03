@@ -41,7 +41,7 @@ namespace GameJam2020.Model.GraphLogic
             //dialogue.SetKinematicParameters(new Vector2f(-100f, -200f), new Vector2f(0f, 0f));
 
             DialogueObject dialogueToubib = world.GetObjectFromId("dialogue toubib") as DialogueObject;
-            dialogueToubib.SetKinematicParameters(new Vector2f(-300f, -150f), new Vector2f(0f, 0f));
+            dialogueToubib.SetKinematicParameters(new Vector2f(-380f, dialogueToubib.GetHeight(-150)), new Vector2f(0f, 0f));
 
             AObject queueTalk = world.GetObjectFromId("queueTalk main");
             queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0f, 0f));
@@ -102,30 +102,7 @@ namespace GameJam2020.Model.GraphLogic
                         this.moment = ThinkPhaseMoment.START_TIMER;
                         break;
                     case ThinkPhaseMoment.START_TIMER:
-                        dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
-                        dialogue.ResetDialogue();
-
-                        dialogueAnswer = world.GetObjectFromId("dialogue answer") as DialogueObject;
-                        dialogueAnswer.ResetDialogue();
-
-                        AObject noteblock = world.GetObjectFromId("notebook main");
-                        (noteblock as NotebookObject).SetTransition(new Vector2f(-600, 150), new Vector2f(0, 150), Time.FromSeconds(3));
-
-                        bubble = world.GetObjectFromId("bubble main");
-                        bubble.SetAnimationIndex(3);
-
-                        AToken timerToken = world.GetObjectFromId("timerToken main") as AToken;
-                        timerToken.DisplayText = string.Empty;
-
-                        queueDream = world.GetObjectFromId("queueDream main");
-                        queueDream.SetKinematicParameters(new Vector2f(1000, 1000), new Vector2f(0f, 0f));
-
-                        timer = world.GetObjectFromId("timer main");
-                        timer.SetAnimationIndex(3);
-
-                        this.timeElapsed = Time.Zero;
-                        this.periodPhase = Time.FromSeconds(3);
-                        this.moment = ThinkPhaseMoment.END;
+                        this.EndTimerAction(world);
                         break;
                     case ThinkPhaseMoment.END:
                         dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
@@ -148,12 +125,38 @@ namespace GameJam2020.Model.GraphLogic
 
         protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, string details)
         {
-            DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
-
-            if (dialogue == lObject)
+            if(this.moment == ThinkPhaseMoment.START_TIMER && details.Equals("timerPassed"))
             {
-                //this.NodeState = NodeState.NOT_ACTIVE;
+                this.EndTimerAction(world);
             }
+        }
+
+        private void EndTimerAction(OfficeWorld world)
+        {
+            DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
+            dialogue.ResetDialogue();
+
+            DialogueObject dialogueAnswer = world.GetObjectFromId("dialogue answer") as DialogueObject;
+            dialogueAnswer.ResetDialogue();
+
+            AObject noteblock = world.GetObjectFromId("notebook main");
+            (noteblock as NotebookObject).SetTransition(new Vector2f(-600, 150), new Vector2f(0, 150), Time.FromSeconds(3));
+
+            AObject bubble = world.GetObjectFromId("bubble main");
+            bubble.SetAnimationIndex(3);
+
+            AToken timerToken = world.GetObjectFromId("timerToken main") as AToken;
+            timerToken.DisplayText = string.Empty;
+
+            AObject queueDream = world.GetObjectFromId("queueDream main");
+            queueDream.SetKinematicParameters(new Vector2f(1000, 1000), new Vector2f(0f, 0f));
+
+            AObject timer = world.GetObjectFromId("timer main");
+            timer.SetAnimationIndex(3);
+
+            this.timeElapsed = Time.Zero;
+            this.periodPhase = Time.FromSeconds(3);
+            this.moment = ThinkPhaseMoment.END;
         }
     }
 

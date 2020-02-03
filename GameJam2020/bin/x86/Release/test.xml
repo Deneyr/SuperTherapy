@@ -3,7 +3,7 @@
   <PatientDialogue>
     <DialogueTokens>
       <Token>
-        <Token>Alors docteur, vous pouvez m'aider ?</Token>
+        <Token>Depuis que je suis tout petit on me dit :"Gerald tu parles trop. Je dis gérald mais c'est comme ça que m'appelait ma tante Morine jusqu'à ce qu'elle se brouille avec ma meilleure amie mireille qui travaillait dans un salon de coiffure à Dijon, comme la moutarde qui pique, pendant une dizaire d'année.</Token>
         <Type>NORMAL</Type>
       </Token>
     </DialogueTokens>
@@ -11,7 +11,7 @@
   <ToubibDialogue>
     <DialogueTokens>
       <Token>
-        <Token>Oui, bien sur !</Token>
+        <Token>G pa lu PTDRRR !!</Token>
         <Type>FIELD</Type>
       </Token>
     </DialogueTokens>
@@ -19,7 +19,7 @@
   <AnswerTokens>
     <DialogueTokens>
       <Token>
-        <Token>Oui, bien sur !</Token>
+        <Token>Hum ....</Token>
         <Type>ANSWER</Type>
       </Token>
       <Token>
@@ -27,7 +27,7 @@
         <Type>NORMAL</Type>
       </Token>
       <Token>
-        <Token>Non, vous ête moche !</Token>
+        <Token>G pa lu PTDRRR !!</Token>
         <Type>ANSWER</Type>
       </Token>
       <Token>
@@ -35,12 +35,12 @@
         <Type>NORMAL</Type>
       </Token>
       <Token>
-        <Token>Ca vous fera 5000000$</Token>
+        <Token>C'est de la merde votre vie !</Token>
         <Type>ANSWER</Type>
       </Token>
     </DialogueTokens>
   </AnswerTokens>
 <Timer>20</Timer>
-<PatientSuccessAnswer>Oh super merci beaucoup docteur ! Je savais que je pouvais compter sur vous ! Je me sens beaucoup mieux à présent ! Je vous souhaite une agréable fin de soirée !</PatientSuccessAnswer>
-<PatientFailAnswer>Alors là je suis faché ! Moi qui comptait sur vous je ne vous trouve pas très coopératif ! Je ne vous dis pas bonsoir !</PatientFailAnswer>
+<PatientSuccessAnswer>Merci docteur enfin quelqu'un qui m'écoute sans mettre court à la conversation, ça fait plaisir d'être enfin considéré comme une personne à part entière parce que parfois je me demande s'il vaudrait pas mieux couper la poire en deux et faire un smoothie très frais comme avec les copines quand on va au pili-pili le samedi soir. C'est très sympa je vous ramènerais une tasse la prochaine fois mais je dois filer j'ai un rendez vous avec mon banquier. Fioulala j'espère que ça va pas être trop long car c'est une vrai pipelette cet enquiquineur !</PatientSuccessAnswer>
+<PatientFailAnswer>Docteur, laissez moi vous signifier toute ma déception et mon aversion à votre égard. Je vous croyais mieux loti que ça lorsque vous me disiez avoir vécu dans un lotissement toute votre enfance. Moi j'ai grandis dans une écurie voyez vous. Parfaitement. Avec un âne et une vache. Et croyez moi je m'estimais bien heureux d'avoir du lait à boire tous les matins. Tout le monde n'a pas cette chance mais tout le monde en revanche a certainement de la chance de ne pas vous avoir comme psy ! Comment ça vous appelez un videur ? Le seul vide ici, c'est votre coeur. ET TOC ! ça c'est bien envoyé je vais le raconter à Mireille !</PatientFailAnswer>
 </LevelData>

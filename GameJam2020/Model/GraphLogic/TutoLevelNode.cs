@@ -30,13 +30,13 @@ namespace GameJam2020.Model.GraphLogic
             BubbleHeaderObject bubbleHeader = new BubbleHeaderObject();
             BubbleTutoObject bubbleTuto = new BubbleTutoObject();
 
-            DialogueObject header = DialogueFactory.CreateDialogueFactory("Docteur IPSO", TokenType.HEADER);
+            DialogueObject header = DialogueFactory.CreateDialogueFactory(30, "Docteur IPSO", TokenType.HEADER);
             header.Alias = "header";
-            DialogueObject answer = DialogueFactory.CreateDialogueFactory("Déplacer", TokenType.ANSWER);
+            DialogueObject answer = DialogueFactory.CreateDialogueFactory(30, "Déplacer", TokenType.ANSWER);
             answer.Alias = "answer";
-            DialogueObject question = DialogueFactory.CreateDialogueFactory("Déplacer", TokenType.FIELD);
+            DialogueObject question = DialogueFactory.CreateDialogueFactory(30, "Déplacer", TokenType.FIELD);
             question.Alias = "question";
-            DialogueObject text = DialogueFactory.CreateDialogueFactory("  pour commencer !", TokenType.NORMAL);
+            DialogueObject text = DialogueFactory.CreateDialogueFactory(30, "  pour commencer !", TokenType.NORMAL);
             text.Alias = "text";
 
             // Create layers

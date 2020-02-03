@@ -9,9 +9,9 @@ namespace GameJam2020.Model.World.Objects
 {
     public static class DialogueFactory
     {
-        public static DialogueObject CreateDialogueFactory(Dialogue data)
+        public static DialogueObject CreateDialogueFactory(int dialogueLength, Dialogue data)
         {
-            DialogueObject dialogueObject = new DialogueObject();
+            DialogueObject dialogueObject = new DialogueObject(dialogueLength);
 
             AToken previousToken = null;
             foreach (DialogueToken token in data.DialoguesToken)
@@ -64,9 +64,9 @@ namespace GameJam2020.Model.World.Objects
             return dialogueObject;
         }
 
-        public static DialogueObject CreateDialogueFactory(string data, TokenType type)
+        public static DialogueObject CreateDialogueFactory(int dialogueLength, string data, TokenType type)
         {
-            DialogueObject dialogueObject = new DialogueObject();
+            DialogueObject dialogueObject = new DialogueObject(dialogueLength);
             AToken previousToken = null;
 
             string[] words;

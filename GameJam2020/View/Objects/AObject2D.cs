@@ -48,6 +48,14 @@ namespace GameJam2020.View.Objects
             }
         }
 
+        public FloatRect SpriteGlobalBounds
+        {
+            get
+            {
+                return this.sprite.GetGlobalBounds();
+            }
+        }
+
         public Vector2f Position
         {
             get

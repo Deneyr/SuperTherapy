@@ -177,6 +177,10 @@ namespace GameJam2020.Model.World
                 answerToken.IsFocused = false;
                 answerToken.SetKinematicParameters(answerToken.InitialPosition, new Vector2f(0, 0));
             }
+            else if(lField is TimerObject)
+            {
+                this.NotifyInternalGameEvent(lAnswer, "timerPassed");
+            }
         }
 
         public void OnMouseDragOnObject(AObject lObject, Vector2f mousePosition)

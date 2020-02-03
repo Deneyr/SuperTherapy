@@ -100,6 +100,12 @@ namespace GameJam2020
 
                     this.objectFocused = null;
                 }
+                else
+                {
+                    AObject lObject = this.object2DManager.getTimerTokenAt(new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
+
+                    this.officeWorld.OnMouseUpOnObject(null, lObject);
+                }
             }
         }
 

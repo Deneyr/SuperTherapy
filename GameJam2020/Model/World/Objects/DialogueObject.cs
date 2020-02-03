@@ -23,7 +23,7 @@ namespace GameJam2020.Model.World.Objects
 
         private float speedFactor;
 
-        public DialogueObject() : base("dialogue")
+        public DialogueObject(int dialogueLength) : base("dialogue")
         {
             this.tokensList = new List<List<AToken>>();
             this.tokensList.Add(new List<AToken>());
@@ -36,7 +36,7 @@ namespace GameJam2020.Model.World.Objects
 
             this.isDialogueLaunched = false;
 
-            this.dialogueLength = 30;
+            this.dialogueLength = dialogueLength;
             this.rowHeight = 50f;
             this.position = new Vector2f(0.1f, 0.1f);
 
@@ -57,6 +57,13 @@ namespace GameJam2020.Model.World.Objects
             {
                 return this.dialogueLength;
             }
+        }
+
+        public float GetHeight(float inputHeight)
+        {
+            int nbRow = Math.Min(3, this.tokensList.Count / 2);
+
+            return inputHeight - nbRow * this.rowHeight;
         }
 
         public void AddToken(AToken token)
@@ -172,11 +179,18 @@ namespace GameJam2020.Model.World.Objects
                     {
                         this.currentTokenRowIndex++;
                         this.currentTokenIndex = 0;
+
+                        if (this.currentTokenRowIndex != 0 
+                            && this.currentTokenRowIndex < this.tokensList.Count 
+                            && this.currentTokenRowIndex % 8 == 0)
+                        {
+                            this.ResetUntilRow(this.currentTokenRowIndex);
+                        }
                     }
 
                     if (this.currentTokenRowIndex < this.tokensList.Count && this.currentTokenIndex < this.tokensList[this.currentTokenRowIndex].Count)
                     {
-                        Vector2f newPosition = new Vector2f(this.position.X, this.position.Y + this.currentTokenRowIndex * this.rowHeight);
+                        Vector2f newPosition = new Vector2f(this.position.X, this.position.Y + (this.currentTokenRowIndex % 8) * this.rowHeight);
 
                         this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].InitialPosition = newPosition;
                         this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].SetKinematicParameters(newPosition, new Vector2f(0, 0));
@@ -190,6 +204,18 @@ namespace GameJam2020.Model.World.Objects
                 officeWorld.NotifyInternalGameEvent(this, "endDialogue");
 
                 this.isDialogueLaunched = false;
+            }
+        }
+
+        private void ResetUntilRow(int indexRow)
+        {
+            for(int i = 0; i < indexRow; i++)
+            {
+                foreach(AToken token in this.tokensList[i])
+                {
+                    token.DisplayText = string.Empty;
+                    token.SetKinematicParameters(new Vector2f(10000, 1000), new Vector2f(0, 0));
+                }
             }
         }
 

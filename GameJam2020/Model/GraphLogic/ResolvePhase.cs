@@ -72,7 +72,7 @@ namespace GameJam2020.Model.GraphLogic
                         {
                             dialogue = world.GetObjectFromId("dialogue failAnswer") as DialogueObject;
                         }
-                        dialogue.SetKinematicParameters(new Vector2f(-300f, -150f), new Vector2f(0f, 0f));
+                        dialogue.SetKinematicParameters(new Vector2f(-380f, dialogue.GetHeight(-150)), new Vector2f(0f, 0f));
                         dialogue.LaunchDialogue(2);
 
                         AObject queueTalk = world.GetObjectFromId("queueTalk main");

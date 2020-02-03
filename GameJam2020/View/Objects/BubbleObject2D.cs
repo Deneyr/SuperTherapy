@@ -27,7 +27,7 @@ namespace GameJam2020.View.Objects
             animation = new Animation(testAnim, periode, AnimationType.ONETIME);
             this.AddAnimation(animation);
 
-            this.sprite.Scale = new Vector2f(1.2f, 1.2f);
+            this.sprite.Scale = new Vector2f(1.2f, 1.6f);
         }
     }
 }
