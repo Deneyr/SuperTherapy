@@ -40,7 +40,7 @@ namespace GameJam2020.Model.World.Objects
             {
                 this.text = this.associatedToken.Text;
 
-                if (this.trueText.ToLower().Equals(this.associatedToken.Text))
+                if (this.trueText.ToLower().Equals(this.associatedToken.Text.ToLower()))
                 {
                     world.NotifyObjectTextStateChanged(this, true);
 

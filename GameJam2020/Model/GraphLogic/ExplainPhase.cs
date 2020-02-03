@@ -74,6 +74,20 @@ namespace GameJam2020.Model.GraphLogic
 
                         this.moment = StartPhaseMoment.BUBBLE_APPEARED;
                         break;
+                    case StartPhaseMoment.TEXT_APPEARED:
+                        dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
+                        dialogue.ResetDialogue();
+
+                        bubble = world.GetObjectFromId("bubble main");
+                        bubble.SetAnimationIndex(3);
+
+                        queueTalk = world.GetObjectFromId("queueTalk main");
+                        queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+
+                        this.timeElapsed = Time.Zero;
+                        this.periodPhase = Time.FromSeconds(2);
+                        this.moment = StartPhaseMoment.END;
+                        break;
                     case StartPhaseMoment.END:
                         this.NodeState = NodeState.NOT_ACTIVE;
                         break;
@@ -87,17 +101,9 @@ namespace GameJam2020.Model.GraphLogic
 
             if (dialogue == lObject)
             {
-                dialogue.ResetDialogue();
-
-                AObject bubble = world.GetObjectFromId("bubble main");
-                bubble.SetAnimationIndex(3);
-
-                AObject queueTalk = world.GetObjectFromId("queueTalk main");
-                queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
-
                 this.timeElapsed = Time.Zero;
-                this.periodPhase = Time.FromSeconds(2);
-                this.moment = StartPhaseMoment.END;
+                this.periodPhase = Time.FromSeconds(3);
+                this.moment = StartPhaseMoment.TEXT_APPEARED;
             }
         }
     }
@@ -106,6 +112,7 @@ namespace GameJam2020.Model.GraphLogic
     {
         START,
         BUBBLE_APPEARED,
+        TEXT_APPEARED,
         END
     }
 }

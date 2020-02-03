@@ -3,108 +3,44 @@
   <PatientDialogue>
     <DialogueTokens>
       <Token>
-        <Token>test </Token>
+        <Token>Alors docteur, vous pouvez m'aider ?</Token>
         <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>click here</Token>
-        <Type>ANSWER</Type>
-      </Token>
-      <Token>
-        <Token>tëst, ..Nouveau.</Token>
-        <Type>SANCTUARY</Type>
-      </Token>
-      <Token>
-        <Token>bla bla, </Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>click here</Token>
-        <Type>FIELD</Type>
-      </Token>
-      <Token>
-        <Token>bla bla, et oui bravo, ceci est un bravo et oui hahaha</Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>Another Answer, yes yes YES !</Token>
-        <Type>ANSWER</Type>
       </Token>
     </DialogueTokens>
   </PatientDialogue>
   <ToubibDialogue>
     <DialogueTokens>
       <Token>
-        <Token>aubergine</Token>
+        <Token>Oui, bien sur !</Token>
         <Type>FIELD</Type>
-      </Token>
-      <Token>
-        <Token> tëst, ..Nouveau </Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>cabinet</Token>
-        <Type>FIELD</Type>
-      </Token>
-      <Token>
-        <Token> tëst, ..Nouveau </Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>test </Token>
-        <Type>NORMAL</Type>
       </Token>
     </DialogueTokens>
   </ToubibDialogue>
   <AnswerTokens>
     <DialogueTokens>
       <Token>
-        <Token>aubergine</Token>
+        <Token>Oui, bien sur !</Token>
         <Type>ANSWER</Type>
       </Token>
       <Token>
-        <Token>		</Token>
+        <Token>..</Token>
         <Type>NORMAL</Type>
       </Token>
       <Token>
-        <Token>cabinet</Token>
+        <Token>Non, vous ête moche !</Token>
         <Type>ANSWER</Type>
       </Token>
       <Token>
-        <Token>		</Token>
+        <Token>..</Token>
         <Type>NORMAL</Type>
       </Token>
       <Token>
-        <Token>ENCLUME !</Token>
-        <Type>ANSWER</Type>
-      </Token>
-      <Token>
-        <Token>		</Token>
-        <Type>NORMAL</Type>
-      </Token>	
-      <Token>
-        <Token>salopette</Token>
-        <Type>ANSWER</Type>
-      </Token>
-      <Token>
-        <Token>		</Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>abeille</Token>
-        <Type>ANSWER</Type>
-      </Token>
-      <Token>
-        <Token>		</Token>
-        <Type>NORMAL</Type>
-      </Token>
-      <Token>
-        <Token>débouche-chiotte</Token>
+        <Token>Ca vous fera 5000000$</Token>
         <Type>ANSWER</Type>
       </Token>
     </DialogueTokens>
   </AnswerTokens>
-<Timer>30</Timer>
-<PatientSuccessAnswer>Bravo docteur ! vous êtes le meilleur, vous avez compris ce qui n'allait pas, venez on baise !</PatientSuccessAnswer>
-<PatientFailAnswer>C'est vous le débouche-chiotte espèce d'escroc ! je me barre et vous pouvez vous coller vos honoraires au cul !</PatientFailAnswer>
+<Timer>20</Timer>
+<PatientSuccessAnswer>Oh super merci beaucoup docteur ! Je savais que je pouvais compter sur vous ! Je me sens beaucoup mieux à présent ! Je vous souhaite une agréable fin de soirée !</PatientSuccessAnswer>
+<PatientFailAnswer>Alors là je suis faché ! Moi qui comptait sur vous je ne vous trouve pas très coopératif ! Je ne vous dis pas bonsoir !</PatientFailAnswer>
 </LevelData>

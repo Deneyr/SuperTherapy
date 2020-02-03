@@ -60,11 +60,10 @@ namespace GameJam2020.Model.GraphLogic
 
             if (this.timeElapsed > periodPhase)
             {
+                DialogueObject dialogue = null;
                 switch (this.moment)
                 {
                     case ResolvePhaseMoment.START:
-                        DialogueObject dialogue;
-
                         if (this.isSuccess)
                         {
                             dialogue = world.GetObjectFromId("dialogue successAnswer") as DialogueObject;
@@ -85,6 +84,30 @@ namespace GameJam2020.Model.GraphLogic
                         this.timeElapsed = Time.Zero;
                         this.periodPhase = Time.FromSeconds(2);
                         this.moment = ResolvePhaseMoment.BUBBLE_APPEARED;
+                        break;
+                    case ResolvePhaseMoment.END_DIALOGUE:
+                        AObject patient = world.GetObjectFromId("patient main");
+                        if (this.isSuccess)
+                        {
+                            dialogue = world.GetObjectFromId("dialogue successAnswer") as DialogueObject;
+                            patient.SetAnimationIndex(5);
+                        }
+                        else
+                        {
+                            dialogue = world.GetObjectFromId("dialogue failAnswer") as DialogueObject;
+                            patient.SetAnimationIndex(4);
+                        }
+                        dialogue.ResetDialogue();
+
+                        bubble = world.GetObjectFromId("bubble main");
+                        bubble.SetAnimationIndex(3);
+
+                        queueTalk = world.GetObjectFromId("queueTalk main");
+                        queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+
+                        this.timeElapsed = Time.Zero;
+                        this.periodPhase = Time.FromSeconds(2);
+                        this.moment = ResolvePhaseMoment.END;
                         break;
                     case ResolvePhaseMoment.END:
 
@@ -111,27 +134,17 @@ namespace GameJam2020.Model.GraphLogic
             if (this.isSuccess)
             {
                 dialogue = world.GetObjectFromId("dialogue successAnswer") as DialogueObject;
-                patient.SetAnimationIndex(5);
             }
             else
             {
                 dialogue = world.GetObjectFromId("dialogue failAnswer") as DialogueObject;
-                patient.SetAnimationIndex(4);
             }
 
             if (dialogue == lObject)
             {
-                dialogue.ResetDialogue();
-
-                AObject bubble = world.GetObjectFromId("bubble main");
-                bubble.SetAnimationIndex(3);
-
-                AObject queueTalk = world.GetObjectFromId("queueTalk main");
-                queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
-
                 this.timeElapsed = Time.Zero;
-                this.periodPhase = Time.FromSeconds(2);
-                this.moment = ResolvePhaseMoment.END;
+                this.periodPhase = Time.FromSeconds(3);
+                this.moment = ResolvePhaseMoment.END_DIALOGUE;
             }
         }
     }

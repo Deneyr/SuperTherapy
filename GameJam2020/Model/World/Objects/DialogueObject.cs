@@ -47,7 +47,7 @@ namespace GameJam2020.Model.World.Objects
         {
             get
             {
-                return this.nbGoodAnswer >= this.nbAnswer / 2;
+                return this.nbGoodAnswer >= this.nbAnswer / 2f;
             }
         }
 
