@@ -73,7 +73,7 @@ namespace GameJam2020.View
             this.mappingIdObjectToTextures.Add("darkOffice", new List<string> { @"Resources\background\Fond_Cabinet_Dark.png" });
 
             this.mappingIdObjectToTextures.Add("arrow", new List<string> { @"Resources\foreground\arrow.png" });
-            this.mappingIdObjectToTextures.Add("bubbleHeader", new List<string> { @"Resources\foreground\bulleTitreAnim.png" });
+            this.mappingIdObjectToTextures.Add("bubbleHeader", new List<string> { @"Resources\foreground\bubble.png" });
             this.mappingIdObjectToTextures.Add("bubbleTuto", new List<string> { @"Resources\foreground\Bulle_Tuto.png" });
             this.mappingIdObjectToTextures.Add("bubble", new List<string> { @"Resources\foreground\bubble.png" });
 

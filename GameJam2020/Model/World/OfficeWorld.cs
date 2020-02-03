@@ -4,6 +4,7 @@ using GameJam2020.Model.World.Objects;
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,10 +55,10 @@ namespace GameJam2020.Model.World
 
             // Level creation
             TutoLevelNode tutoLevelNode = new TutoLevelNode();
-            LevelNode mainLevelNode = new LevelNode("test.xml");
+            LevelNode firstLevelNode = this.CreateGame("Levels", 5);
 
             // Level links
-            tutoLevelNode.NextNode = mainLevelNode;
+            tutoLevelNode.NextNode = firstLevelNode;
 
             this.levelNode = tutoLevelNode;
         }
@@ -70,6 +71,40 @@ namespace GameJam2020.Model.World
             }
         }
 
+
+        public LevelNode CreateGame(string levelPath, int nbLevels)
+        {
+            Random random = new Random();
+
+            List<string> filePaths = Directory.GetFiles(levelPath, "*.xml").ToList();
+            List<string> levelsFilePath = new List<string>();
+            int i = 0;
+
+            while(filePaths.Count() > 0 && i < nbLevels)
+            {
+                string lChosenPath = filePaths[random.Next(0, filePaths.Count())];
+                levelsFilePath.Add(lChosenPath);
+                filePaths.Remove(lChosenPath);
+            }
+
+            LevelNode levelNode = null;
+            LevelNode firstNode = null;
+            foreach (string path in levelsFilePath)
+            {
+                LevelNode newLevelNode = new LevelNode(path);
+                if(levelNode != null)
+                {
+                    levelNode.NextNode = newLevelNode;
+                }
+                else
+                {
+                    firstNode = newLevelNode;
+                }
+                levelNode = newLevelNode;
+            }
+
+            return firstNode;
+        }
 
         public void StartLevel()
         {

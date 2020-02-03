@@ -105,10 +105,10 @@ namespace GameJam2020.Model.GraphLogic
             text.SetKinematicParameters(new Vector2f(220, -30), new Vector2f(0, 0));
             text.LaunchDialogue(2);
 
-            bubbleHeader.SetKinematicParameters(new Vector2f(-240, -320), new Vector2f(0, 0));
+            bubbleHeader.SetKinematicParameters(new Vector2f(-270, -320), new Vector2f(0, 0));
             bubbleTuto.SetKinematicParameters(new Vector2f(80, -70), new Vector2f(0, 0));
             //arrow.IsFocused = true;
-            bubbleHeader.SetAnimationIndex(1);
+            bubbleHeader.SetAnimationIndex(2);
         }
 
         public override void VisitEnd(OfficeWorld world)
