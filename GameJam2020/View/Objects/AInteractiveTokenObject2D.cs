@@ -11,7 +11,7 @@ namespace GameJam2020.View.Objects
 {
     public abstract class AInteractiveTokenObject2D: ATokenObject2D
     {
-        private Sprite answerRectangle;
+        protected Sprite answerRectangle;
 
         private float Initialwidth;
         private float InitialHeight;

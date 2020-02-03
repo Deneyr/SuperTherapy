@@ -44,6 +44,7 @@ namespace GameJam2020.Model.Data
         SANCTUARY,
         ANSWER,
         HEADER,
-        FIELD
+        FIELD,
+        TIMER
     }
 }

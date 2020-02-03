@@ -84,6 +84,8 @@ namespace GameJam2020.Model.GraphLogic
             notebook.Alias = "main";
             BubbleObject bubble = new BubbleObject();
             bubble.Alias = "main";
+            TimerObject timer = new TimerObject();
+            timer.Alias = "main";
 
             QueueTalkObject queueTalk = new QueueTalkObject();
             queueTalk.Alias = "main";
@@ -107,6 +109,9 @@ namespace GameJam2020.Model.GraphLogic
             DialogueObject dialogueFailAnswer = DialogueFactory.CreateDialogueFactory(this.levelData.PatientFailAnswer, TokenType.NORMAL);
             dialogueFailAnswer.Alias = "failAnswer";
 
+            AToken timerToken = DialogueFactory.CreateToken(string.Empty, TokenType.TIMER);
+            timerToken.Alias = "main";
+
             // Create layers
             Layer background = new Layer();
             Layer middleground = new Layer();
@@ -126,6 +131,8 @@ namespace GameJam2020.Model.GraphLogic
 
             resourcesToLoad.Add(queueTalk.Id);
             resourcesToLoad.Add(queueDream.Id);
+
+            resourcesToLoad.Add(timer.Id);
 
             resourcesToLoad.Add("normalToken");
             resourcesToLoad.Add("sanctuaryToken");
@@ -161,6 +168,9 @@ namespace GameJam2020.Model.GraphLogic
             world.AddObject(queueTalk, 2);
             world.AddObject(queueDream, 2);
 
+            world.AddObject(timer, 2);
+            world.AddObject(timerToken, 3);
+
             world.AddObject(notebook, 2);
             world.AddObject(bubble, 2);
 
@@ -181,6 +191,9 @@ namespace GameJam2020.Model.GraphLogic
 
             queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
             queueDream.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+
+            timer.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
+            timerToken.SetKinematicParameters(new Vector2f(400, 260), new Vector2f(0f, 0f));
 
             queueTalk.SetAnimationIndex(1);
             queueDream.SetAnimationIndex(1);

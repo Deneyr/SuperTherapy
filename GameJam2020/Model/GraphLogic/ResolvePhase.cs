@@ -86,19 +86,6 @@ namespace GameJam2020.Model.GraphLogic
                         this.periodPhase = Time.FromSeconds(2);
                         this.moment = ResolvePhaseMoment.BUBBLE_APPEARED;
                         break;
-                    /*case ResolvePhaseMoment.END_DIALOGUE:
-                        dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
-                        dialogue.ResetDialogue();
-
-                        bubble = world.GetObjectFromId("bubble main");
-                        bubble.SetAnimationIndex(3);
-
-                        queueTalk = world.GetObjectFromId("queueTalk main");
-                        queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
-                        this.timeElapsed = Time.Zero;
-                        this.periodPhase = Time.FromSeconds(2);
-                        this.moment = ResolvePhaseMoment.END;
-                        break;*/
                     case ResolvePhaseMoment.END:
 
                         if (this.isSuccess)

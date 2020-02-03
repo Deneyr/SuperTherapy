@@ -51,7 +51,6 @@ namespace GameJam2020.Model.GraphLogic
 
         public override void VisitEnd(OfficeWorld world)
         {
-
             base.VisitEnd(world);
         }
 

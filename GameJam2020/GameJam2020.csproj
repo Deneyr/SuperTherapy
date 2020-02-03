@@ -89,6 +89,7 @@
     <Compile Include="Model\GraphLogic\APhaseNode.cs" />
     <Compile Include="Model\GraphLogic\ResolvePhase.cs" />
     <Compile Include="Model\GraphLogic\ThinkPhase.cs" />
+    <Compile Include="Model\World\Objects\TimerTokenObject.cs" />
     <Compile Include="Model\World\Objects\BubbleObject.cs" />
     <Compile Include="Model\World\Objects\NotebookObject.cs" />
     <Compile Include="Model\GraphLogic\StartPhase.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Model\World\Objects\QueueTalkObject.cs" />
     <Compile Include="Model\World\Objects\SanctuaryToken.cs" />
     <Compile Include="Model\World\Objects\TestObject.cs" />
+    <Compile Include="Model\World\Objects\TimerObject.cs" />
     <Compile Include="Model\World\Objects\ToubibObject.cs" />
     <Compile Include="Model\World\OfficeWorld.cs" />
     <Compile Include="Program.cs" />
@@ -145,6 +147,8 @@
     <Compile Include="View\Objects\QueueTalkObject2D.cs" />
     <Compile Include="View\Objects\SanctuaryTokenObject2D.cs" />
     <Compile Include="View\Objects\TestObject2D.cs" />
+    <Compile Include="View\Objects\TimerObject2D.cs" />
+    <Compile Include="View\Objects\TimerTokenObject2D.cs" />
     <Compile Include="View\Objects\ToubibObject2D.cs" />
     <Compile Include="View\Sounds\SoundManager.cs" />
     <Compile Include="View\Textures\FontManager.cs" />

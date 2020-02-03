@@ -115,5 +115,33 @@ namespace GameJam2020.Model.World.Objects
 
             return dialogueObject;
         }
+
+        public static AToken CreateToken(string data, TokenType type)
+        {
+            AToken tokenObject = null;
+            switch (type)
+            {
+                case TokenType.NORMAL:
+                    tokenObject = new NormalToken(null, data);
+                    break;
+                case TokenType.SANCTUARY:
+                    tokenObject = new SanctuaryToken(null, data);
+                    break;
+                case TokenType.ANSWER:
+                    tokenObject = new AnswerToken(null, data);
+                    break;
+                case TokenType.HEADER:
+                    tokenObject = new HeaderToken(null, data);
+                    break;
+                case TokenType.FIELD:
+                    tokenObject = new FieldToken(null, data);
+                    break;
+                case TokenType.TIMER:
+                    tokenObject = new TimerTokenObject(null, data);
+                    break;
+            }
+
+            return tokenObject;
+        }
     }
 }

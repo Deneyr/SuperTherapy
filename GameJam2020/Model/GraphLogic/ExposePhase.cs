@@ -15,6 +15,8 @@ namespace GameJam2020.Model.GraphLogic
         private Time periodPhase;
         private Time timeElapsed;
 
+        private bool isSuccess;
+
         private ExposePhaseMoment moment;
 
         public ExposePhase()
@@ -29,6 +31,9 @@ namespace GameJam2020.Model.GraphLogic
         public override void VisitStart(OfficeWorld world)
         {
             base.VisitStart(world);
+
+            DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
+            this.isSuccess = dialogue.IsSuccess;
 
             AObject toubib = world.GetObjectFromId("toubib main");
 
@@ -94,6 +99,16 @@ namespace GameJam2020.Model.GraphLogic
 
             if (dialogue == lObject)
             {
+                AObject patient = world.GetObjectFromId("patient main");
+                if (this.isSuccess)
+                {
+                    patient.SetAnimationIndex(8);
+                }
+                else
+                {
+                    patient.SetAnimationIndex(7);
+                }
+
                 this.timeElapsed = Time.Zero;
                 this.periodPhase = Time.FromSeconds(2);
                 this.moment = ExposePhaseMoment.END_DIALOGUE;

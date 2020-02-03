@@ -52,6 +52,10 @@ namespace GameJam2020.Model.GraphLogic
             AObject bubble = world.GetObjectFromId("bubble main");
             bubble.SetAnimationIndex(1);
 
+            AObject timer = world.GetObjectFromId("timer main");
+            timer.SetAnimationIndex(1);
+            timer.SetKinematicParameters(new Vector2f(320, 200), new Vector2f(0f, 0f));
+
             this.periodPhase = Time.FromSeconds(1.2f);
             this.timeElapsed = Time.Zero;
         }
@@ -91,6 +95,10 @@ namespace GameJam2020.Model.GraphLogic
 
                         this.timeElapsed = Time.Zero;
                         this.periodPhase = Time.FromSeconds(world.CurrentLevel.Data.Timer);
+
+                        AObject timer = world.GetObjectFromId("timer main");
+                        timer.SetAnimationIndex(2);
+
                         this.moment = ThinkPhaseMoment.START_TIMER;
                         break;
                     case ThinkPhaseMoment.START_TIMER:
@@ -106,8 +114,14 @@ namespace GameJam2020.Model.GraphLogic
                         bubble = world.GetObjectFromId("bubble main");
                         bubble.SetAnimationIndex(3);
 
+                        AToken timerToken = world.GetObjectFromId("timerToken main") as AToken;
+                        timerToken.DisplayText = string.Empty;
+
                         queueDream = world.GetObjectFromId("queueDream main");
                         queueDream.SetKinematicParameters(new Vector2f(1000, 1000), new Vector2f(0f, 0f));
+
+                        timer = world.GetObjectFromId("timer main");
+                        timer.SetAnimationIndex(3);
 
                         this.timeElapsed = Time.Zero;
                         this.periodPhase = Time.FromSeconds(3);
@@ -117,9 +131,18 @@ namespace GameJam2020.Model.GraphLogic
                         dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
                         dialogue.ValidateDialogue(world);
 
+                        timer = world.GetObjectFromId("timer main");
+                        timer.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0f, 0f));
+
                         this.NodeState = NodeState.NOT_ACTIVE;
                         break;
                 }
+            }
+
+            if(this.moment == ThinkPhaseMoment.START_TIMER)
+            {
+                AToken timerToken = world.GetObjectFromId("timerToken main") as AToken;
+                timerToken.DisplayText = ((int) (world.CurrentLevel.Data.Timer - this.timeElapsed.AsSeconds())).ToString();
             }
         }
 

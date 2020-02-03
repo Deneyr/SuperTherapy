@@ -40,6 +40,21 @@ namespace GameJam2020.View.Objects
             animation = new Animation(testAnim, periode, AnimationType.LOOP);
             this.AddAnimation(animation);
 
+            // Angry & Happy
+            testAnim = new IntRect[]{
+                new IntRect(0, 227 * 2, 574, 226),
+                new IntRect(0, 227 * 3, 574, 226),
+            };
+            animation = new Animation(testAnim, periode, AnimationType.ONETIME);
+            this.AddAnimation(animation);
+
+            testAnim = new IntRect[]{
+                new IntRect(0, 227 * 2, 574, 226),
+                new IntRect(0, 227 * 4, 574, 226),
+            };
+            animation = new Animation(testAnim, periode, AnimationType.ONETIME);
+            this.AddAnimation(animation);
+
             //this.sprite.Scale = new Vector2f(0.5f, 0.5f);
         }
     }

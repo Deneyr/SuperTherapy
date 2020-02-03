@@ -88,12 +88,14 @@ namespace GameJam2020.View
             this.mappingIdObjectToTextures.Add("test", new List<string> { @"Resources\testSprite.jpg" });
 
             this.mappingIdObjectToTextures.Add("answerToken", new List<string> { @"Resources\foreground\RectangleMot.png" });
+            this.mappingIdObjectToTextures.Add("timer", new List<string> { @"Resources\foreground\Timer_Spritemap.png" });
             this.mappingIdObjectToTextures.Add("fieldToken", new List<string> { @"Resources\foreground\RectangleMot.png" });
 
             this.mappingIdObjectToFonts = new Dictionary<string, List<string>>();
 
             this.mappingIdObjectToFonts.Add("normalToken", new List<string> { @"Resources\lemon.otf" });
             this.mappingIdObjectToFonts.Add("answerToken", new List<string> { @"Resources\lemon.otf" });
+            this.mappingIdObjectToFonts.Add("timerToken", new List<string> { @"Resources\lemon.otf" });
             this.mappingIdObjectToFonts.Add("fieldToken", new List<string> { @"Resources\lemon.otf" });
             this.mappingIdObjectToFonts.Add("sanctuaryToken", new List<string> { @"Resources\Quentin.otf"});
             this.mappingIdObjectToFonts.Add("headerToken", new List<string> { @"Resources\lemon.otf" });
@@ -206,6 +208,10 @@ namespace GameJam2020.View
                     break;
                 case EventType.OPEN_BUBBLE:
                     pathSound = this.mappingIdObjectToSounds["bubbleOpened"][0];
+                    this.soundManager.PlaySound(pathSound);
+                    break;
+                case EventType.CLOSE_BUBBLE:
+                    pathSound = this.mappingIdObjectToSounds["bubbleClosed"][0];
                     this.soundManager.PlaySound(pathSound);
                     break;
             }
@@ -438,11 +444,17 @@ namespace GameJam2020.View
                 case "test":
                     object2D = new TestObject2D();
                     break;
+                case "timer":
+                    object2D = new TimerObject2D();
+                    break;
                 case "normalToken":
                     object2D = new NormalTokenObject2D();
                     break;
                 case "answerToken":
                     object2D = new AnswerTokenObject2D();
+                    break;
+                case "timerToken":
+                    object2D = new TimerTokenObject2D();
                     break;
                 case "fieldToken":
                     object2D = new FieldTokenObject2D();
