@@ -1,4 +1,5 @@
-﻿using GameJam2020.Model.World;
+﻿using GameJam2020.Model.Events;
+using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using GameJam2020.View.Objects;
 using GameJam2020.View.Sounds;
@@ -103,10 +104,10 @@ namespace GameJam2020.View
             /*this.mappingIdObjectToSounds.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_574_226.png" });
             this.mappingIdObjectToSounds.Add("toubib", new List<string> { @"Resources\sounds\Bruitages" });*/
             this.mappingIdObjectToSounds.Add("lampClipped", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Clic_Lampe_Mixed.mp3" });
-            this.mappingIdObjectToSounds.Add("moved", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Deplacement_Mot_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("wordPicked", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Deplacement_Mot_Mixed.mp3" });
             this.mappingIdObjectToSounds.Add("bubbleClosed", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Fermeture_Bulle_Mixed.mp3" });
             this.mappingIdObjectToSounds.Add("bubbleOpened", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Ouverture_Bulle_Mixed.mp3" });
-            this.mappingIdObjectToSounds.Add("wordPlaced", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Placement_Mot_Trou_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("wordInserted", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Placement_Mot_Trou_Mixed.mp3" });
             this.mappingIdObjectToSounds.Add("wordDroped", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Relacher_Mot_Mixed.mp3" });
 
             this.mappingIdObjectToMusics = new Dictionary<string, List<string>>();
@@ -173,18 +174,39 @@ namespace GameJam2020.View
             }
         }
 
-        private void OnGameStateChanged(string levelName, GameState obj)
+        private void OnGameStateChanged(string levelName, GameEvent obj)
         {
-            switch (obj)
+            string pathSound = null;
+            switch (obj.Type)
             {
-                case GameState.START:
+                case EventType.START:
                     if (this.mappingIdObjectToMusics.ContainsKey(levelName))
                     {
                         string pathMusic = this.mappingIdObjectToMusics[levelName][0];
-                        Music music = this.soundManager.GetMusic(pathMusic);
+                        this.soundManager.PlayMusic(pathMusic);
 
-                        music.Play();
+                        pathSound = this.mappingIdObjectToSounds["lampClipped"][0];
+                        this.soundManager.PlaySound(pathSound);
                     }
+                    break;
+                case EventType.ENDING:
+                    this.soundManager.StopAllSounds();
+                    break;
+                case EventType.PICK_WORD:
+                    pathSound = this.mappingIdObjectToSounds["wordPicked"][0];
+                    this.soundManager.PlaySound(pathSound);
+                    break;
+                case EventType.DROP_WORD:
+                    pathSound = this.mappingIdObjectToSounds["wordDroped"][0];
+                    this.soundManager.PlaySound(pathSound);
+                    break;
+                case EventType.INSERT_WORD:
+                    pathSound = this.mappingIdObjectToSounds["wordInserted"][0];
+                    this.soundManager.PlaySound(pathSound);
+                    break;
+                case EventType.OPEN_BUBBLE:
+                    pathSound = this.mappingIdObjectToSounds["bubbleOpened"][0];
+                    this.soundManager.PlaySound(pathSound);
                     break;
             }
         }

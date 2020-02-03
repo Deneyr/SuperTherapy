@@ -34,3 +34,5 @@ C:\Users\pir77\Documents\visual studio 2015\Projects\SuperTherapy\GameJam2020\bi
 C:\Users\pir77\Documents\visual studio 2015\Projects\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.exe
 C:\Users\pir77\Documents\visual studio 2015\Projects\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.pdb
 C:\Users\pir77\Documents\visual studio 2015\Projects\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.csprojResolveAssemblyReference.cache
+C:\Users\pir77\Documents\Visual Studio 2015\Projects\SuperTherapy\GameJam2020\bin\x86\Release\NAudio.dll
+C:\Users\pir77\Documents\Visual Studio 2015\Projects\SuperTherapy\GameJam2020\bin\x86\Release\NAudio.xml

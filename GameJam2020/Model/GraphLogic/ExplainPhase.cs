@@ -1,4 +1,5 @@
-﻿using GameJam2020.Model.World;
+﻿using GameJam2020.Model.Events;
+using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using SFML.System;
 using System;

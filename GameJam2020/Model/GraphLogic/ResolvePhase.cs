@@ -1,4 +1,5 @@
-﻿using GameJam2020.Model.World;
+﻿using GameJam2020.Model.Events;
+using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using SFML.System;
 using System;
@@ -99,6 +100,16 @@ namespace GameJam2020.Model.GraphLogic
                         this.moment = ResolvePhaseMoment.END;
                         break;*/
                     case ResolvePhaseMoment.END:
+
+                        if (this.isSuccess)
+                        {
+                            world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.ENDING, "good"));
+                        }
+                        else
+                        {
+                            world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.ENDING, "bad"));
+                        }
+
                         this.NodeState = NodeState.NOT_ACTIVE;
                         break;
                 }

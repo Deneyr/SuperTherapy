@@ -36,7 +36,7 @@ namespace GameJam2020.Model.World
 
         public event Action<AObject, bool> ObjectFocusChanged;
 
-        public event Action<string, GameState> GameStateChanged;
+        public event Action<string, GameEvent> GameStateChanged;
 
         public event Action<OfficeWorld, AObject, string> InternalGameEvent;
 
@@ -147,6 +147,8 @@ namespace GameJam2020.Model.World
             if (lObject is AnswerToken)
             {
                 lObject.IsFocused = true;
+
+                this.NotifyGameStateChanged(this.CurrentLevel.LevelName, new GameEvent(EventType.PICK_WORD, string.Empty));
             }
         }
 
@@ -164,6 +166,12 @@ namespace GameJam2020.Model.World
                     fieldToken.AssociatedToken = answerToken;
 
                     fieldToken.ChangeDisplayText(answerToken.Text);
+
+                    this.NotifyGameStateChanged(this.CurrentLevel.LevelName, new GameEvent(EventType.INSERT_WORD, string.Empty));
+                }
+                else
+                {
+                    this.NotifyGameStateChanged(this.CurrentLevel.LevelName, new GameEvent(EventType.DROP_WORD, string.Empty));
                 }
 
                 answerToken.IsFocused = false;
@@ -276,7 +284,7 @@ namespace GameJam2020.Model.World
             }
         }
 
-        public void NotifyGameStateChanged(string levelName, GameState gameState)
+        public void NotifyGameStateChanged(string levelName, GameEvent gameState)
         {
             if (this.GameStateChanged != null)
             {
@@ -291,12 +299,5 @@ namespace GameJam2020.Model.World
                 this.InternalGameEvent(this, lObject, details);
             }
         }
-    }
-
-    public enum GameState
-    {
-        START,
-        GOOD_ENDING,
-        BAD_ENDING
     }
 }

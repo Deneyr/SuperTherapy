@@ -1,4 +1,5 @@
-﻿using SFML.Audio;
+﻿using NAudio.Wave;
+using SFML.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +10,87 @@ namespace GameJam2020.View.Sounds
 {
     public class SoundManager
     {
-        private Dictionary<string, SoundBuffer> soundsDictionary;
+        private Dictionary<string, WaveOutEvent> mappingPathWaveOutEvent;
+        private WaveOutEvent currentMusic;
 
-        private Dictionary<string, Music> musicsDictionary;
+        private Dictionary<string, AudioFileReader> soundsDictionary;
+
+        private Dictionary<string, AudioFileReader> musicsDictionary;
 
         public SoundManager()
         {
-            this.soundsDictionary = new Dictionary<string, SoundBuffer>();
+            this.mappingPathWaveOutEvent = new Dictionary<string, WaveOutEvent>();
 
-            this.musicsDictionary = new Dictionary<string, Music>();
+            this.soundsDictionary = new Dictionary<string, AudioFileReader>();
+
+            this.musicsDictionary = new Dictionary<string, AudioFileReader>();
         }
 
-        public SoundBuffer GetSound(string path)
+        public void PlaySound(string path)
         {
-            return this.soundsDictionary[path];
+            AudioFileReader reader = this.soundsDictionary[path];
+            reader.CurrentTime = new TimeSpan(0);
+
+            WaveOutEvent outputDevice = new WaveOutEvent();
+            
+            if (this.mappingPathWaveOutEvent.ContainsKey(path))
+            {
+                this.StopSound(path);
+            }
+
+            outputDevice.Init(reader);
+
+            outputDevice.Volume = 0.75f;
+
+            outputDevice.Play();
         }
 
-        public Music GetMusic(string path)
+        public void StopAllSounds()
         {
-            return this.musicsDictionary[path];
+            if(this.currentMusic != null)
+            {
+                this.currentMusic.Stop();
+                this.currentMusic.Dispose();
+            }
+            this.currentMusic = null;
+
+            foreach(WaveOutEvent device in this.mappingPathWaveOutEvent.Values)
+            {
+                device.Stop();
+                device.Dispose();
+            }
+
+            this.mappingPathWaveOutEvent.Clear();
+        }
+
+        public void StopSound(string path)
+        {
+            if (this.mappingPathWaveOutEvent.ContainsKey(path))
+            {
+                WaveOutEvent device = this.mappingPathWaveOutEvent[path];
+
+                device.Stop();
+                device.Dispose();
+
+                this.mappingPathWaveOutEvent.Remove(path);
+            }
+        }
+
+        public void PlayMusic(string path)
+        {
+            if(this.currentMusic != null)
+            {
+                this.currentMusic.Stop();
+                this.currentMusic.Dispose();
+            }
+
+            AudioFileReader reader = this.musicsDictionary[path];
+            WaveOutEvent outputDevice = new WaveOutEvent();
+            this.currentMusic = outputDevice;
+
+            outputDevice.Init(reader);
+
+            outputDevice.Play();
         }
 
         public void LoadSounds(HashSet<string> soundsToLoad)
@@ -35,7 +98,7 @@ namespace GameJam2020.View.Sounds
             HashSet<string> soundNotToLoad = new HashSet<string>();
             List<string> soundToRemove = new List<string>();
 
-            foreach (KeyValuePair<string, SoundBuffer> keyValuePair in this.soundsDictionary)
+            foreach (KeyValuePair<string, AudioFileReader> keyValuePair in this.soundsDictionary)
             {
                 if (soundsToLoad.Contains(keyValuePair.Key) == false)
                 {
@@ -58,7 +121,7 @@ namespace GameJam2020.View.Sounds
             {
                 if (soundNotToLoad.Contains(pathToLoad) == false)
                 {
-                    //this.soundsDictionary.Add(pathToLoad, new SoundBuffer(pathToLoad));
+                    this.soundsDictionary.Add(pathToLoad, new AudioFileReader(pathToLoad));
                 }
             }
         }
@@ -68,7 +131,7 @@ namespace GameJam2020.View.Sounds
             HashSet<string> musicNotToLoad = new HashSet<string>();
             List<string> musicToRemove = new List<string>();
 
-            foreach (KeyValuePair<string, Music> keyValuePair in this.musicsDictionary)
+            foreach (KeyValuePair<string, AudioFileReader> keyValuePair in this.musicsDictionary)
             {
                 if (musicsToLoad.Contains(keyValuePair.Key) == false)
                 {
@@ -91,7 +154,7 @@ namespace GameJam2020.View.Sounds
             {
                 if (musicNotToLoad.Contains(pathToLoad) == false)
                 {
-                    this.musicsDictionary.Add(pathToLoad, new Music(pathToLoad));
+                    this.musicsDictionary.Add(pathToLoad, new AudioFileReader(pathToLoad));
                 }
             }
         }

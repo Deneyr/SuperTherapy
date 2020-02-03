@@ -51,6 +51,14 @@ namespace GameJam2020.Model.GraphLogic
             this.currentPhaseNode = null;
         }
 
+        public virtual string LevelName
+        {
+            get
+            {
+                return "level";
+            }
+        }
+
         public LevelData Data
         {
             get
@@ -123,12 +131,12 @@ namespace GameJam2020.Model.GraphLogic
             resourcesToLoad.Add("sanctuaryToken");
             resourcesToLoad.Add("answerToken");
 
-            resourcesToLoad.Add("level");
+            resourcesToLoad.Add(this.LevelName);
             resourcesToLoad.Add("lampClipped");
-            resourcesToLoad.Add("moved");
+            resourcesToLoad.Add("wordPicked");
             resourcesToLoad.Add("bubbleClosed");
             resourcesToLoad.Add("bubbleOpened");
-            resourcesToLoad.Add("wordPlaced");
+            resourcesToLoad.Add("wordInserted");
             resourcesToLoad.Add("wordDroped");
             /*resourcesToLoad.Add(patient.Id);
             resourcesToLoad.Add(toubib.Id);*/

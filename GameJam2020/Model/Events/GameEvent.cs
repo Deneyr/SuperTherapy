@@ -19,18 +19,25 @@ namespace GameJam2020.Model.Events
             set;
         }
 
-        public GameEvent()
+        public GameEvent(EventType type, string details)
         {
-            this.Type = EventType.NULL;
+            this.Type = type;
 
-            this.Details = string.Empty;
+            this.Details = details;
         }
 
     }
 
     public enum EventType
     {
-        NULL,
-        ACTION,
+        START,
+        ENDING,
+        PICK_WORD,
+        DROP_WORD,
+        INSERT_WORD,
+        OPEN_BUBBLE,
+        CLOSE_BUBBLE,
+        START_TALK,
+        END_TALK
     }
 }

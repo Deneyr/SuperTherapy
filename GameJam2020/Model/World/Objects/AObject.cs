@@ -18,8 +18,8 @@ namespace GameJam2020.Model.World.Objects
 
         private Vector2f speedVector;
 
-        private int previousAnimationIndex;
-        private int currentAnimationIndex;
+        protected int previousAnimationIndex;
+        protected int currentAnimationIndex;
 
         protected bool previousIsFocused;
         protected bool isFocused;
