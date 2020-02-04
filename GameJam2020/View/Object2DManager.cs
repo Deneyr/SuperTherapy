@@ -116,11 +116,10 @@ namespace GameJam2020.View
             this.mappingIdObjectToMusics.Add("level", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
         }
 
-        /*public Vector2f SizeScreen
+        public AObject2D getObject2DFrom(AObject lObject)
         {
-            get;
-            set;
-        }*/
+            return this.mappingObjectToObject2D[lObject];
+        }
 
         public AObject getAnswerTokenAt(Vector2f position)
         {

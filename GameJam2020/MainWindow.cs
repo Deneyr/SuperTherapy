@@ -84,7 +84,10 @@ namespace GameJam2020
         {
             if(this.objectFocused != null)
             {
-                this.officeWorld.OnMouseDragOnObject(this.objectFocused, new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
+                AObject2D object2D = this.object2DManager.getObject2DFrom(this.objectFocused);
+                FloatRect rect = object2D.TextGlobalBounds;
+
+                this.officeWorld.OnMouseDragOnObject(this.objectFocused, new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2), new Vector2f(rect.Width / 2, rect.Height / 2));
             }
         }
 

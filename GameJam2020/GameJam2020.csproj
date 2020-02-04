@@ -83,6 +83,8 @@
     <Compile Include="Model\Data\Serializer.cs" />
     <Compile Include="Model\Events\GameEvent.cs" />
     <Compile Include="Model\GraphLogic\ANode.cs" />
+    <Compile Include="Model\GraphLogic\EndLevelNode.cs" />
+    <Compile Include="Model\GraphLogic\EndPhase.cs" />
     <Compile Include="Model\GraphLogic\ExplainPhase.cs" />
     <Compile Include="Model\GraphLogic\ExposePhase.cs" />
     <Compile Include="Model\GraphLogic\LevelNode.cs" />

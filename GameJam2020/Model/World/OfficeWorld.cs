@@ -47,6 +47,9 @@ namespace GameJam2020.Model.World
 
         private LevelNode levelNode;
 
+        private int nbPatient;
+        private int nbHappyPatients;
+
         public OfficeWorld()
         {
             this.objectsById = new Dictionary<string, AObject>();
@@ -63,6 +66,30 @@ namespace GameJam2020.Model.World
             this.levelNode = tutoLevelNode;
         }
 
+        public int NbPatient
+        {
+            get
+            {
+                return this.nbPatient;
+            }
+            set
+            {
+                this.nbPatient = value;
+            }
+        }
+
+        public int NbHappyPatient
+        {
+            get
+            {
+                return this.nbHappyPatients;
+            }
+            set
+            {
+                this.nbHappyPatients = value;
+            }
+        }
+
         public LevelNode CurrentLevel
         {
             get
@@ -75,6 +102,9 @@ namespace GameJam2020.Model.World
         public LevelNode CreateGame(string levelPath, int nbLevels)
         {
             Random random = new Random();
+
+            this.nbPatient = 0;
+            this.nbHappyPatients = 0;
 
             List<string> filePaths = Directory.GetFiles(levelPath, "*.xml").ToList();
             List<string> levelsFilePath = new List<string>();
@@ -101,6 +131,10 @@ namespace GameJam2020.Model.World
                     firstNode = newLevelNode;
                 }
                 levelNode = newLevelNode;
+            }
+
+            if (levelNode != null) {
+                levelNode.NextNode = new EndLevelNode();
             }
 
             return firstNode;
@@ -218,11 +252,11 @@ namespace GameJam2020.Model.World
             }
         }
 
-        public void OnMouseDragOnObject(AObject lObject, Vector2f mousePosition)
+        public void OnMouseDragOnObject(AObject lObject, Vector2f mousePosition, Vector2f objectOffset)
         {
             if (lObject is AnswerToken)
             {
-                lObject.SetKinematicParameters(mousePosition, new Vector2f(0, 0));
+                lObject.SetKinematicParameters(mousePosition - objectOffset, new Vector2f(0, 0));
             }
         }
 

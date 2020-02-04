@@ -92,7 +92,7 @@ namespace GameJam2020.Model.GraphLogic
                         queueTalk.SetKinematicParameters(new Vector2f(10000, 10000), new Vector2f(0, 0));
 
                         this.timeElapsed = Time.Zero;
-                        this.periodPhase = Time.FromSeconds(2);
+                        this.periodPhase = Time.FromSeconds(1);
                         this.moment = PrePhaseMoment.END;
                         break;
                     case PrePhaseMoment.END:
