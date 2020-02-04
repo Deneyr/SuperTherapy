@@ -40,13 +40,10 @@ namespace GameJam2020.Model.GraphLogic
 
             this.periodPhase = Time.FromSeconds(3);
             this.timeElapsed = Time.Zero;
-
-            world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.START, string.Empty));
         }
 
         public override void VisitEnd(OfficeWorld world)
         {
-
             base.VisitEnd(world);
         }
 

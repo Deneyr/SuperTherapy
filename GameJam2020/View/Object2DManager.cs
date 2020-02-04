@@ -103,8 +103,6 @@ namespace GameJam2020.View
             // Sounds & Musics
             this.mappingIdObjectToSounds = new Dictionary<string, List<string>>();
 
-            /*this.mappingIdObjectToSounds.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_574_226.png" });
-            this.mappingIdObjectToSounds.Add("toubib", new List<string> { @"Resources\sounds\Bruitages" });*/
             this.mappingIdObjectToSounds.Add("lampClipped", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Clic_Lampe_Mixed.mp3" });
             this.mappingIdObjectToSounds.Add("wordPicked", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Deplacement_Mot_Mixed.mp3" });
             this.mappingIdObjectToSounds.Add("bubbleClosed", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Fermeture_Bulle_Mixed.mp3" });
@@ -112,8 +110,20 @@ namespace GameJam2020.View
             this.mappingIdObjectToSounds.Add("wordInserted", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Placement_Mot_Trou_Mixed.mp3" });
             this.mappingIdObjectToSounds.Add("wordDroped", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Relacher_Mot_Mixed.mp3" });
 
+            this.mappingIdObjectToSounds.Add("dialoguePatient", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Dialogue_Patient_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("dialogueToubib", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Dialogue_Psy_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("dialogueReflexion", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Reflexion_Psy_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("dialoguePatientSuccess", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Sortie_Patient_Content_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("dialoguePatientFail", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Sortie_Patient_Fache_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("validationSuccess", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Validation_Diagnostique_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("validationFail", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Erreur_Diagnostique_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("doorKnock", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Porte_Toc_Mixed.mp3" });
+            this.mappingIdObjectToSounds.Add("endTimer", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Fin_Temps_Mixed.mp3" });
+
             this.mappingIdObjectToMusics = new Dictionary<string, List<string>>();
             this.mappingIdObjectToMusics.Add("level", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
+            this.mappingIdObjectToMusics.Add("tutoLevel", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
+            this.mappingIdObjectToMusics.Add("endLevel", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
         }
 
         public AObject2D getObject2DFrom(AObject lObject)
@@ -205,8 +215,17 @@ namespace GameJam2020.View
                         string pathMusic = this.mappingIdObjectToMusics[levelName][0];
                         this.soundManager.PlayMusic(pathMusic);
 
-                        pathSound = this.mappingIdObjectToSounds["lampClipped"][0];
-                        this.soundManager.PlaySound(pathSound);
+                        if(levelName.Equals("tutoLevel") || levelName.Equals("endLevel"))
+                        {
+                            this.soundManager.SetVolumeMusic(1f);
+                        }
+                        else
+                        {
+                            this.soundManager.SetVolumeMusic(0.2f);
+                        }
+
+                        /*pathSound = this.mappingIdObjectToSounds["lampClipped"][0];
+                        this.soundManager.PlaySound(pathSound, false);*/
                     }
                     break;
                 case EventType.ENDING:
@@ -214,23 +233,55 @@ namespace GameJam2020.View
                     break;
                 case EventType.PICK_WORD:
                     pathSound = this.mappingIdObjectToSounds["wordPicked"][0];
-                    this.soundManager.PlaySound(pathSound);
+                    this.soundManager.PlaySound(pathSound, false);
                     break;
                 case EventType.DROP_WORD:
                     pathSound = this.mappingIdObjectToSounds["wordDroped"][0];
-                    this.soundManager.PlaySound(pathSound);
+                    this.soundManager.PlaySound(pathSound, false);
                     break;
                 case EventType.INSERT_WORD:
                     pathSound = this.mappingIdObjectToSounds["wordInserted"][0];
-                    this.soundManager.PlaySound(pathSound);
+                    this.soundManager.PlaySound(pathSound, false);
                     break;
                 case EventType.OPEN_BUBBLE:
                     pathSound = this.mappingIdObjectToSounds["bubbleOpened"][0];
-                    this.soundManager.PlaySound(pathSound);
+                    this.soundManager.PlaySound(pathSound, false);
                     break;
                 case EventType.CLOSE_BUBBLE:
                     pathSound = this.mappingIdObjectToSounds["bubbleClosed"][0];
-                    this.soundManager.PlaySound(pathSound);
+                    this.soundManager.PlaySound(pathSound, false);
+                    break;
+                case EventType.START_TALK:
+                    pathSound = this.mappingIdObjectToSounds[obj.Details][0];
+                    this.soundManager.PlaySound(pathSound, true);
+                    break;
+                case EventType.END_TALK:
+                    pathSound = this.mappingIdObjectToSounds[obj.Details][0];
+                    this.soundManager.StopSound(pathSound);
+                    break;
+                case EventType.DOOR_KNOCK:
+                    pathSound = this.mappingIdObjectToSounds["doorKnock"][0];
+                    this.soundManager.PlaySound(pathSound, false);
+                    break;
+                case EventType.DOOR_OPEN:
+                    pathSound = this.mappingIdObjectToSounds["lampClipped"][0];
+                    this.soundManager.PlaySound(pathSound, false);
+                    break;
+                case EventType.VALIDATION:
+                    if (obj.Details == "success")
+                    {
+                        pathSound = this.mappingIdObjectToSounds["validationSuccess"][0];
+                        this.soundManager.PlaySound(pathSound, false);
+                    }
+                    else if(obj.Details == "fail")
+                    {
+                        pathSound = this.mappingIdObjectToSounds["validationFail"][0];
+                        this.soundManager.PlaySound(pathSound, false);
+                    }
+                    break;
+                case EventType.END_TIMER:
+                    pathSound = this.mappingIdObjectToSounds["endTimer"][0];
+                    this.soundManager.PlaySound(pathSound, false);
                     break;
             }
         }

@@ -102,6 +102,8 @@ namespace GameJam2020.Model.GraphLogic
                         this.moment = ThinkPhaseMoment.START_TIMER;
                         break;
                     case ThinkPhaseMoment.START_TIMER:
+                        world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.END_TIMER, string.Empty));
+
                         this.EndTimerAction(world);
                         break;
                     case ThinkPhaseMoment.END:

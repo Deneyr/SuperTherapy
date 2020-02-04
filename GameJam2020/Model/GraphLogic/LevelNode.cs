@@ -141,6 +141,8 @@ namespace GameJam2020.Model.GraphLogic
 
             // Add Resources
             List<string> resourcesToLoad = new List<string>();
+            resourcesToLoad.Add(this.LevelName);
+
             resourcesToLoad.Add(office.Id);
 
             resourcesToLoad.Add(toubib.Id);
@@ -158,13 +160,23 @@ namespace GameJam2020.Model.GraphLogic
             resourcesToLoad.Add("sanctuaryToken");
             resourcesToLoad.Add("answerToken");
 
-            resourcesToLoad.Add(this.LevelName);
             resourcesToLoad.Add("lampClipped");
             resourcesToLoad.Add("wordPicked");
             resourcesToLoad.Add("bubbleClosed");
             resourcesToLoad.Add("bubbleOpened");
             resourcesToLoad.Add("wordInserted");
             resourcesToLoad.Add("wordDroped");
+
+            resourcesToLoad.Add("dialoguePatient");
+            resourcesToLoad.Add("dialogueToubib");
+            resourcesToLoad.Add("dialogueReflexion");
+            resourcesToLoad.Add("dialoguePatientSuccess");
+            resourcesToLoad.Add("dialoguePatientFail");
+            resourcesToLoad.Add("doorKnock");
+            resourcesToLoad.Add("endTimer");
+
+            resourcesToLoad.Add("validationSuccess");
+            resourcesToLoad.Add("validationFail");
             /*resourcesToLoad.Add(patient.Id);
             resourcesToLoad.Add(toubib.Id);*/
             world.NotifyResourcesToLoad(resourcesToLoad);

@@ -12,23 +12,27 @@ namespace GameJam2020.View.Sounds
     {
         private Dictionary<string, WaveOutEvent> mappingPathWaveOutEvent;
         private WaveOutEvent currentMusic;
+        private string currentMusicPath;
 
-        private Dictionary<string, AudioFileReader> soundsDictionary;
+        private Dictionary<string, LoopAudioFileReader> soundsDictionary;
 
-        private Dictionary<string, AudioFileReader> musicsDictionary;
+        private Dictionary<string, LoopAudioFileReader> musicsDictionary;
 
         public SoundManager()
         {
             this.mappingPathWaveOutEvent = new Dictionary<string, WaveOutEvent>();
 
-            this.soundsDictionary = new Dictionary<string, AudioFileReader>();
+            this.soundsDictionary = new Dictionary<string, LoopAudioFileReader>();
 
-            this.musicsDictionary = new Dictionary<string, AudioFileReader>();
+            this.musicsDictionary = new Dictionary<string, LoopAudioFileReader>();
+
+            this.currentMusic = null;
+            this.currentMusicPath = string.Empty;
         }
 
-        public void PlaySound(string path)
+        public void PlaySound(string path, bool loop)
         {
-            AudioFileReader reader = this.soundsDictionary[path];
+            LoopAudioFileReader reader = this.soundsDictionary[path];
             reader.CurrentTime = new TimeSpan(0);
 
             WaveOutEvent outputDevice = new WaveOutEvent();
@@ -37,6 +41,10 @@ namespace GameJam2020.View.Sounds
             {
                 this.StopSound(path);
             }
+
+            reader.EnableLooping = loop;
+
+            this.mappingPathWaveOutEvent.Add(path, outputDevice);
 
             outputDevice.Init(reader);
 
@@ -47,12 +55,12 @@ namespace GameJam2020.View.Sounds
 
         public void StopAllSounds()
         {
-            if(this.currentMusic != null)
+            /*if(this.currentMusic != null)
             {
                 this.currentMusic.Stop();
                 this.currentMusic.Dispose();
             }
-            this.currentMusic = null;
+            this.currentMusic = null;*/
 
             foreach(WaveOutEvent device in this.mappingPathWaveOutEvent.Values)
             {
@@ -76,21 +84,38 @@ namespace GameJam2020.View.Sounds
             }
         }
 
+        public void SetVolumeMusic(float volume)
+        {
+            if (this.currentMusic != null)
+            {
+                /*this.currentMusic.Volume = volume;
+                this.currentMusic.Play();*/
+            }
+        }
+
         public void PlayMusic(string path)
         {
-            if(this.currentMusic != null)
+            if (this.currentMusic == null || path.Equals(this.currentMusicPath) == false)
             {
-                this.currentMusic.Stop();
-                this.currentMusic.Dispose();
+                if (this.currentMusic != null)
+                {
+                    this.currentMusic.Stop();
+                    this.currentMusic.Dispose();
+                }
+
+                LoopAudioFileReader reader = this.musicsDictionary[path];
+                WaveOutEvent outputDevice = new WaveOutEvent();
+                outputDevice.Volume = 0.75f;
+
+                reader.EnableLooping = true;
+
+                this.currentMusic = outputDevice;
+                this.currentMusicPath = path;
+
+                outputDevice.Init(reader);
+
+                outputDevice.Play();
             }
-
-            AudioFileReader reader = this.musicsDictionary[path];
-            WaveOutEvent outputDevice = new WaveOutEvent();
-            this.currentMusic = outputDevice;
-
-            outputDevice.Init(reader);
-
-            outputDevice.Play();
         }
 
         public void LoadSounds(HashSet<string> soundsToLoad)
@@ -98,7 +123,7 @@ namespace GameJam2020.View.Sounds
             HashSet<string> soundNotToLoad = new HashSet<string>();
             List<string> soundToRemove = new List<string>();
 
-            foreach (KeyValuePair<string, AudioFileReader> keyValuePair in this.soundsDictionary)
+            foreach (KeyValuePair<string, LoopAudioFileReader> keyValuePair in this.soundsDictionary)
             {
                 if (soundsToLoad.Contains(keyValuePair.Key) == false)
                 {
@@ -121,7 +146,7 @@ namespace GameJam2020.View.Sounds
             {
                 if (soundNotToLoad.Contains(pathToLoad) == false)
                 {
-                    this.soundsDictionary.Add(pathToLoad, new AudioFileReader(pathToLoad));
+                    this.soundsDictionary.Add(pathToLoad, new LoopAudioFileReader(pathToLoad));
                 }
             }
         }
@@ -131,7 +156,7 @@ namespace GameJam2020.View.Sounds
             HashSet<string> musicNotToLoad = new HashSet<string>();
             List<string> musicToRemove = new List<string>();
 
-            foreach (KeyValuePair<string, AudioFileReader> keyValuePair in this.musicsDictionary)
+            foreach (KeyValuePair<string, LoopAudioFileReader> keyValuePair in this.musicsDictionary)
             {
                 if (musicsToLoad.Contains(keyValuePair.Key) == false)
                 {
@@ -147,6 +172,15 @@ namespace GameJam2020.View.Sounds
 
             foreach (string keyToRemove in musicToRemove)
             {
+                if(this.currentMusicPath.Equals(string.Empty) != false && this.currentMusicPath.Equals(keyToRemove))
+                {
+                    this.currentMusic.Stop();
+                    this.currentMusic.Dispose();
+
+                    this.currentMusic = null;
+                    this.currentMusicPath = string.Empty;
+                }
+
                 this.musicsDictionary.Remove(keyToRemove);
             }
 
@@ -154,9 +188,54 @@ namespace GameJam2020.View.Sounds
             {
                 if (musicNotToLoad.Contains(pathToLoad) == false)
                 {
-                    this.musicsDictionary.Add(pathToLoad, new AudioFileReader(pathToLoad));
+                    this.musicsDictionary.Add(pathToLoad, new LoopAudioFileReader(pathToLoad));
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Stream for looping playback
+    /// </summary>
+    public class LoopAudioFileReader : AudioFileReader
+    {
+
+        /// <summary>
+        /// Creates a new Loop stream
+        /// </summary>
+        /// <param name="sourceStream">The stream to read from. Note: the Read method of this stream should return 0 when it reaches the end
+        /// or else we will not loop to the start again.</param>
+        public LoopAudioFileReader(string sourceStream):base(sourceStream)
+        {
+            this.EnableLooping = false;
+        }
+
+        /// <summary>
+        /// Use this to turn looping on or off
+        /// </summary>
+        public bool EnableLooping { get; set; }
+
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            int totalBytesRead = 0;
+
+            while (totalBytesRead < count)
+            {
+                int bytesRead = base.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
+                if (bytesRead == 0)
+                {
+                    if (this.Position == 0 || !EnableLooping)
+                    {
+                        // something wrong with the source stream
+                        break;
+                    }
+                    // loop
+                    base.Position = 0;
+                }
+                totalBytesRead += bytesRead;
+            }
+            return totalBytesRead;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameJam2020.Model.World;
+﻿using GameJam2020.Model.Events;
+using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using SFML.System;
 using System;
@@ -28,6 +29,8 @@ namespace GameJam2020.Model.GraphLogic
         public override void VisitStart(OfficeWorld world)
         {
             base.VisitStart(world);
+
+            world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.START, string.Empty));
         }
 
         public override void VisitEnd(OfficeWorld world)

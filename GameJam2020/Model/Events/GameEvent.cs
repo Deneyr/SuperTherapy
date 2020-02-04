@@ -38,6 +38,10 @@ namespace GameJam2020.Model.Events
         OPEN_BUBBLE,
         CLOSE_BUBBLE,
         START_TALK,
-        END_TALK
+        END_TALK,
+        DOOR_KNOCK,
+        DOOR_OPEN,
+        VALIDATION,
+        END_TIMER
     }
 }

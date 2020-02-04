@@ -17,6 +17,14 @@ namespace GameJam2020.Model.GraphLogic
             this.phaseNodes.Add(new EndPhase());
         }
 
+        public override string LevelName
+        {
+            get
+            {
+                return "endLevel";
+            }
+        }
+
         public override void VisitStart(OfficeWorld world)
         {
             this.NodeState = NodeState.ACTIVE;
@@ -64,6 +72,7 @@ namespace GameJam2020.Model.GraphLogic
 
             // Add Resources
             List<string> resourcesToLoad = new List<string>();
+            resourcesToLoad.Add(this.LevelName);
             resourcesToLoad.Add(office.Id);
 
             resourcesToLoad.Add(arrow.Id);

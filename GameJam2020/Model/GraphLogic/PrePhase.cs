@@ -1,4 +1,5 @@
-﻿using GameJam2020.Model.World;
+﻿using GameJam2020.Model.Events;
+using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using SFML.System;
 using System;
@@ -40,6 +41,8 @@ namespace GameJam2020.Model.GraphLogic
 
             DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
             dialogue.SetKinematicParameters(new Vector2f(-100f, -200f), new Vector2f(0f, 0f));
+
+            world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.START, string.Empty));
 
             this.periodPhase = Time.FromSeconds(2);
             this.timeElapsed = Time.Zero;
