@@ -92,6 +92,7 @@
     <Compile Include="Model\GraphLogic\PrePhase.cs" />
     <Compile Include="Model\GraphLogic\ResolvePhase.cs" />
     <Compile Include="Model\GraphLogic\ThinkPhase.cs" />
+    <Compile Include="Model\World\Objects\ResultObject.cs" />
     <Compile Include="Model\World\Objects\TimerTokenObject.cs" />
     <Compile Include="Model\World\Objects\BubbleObject.cs" />
     <Compile Include="Model\World\Objects\NotebookObject.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="View\Objects\PatientObject2D.cs" />
     <Compile Include="View\Objects\QueueDreamObject2D.cs" />
     <Compile Include="View\Objects\QueueTalkObject2D.cs" />
+    <Compile Include="View\Objects\ResultObject2D.cs" />
     <Compile Include="View\Objects\SanctuaryTokenObject2D.cs" />
     <Compile Include="View\Objects\TestObject2D.cs" />
     <Compile Include="View\Objects\TimerObject2D.cs" />

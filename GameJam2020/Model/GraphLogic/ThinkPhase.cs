@@ -102,7 +102,6 @@ namespace GameJam2020.Model.GraphLogic
                         this.moment = ThinkPhaseMoment.START_TIMER;
                         break;
                     case ThinkPhaseMoment.START_TIMER:
-                        world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.END_TIMER, string.Empty));
 
                         this.EndTimerAction(world);
                         break;
@@ -149,6 +148,8 @@ namespace GameJam2020.Model.GraphLogic
 
         private void EndTimerAction(OfficeWorld world)
         {
+            world.NotifyGameStateChanged(world.CurrentLevel.LevelName, new GameEvent(EventType.END_TIMER, string.Empty));
+
             DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
             dialogue.ResetDialogue();
 

@@ -234,12 +234,6 @@ namespace GameJam2020.Model.GraphLogic
 
         public override void VisitEnd(OfficeWorld world)
         {
-            world.NbPatient++;
-            if (this.isSuccess)
-            {
-                world.NbHappyPatient++;
-            }
-
             world.FlushLayers();
 
             base.VisitEnd(world);

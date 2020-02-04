@@ -13,6 +13,10 @@ namespace GameJam2020.View.Objects
     {
         public PatientObject2D()
         {
+            /*Random random = new Random();
+            this.sprite.Color = new Color((byte) random.Next(0, 256), (byte) random.Next(0, 256), (byte) random.Next(0, 256));
+            */
+
             Time periode = Time.FromMilliseconds(200);
 
             IntRect[] testAnim = AObject2D.CreateAnimation(0, 0, 574, 227, 5);

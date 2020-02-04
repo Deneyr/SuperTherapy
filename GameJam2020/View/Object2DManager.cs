@@ -76,6 +76,7 @@ namespace GameJam2020.View
             this.mappingIdObjectToTextures.Add("bubbleHeader", new List<string> { @"Resources\foreground\bubble.png" });
             this.mappingIdObjectToTextures.Add("bubbleTuto", new List<string> { @"Resources\foreground\Bulle_Tuto.png" });
             this.mappingIdObjectToTextures.Add("bubble", new List<string> { @"Resources\foreground\bubble.png" });
+            this.mappingIdObjectToTextures.Add("result", new List<string> { @"Resources\foreground\Spritemap_Wink280_253.png" });
 
             this.mappingIdObjectToTextures.Add("patient", new List<string> { @"Resources\middleground\Spritemap_Patient_1_574_226.png" });
             this.mappingIdObjectToTextures.Add("toubib", new List<string> { @"Resources\middleground\Spritemap_Psy_417_419.png" });
@@ -121,9 +122,9 @@ namespace GameJam2020.View
             this.mappingIdObjectToSounds.Add("endTimer", new List<string> { @"Resources\sounds\Bruitages\Mixed\SFX_Fin_Temps_Mixed.mp3" });
 
             this.mappingIdObjectToMusics = new Dictionary<string, List<string>>();
-            this.mappingIdObjectToMusics.Add("level", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
-            this.mappingIdObjectToMusics.Add("tutoLevel", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
-            this.mappingIdObjectToMusics.Add("endLevel", new List<string> { @"Resources\sounds\Musiques\Night in Venice.mp3" });
+            this.mappingIdObjectToMusics.Add("level", new List<string> { @"Resources\sounds\Musiques\Night in Venice_Mixed.mp3" });
+            this.mappingIdObjectToMusics.Add("tutoLevel", new List<string> { @"Resources\sounds\Musiques\Night in Venice_Mixed.mp3" });
+            this.mappingIdObjectToMusics.Add("endLevel", new List<string> { @"Resources\sounds\Musiques\Night in Venice_Mixed.mp3" });
         }
 
         public AObject2D getObject2DFrom(AObject lObject)
@@ -491,6 +492,9 @@ namespace GameJam2020.View
                     break;
                 case "office":
                     object2D = new OfficeObject2D();
+                    break;
+                case "result":
+                    object2D = new ResultObject2D();
                     break;
                 case "darkOffice":
                     object2D = new DarkOfficeObject2D();

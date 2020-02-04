@@ -26,6 +26,8 @@ namespace GameJam2020.Model.GraphLogic
         {
             base.VisitStart(world);
 
+            world.NbPatient++;
+
             AObject patient = world.GetObjectFromId("patient main");
             AObject toubib = world.GetObjectFromId("toubib main");
 

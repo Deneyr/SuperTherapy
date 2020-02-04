@@ -31,12 +31,21 @@ namespace GameJam2020.Model.GraphLogic
 
             world.InternalGameEvent += this.OnInternalGameEvent;
 
+            int nbHappyPatient = world.NbHappyPatient;
+
             // Create Objects
             DarkOfficeObject office = new DarkOfficeObject();
 
             ArrowObject arrow = new ArrowObject();
             BubbleHeaderObject bubbleHeader = new BubbleHeaderObject();
             BubbleTutoObject bubbleTuto = new BubbleTutoObject();
+ 
+            ResultObject[] resultObjects = new ResultObject[nbHappyPatient];
+            for(int i=0; i < nbHappyPatient; i++)
+            {
+                resultObjects[i] = new ResultObject();
+            }
+
             //BubbleTutoObject bubbleResult = new BubbleTutoObject();
 
             DialogueObject header = DialogueFactory.CreateDialogueFactory(30, "Docteur IPSO", TokenType.HEADER);
@@ -51,11 +60,11 @@ namespace GameJam2020.Model.GraphLogic
             DialogueObject result;
             if(world.NbHappyPatient > 0)
             {
-                result = DialogueFactory.CreateDialogueFactory(60, "Ipso a rendu " + world.NbHappyPatient + " patients heureux !", TokenType.NORMAL);
+                result = DialogueFactory.CreateDialogueFactory(60, "Vous avez rendu " + world.NbHappyPatient + " patients heureux sur " + world.NbPatient + " !", TokenType.NORMAL);
             }
             else
             {
-                result = DialogueFactory.CreateDialogueFactory(60, "Ipso n'a rendu aucun patient heureux !", TokenType.NORMAL);
+                result = DialogueFactory.CreateDialogueFactory(60, "Vous n'avez rendu aucun patient heureux !", TokenType.NORMAL);
             }
 
             result.Alias = "result";
@@ -78,6 +87,10 @@ namespace GameJam2020.Model.GraphLogic
             resourcesToLoad.Add(arrow.Id);
             resourcesToLoad.Add(bubbleHeader.Id);
             resourcesToLoad.Add(bubbleTuto.Id);
+            if (resultObjects.Count() > 0)
+            {
+                resourcesToLoad.Add(resultObjects[0].Id);
+            }
 
             resourcesToLoad.Add("normalToken");
             resourcesToLoad.Add("sanctuaryToken");
@@ -108,6 +121,10 @@ namespace GameJam2020.Model.GraphLogic
             world.AddObject(bubbleHeader, 2);
             world.AddObject(bubbleTuto, 2);
             //world.AddObject(bubbleResult, 2);
+            for (int i = 0; i < nbHappyPatient; i++)
+            {
+                world.AddObject(resultObjects[i], 2);
+            }
 
             world.AddObject(header, 3);
             world.AddObject(question, 3);
@@ -119,28 +136,34 @@ namespace GameJam2020.Model.GraphLogic
             // Set Object Position.
             office.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(0, 0));
 
-            arrow.SetKinematicParameters(new Vector2f(-220, 180), new Vector2f(0, 0));
+            arrow.SetKinematicParameters(new Vector2f(-220, 230), new Vector2f(0, 0));
 
-            header.SetKinematicParameters(new Vector2f(-220, -280), new Vector2f(0, 0));
+            header.SetKinematicParameters(new Vector2f(-220, -300), new Vector2f(0, 0));
             header.LaunchDialogue(2);
 
-            answer.SetKinematicParameters(new Vector2f(-270, 100), new Vector2f(0, 0));
+            answer.SetKinematicParameters(new Vector2f(-270, 150), new Vector2f(0, 0));
             answer.LaunchDialogue(2);
 
-            question.SetKinematicParameters(new Vector2f(100, 100), new Vector2f(0, 0));
+            question.SetKinematicParameters(new Vector2f(100, 150), new Vector2f(0, 0));
             question.LaunchDialogue(2);
 
-            text.SetKinematicParameters(new Vector2f(200, 100), new Vector2f(0, 0));
+            text.SetKinematicParameters(new Vector2f(200, 150), new Vector2f(0, 0));
             text.LaunchDialogue(2);
 
-            result.SetKinematicParameters(new Vector2f(-220, -20), new Vector2f(0, 0));
+            result.SetKinematicParameters(new Vector2f(-240, -80), new Vector2f(0, 0));
             result.LaunchDialogue(2);
 
             credits.SetKinematicParameters(new Vector2f(-350, 300), new Vector2f(0, 0));
             credits.LaunchDialogue(2);
 
-            bubbleHeader.SetKinematicParameters(new Vector2f(-340, -350), new Vector2f(0, 0));
-            bubbleTuto.SetKinematicParameters(new Vector2f(60, 60), new Vector2f(0, 0));
+            float startPositionX = -((nbHappyPatient / 2f) * 140);
+            for(int i=0; i < nbHappyPatient; i++)
+            {
+                resultObjects[i].SetKinematicParameters(new Vector2f(startPositionX + i * 140, -20), new Vector2f(0, 0));
+            }
+
+            bubbleHeader.SetKinematicParameters(new Vector2f(-340, -360), new Vector2f(0, 0));
+            bubbleTuto.SetKinematicParameters(new Vector2f(60, 110), new Vector2f(0, 0));
             //arrow.IsFocused = true;
             bubbleHeader.SetAnimationIndex(2);
 
