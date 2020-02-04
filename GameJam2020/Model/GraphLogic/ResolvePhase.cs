@@ -28,6 +28,14 @@ namespace GameJam2020.Model.GraphLogic
             this.moment = ResolvePhaseMoment.START;
         }
 
+        public bool IsSuccess
+        {
+            get
+            {
+                return this.isSuccess;
+            }
+        }
+
         public override void VisitStart(OfficeWorld world)
         {
             base.VisitStart(world);
@@ -126,7 +134,7 @@ namespace GameJam2020.Model.GraphLogic
             }
         }
 
-        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, string details)
+        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
             DialogueObject dialogue;
             AObject patient = world.GetObjectFromId("patient main");

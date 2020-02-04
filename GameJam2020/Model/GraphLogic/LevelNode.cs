@@ -19,12 +19,16 @@ namespace GameJam2020.Model.GraphLogic
 
         protected LevelData levelData;
 
+        private bool isSuccess;
+
         public LevelNode()
         {
             this.pathLevel = string.Empty;
 
             this.phaseNodes = new List<APhaseNode>();
             this.currentPhaseNode = null;
+
+            this.isSuccess = false;
         }
 
         public LevelNode(string pathLevel)
@@ -33,22 +37,35 @@ namespace GameJam2020.Model.GraphLogic
 
             this.phaseNodes = new List<APhaseNode>();
 
+            APhaseNode prePhase = new PrePhase();
             APhaseNode startPhase = new StartPhase();
             APhaseNode explainPhase = new ExplainPhase();
             APhaseNode thinkPhase = new ThinkPhase();
             APhaseNode exposePhase = new ExposePhase();
             APhaseNode resolvePhase = new ResolvePhase();
 
+            prePhase.NextNode = startPhase;
             startPhase.NextNode = explainPhase;
             explainPhase.NextNode = thinkPhase;
             thinkPhase.NextNode = exposePhase;
             exposePhase.NextNode = resolvePhase;
 
+            this.phaseNodes.Add(prePhase);
             this.phaseNodes.Add(startPhase);
             this.phaseNodes.Add(explainPhase);
             this.phaseNodes.Add(exposePhase);
             this.phaseNodes.Add(resolvePhase);
             this.currentPhaseNode = null;
+
+            this.isSuccess = false;
+        }
+
+        public bool IsSuccess
+        {
+            get
+            {
+                return this.isSuccess;
+            }
         }
 
         public virtual string LevelName
@@ -108,6 +125,9 @@ namespace GameJam2020.Model.GraphLogic
 
             DialogueObject dialogueFailAnswer = DialogueFactory.CreateDialogueFactory(60, this.levelData.PatientFailAnswer, TokenType.NORMAL);
             dialogueFailAnswer.Alias = "failAnswer";
+
+            DialogueObject dialogueComing = DialogueFactory.CreateDialogueFactory(30, "Hum, Entrez ...", TokenType.NORMAL);
+            dialogueComing.Alias = "coming";
 
             AToken timerToken = DialogueFactory.CreateToken(string.Empty, TokenType.TIMER);
             timerToken.Alias = "main";
@@ -179,6 +199,7 @@ namespace GameJam2020.Model.GraphLogic
             world.AddObject(dialogueAnswer, 4);
             world.AddObject(dialogueFailAnswer, 3);
             world.AddObject(dialogueSuccessAnswer, 3);
+            world.AddObject(dialogueComing, 3);
 
             // Set Object Position.
             office.SetKinematicParameters(new Vector2f(0, 0), new Vector2f(0, 0));
@@ -218,6 +239,11 @@ namespace GameJam2020.Model.GraphLogic
                 }
                 else if(this.currentPhaseNode.NodeState == NodeState.NOT_ACTIVE)
                 {
+                    if(this.currentPhaseNode is ResolvePhase)
+                    {
+                        this.isSuccess = (this.currentPhaseNode as ResolvePhase).IsSuccess;
+                    }
+
                     this.currentPhaseNode.VisitEnd(world);
 
                     if(this.currentPhaseNode.NextNode == null)

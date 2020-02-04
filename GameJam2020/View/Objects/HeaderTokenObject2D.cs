@@ -13,7 +13,7 @@ namespace GameJam2020.View.Objects
         {
             this.text.Style = Text.Styles.Bold;
 
-            this.text.CharacterSize = 80;
+            this.text.CharacterSize = 110;
         }
     }
 }

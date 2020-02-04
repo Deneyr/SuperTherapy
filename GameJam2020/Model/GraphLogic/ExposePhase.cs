@@ -93,7 +93,7 @@ namespace GameJam2020.Model.GraphLogic
             }
         }
 
-        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, string details)
+        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
             DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
 

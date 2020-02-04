@@ -36,8 +36,8 @@ namespace GameJam2020.View.Objects
             animation = new Animation(testAnim, periode, AnimationType.ONETIME);
             this.AddAnimation(animation);
 
-            testAnim = AObject2D.CreateAnimation(0, 227 * 5, 574, 226, 1);
-            animation = new Animation(testAnim, periode, AnimationType.LOOP);
+            testAnim = AObject2D.CreateAnimation(0, 227 * 5, 574, 226, 5);
+            animation = new Animation(testAnim, periode, AnimationType.ONETIME);
             this.AddAnimation(animation);
 
             // Angry & Happy

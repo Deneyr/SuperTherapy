@@ -35,12 +35,15 @@ namespace GameJam2020.Model.GraphLogic
             base.VisitEnd(world);
         }
 
-        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, string details)
+        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
             if(details.Equals("association"))
             {
-                DialogueObject dialogue = world.GetObjectFromId("dialogue answer") as DialogueObject;
-                dialogue.ResetDialogue();
+                AToken token = (lObjectTo as AToken);
+
+                /*DialogueObject dialogue = world.GetObjectFromId((lObject as FieldToken).AssociatedToken) as DialogueObject;
+                dialogue.ResetDialogue();*/
+                token.DisplayText = string.Empty;
 
                 this.isValidated = true;
                 this.timeElapsed = Time.Zero;

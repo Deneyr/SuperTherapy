@@ -39,7 +39,7 @@ namespace GameJam2020.Model.World
 
         public event Action<string, GameEvent> GameStateChanged;
 
-        public event Action<OfficeWorld, AObject, string> InternalGameEvent;
+        public event Action<OfficeWorld, AObject, AObject, string> InternalGameEvent;
 
 
         private Dictionary<string, AObject> objectsById;
@@ -214,7 +214,7 @@ namespace GameJam2020.Model.World
             }
             else if(lField is TimerObject)
             {
-                this.NotifyInternalGameEvent(lAnswer, "timerPassed");
+                this.NotifyInternalGameEvent(lAnswer, null, "timerPassed");
             }
         }
 
@@ -331,11 +331,11 @@ namespace GameJam2020.Model.World
             }
         }
 
-        public void NotifyInternalGameEvent(AObject lObject, string details)
+        public void NotifyInternalGameEvent(AObject lObject, AObject lObjectTo, string details)
         {
             if (this.InternalGameEvent != null)
             {
-                this.InternalGameEvent(this, lObject, details);
+                this.InternalGameEvent(this, lObject, lObjectTo,  details);
             }
         }
     }

@@ -201,7 +201,7 @@ namespace GameJam2020.Model.World.Objects
 
             if(this.IsDialogueFull && this.isDialogueLaunched)
             {
-                officeWorld.NotifyInternalGameEvent(this, "endDialogue");
+                officeWorld.NotifyInternalGameEvent(this, null, "endDialogue");
 
                 this.isDialogueLaunched = false;
             }

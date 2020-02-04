@@ -93,7 +93,7 @@ namespace GameJam2020.Model.World.Objects
                         nextToken = nextToken.NextToken;
                     }
 
-                    officeWorld.NotifyInternalGameEvent(this, "association");
+                    officeWorld.NotifyInternalGameEvent(this.previousAssociatedToken, this.associatedToken, "association");
                 }
 
                 this.previousAssociatedToken = this.associatedToken;

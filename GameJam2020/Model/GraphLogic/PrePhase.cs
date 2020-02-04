@@ -1,5 +1,4 @@
-﻿using GameJam2020.Model.Events;
-using GameJam2020.Model.World;
+﻿using GameJam2020.Model.World;
 using GameJam2020.Model.World.Objects;
 using SFML.System;
 using System;
@@ -10,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace GameJam2020.Model.GraphLogic
 {
-    public class ExplainPhase: APhaseNode
+    public class PrePhase : APhaseNode
     {
         private Time periodPhase;
         private Time timeElapsed;
 
-        private StartPhaseMoment moment;
+        private PrePhaseMoment moment;
 
-        public ExplainPhase()
+        public PrePhase()
         {
-            this.periodPhase = Time.FromSeconds(1);
+            this.periodPhase = Time.FromSeconds(3);
 
             this.timeElapsed = Time.Zero;
 
-            this.moment = StartPhaseMoment.START;
+            this.moment = PrePhaseMoment.START;
         }
 
         public override void VisitStart(OfficeWorld world)
@@ -34,17 +33,15 @@ namespace GameJam2020.Model.GraphLogic
             AObject toubib = world.GetObjectFromId("toubib main");
 
             AObject bubble = world.GetObjectFromId("bubble main");
-            //bubble.SetKinematicParameters(new Vector2f(-520f, -380f), new Vector2f(0f, 0f));
+            bubble.SetKinematicParameters(new Vector2f(-520f, -380f), new Vector2f(0f, 0f));
 
-            patient.SetAnimationIndex(2);
-            toubib.SetAnimationIndex(1);
-
-            bubble.SetAnimationIndex(1);
+            patient.SetAnimationIndex(6);
+            toubib.SetAnimationIndex(2);
 
             DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
-            dialogue.SetKinematicParameters(new Vector2f(-380f, dialogue.GetHeight(-150)), new Vector2f(0f, 0f));
+            dialogue.SetKinematicParameters(new Vector2f(-100f, -200f), new Vector2f(0f, 0f));
 
-            this.periodPhase = Time.FromSeconds(1.2f);
+            this.periodPhase = Time.FromSeconds(2);
             this.timeElapsed = Time.Zero;
         }
 
@@ -61,20 +58,31 @@ namespace GameJam2020.Model.GraphLogic
             {
                 switch (this.moment)
                 {
-                    case StartPhaseMoment.START:
-                        DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
-                        dialogue.LaunchDialogue(2);
+                    case PrePhaseMoment.START:
+                        AObject bubble = world.GetObjectFromId("bubble main");
+                        bubble.SetAnimationIndex(1);
+
+                        AObject toubib = world.GetObjectFromId("toubib main");
+                        toubib.SetAnimationIndex(3);
+
+                        this.moment = PrePhaseMoment.BUBBLE_APPEARED;
+                        this.periodPhase = Time.FromSeconds(1.2f);
+                        this.timeElapsed = Time.Zero;
+                        break;
+                    case PrePhaseMoment.BUBBLE_APPEARED:
+                        DialogueObject dialogue = world.GetObjectFromId("dialogue coming") as DialogueObject;
+                        dialogue.SetKinematicParameters(new Vector2f(-380f, dialogue.GetHeight(-150)), new Vector2f(0f, 0f));
+                        dialogue.LaunchDialogue(1);
 
                         AObject queueTalk = world.GetObjectFromId("queueTalk main");
-                        queueTalk.SetKinematicParameters(new Vector2f(-200f, 120f), new Vector2f(0f, 0f));
+                        queueTalk.SetKinematicParameters(new Vector2f(100f, 100f), new Vector2f(0f, 0f));
 
-                        AObject bubble = world.GetObjectFromId("bubble main");
+                        bubble = world.GetObjectFromId("bubble main");
                         bubble.SetAnimationIndex(2);
-
-                        this.moment = StartPhaseMoment.BUBBLE_APPEARED;
+                        this.moment = PrePhaseMoment.START_TALKING;
                         break;
-                    case StartPhaseMoment.TEXT_APPEARED:
-                        dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
+                    case PrePhaseMoment.TEXT_APPEARED:
+                        dialogue = world.GetObjectFromId("dialogue coming") as DialogueObject;
                         dialogue.ResetDialogue();
 
                         bubble = world.GetObjectFromId("bubble main");
@@ -85,9 +93,9 @@ namespace GameJam2020.Model.GraphLogic
 
                         this.timeElapsed = Time.Zero;
                         this.periodPhase = Time.FromSeconds(2);
-                        this.moment = StartPhaseMoment.END;
+                        this.moment = PrePhaseMoment.END;
                         break;
-                    case StartPhaseMoment.END:
+                    case PrePhaseMoment.END:
                         this.NodeState = NodeState.NOT_ACTIVE;
                         break;
                 }
@@ -96,20 +104,21 @@ namespace GameJam2020.Model.GraphLogic
 
         protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
-            DialogueObject dialogue = world.GetObjectFromId("dialogue patient") as DialogueObject;
+            DialogueObject dialogue = world.GetObjectFromId("dialogue coming") as DialogueObject;
 
             if (dialogue == lObject)
             {
                 this.timeElapsed = Time.Zero;
-                this.periodPhase = Time.FromSeconds(3);
-                this.moment = StartPhaseMoment.TEXT_APPEARED;
+                this.periodPhase = Time.FromSeconds(1);
+                this.moment = PrePhaseMoment.TEXT_APPEARED;
             }
         }
     }
 
-    public enum StartPhaseMoment
+    public enum PrePhaseMoment
     {
         START,
+        START_TALKING,
         BUBBLE_APPEARED,
         TEXT_APPEARED,
         END

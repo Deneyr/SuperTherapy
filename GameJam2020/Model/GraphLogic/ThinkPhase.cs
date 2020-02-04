@@ -123,11 +123,25 @@ namespace GameJam2020.Model.GraphLogic
             }
         }
 
-        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, string details)
+        protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
-            if(this.moment == ThinkPhaseMoment.START_TIMER && details.Equals("timerPassed"))
+            if(this.moment == ThinkPhaseMoment.START_TIMER)
             {
-                this.EndTimerAction(world);
+                if (details.Equals("timerPassed"))
+                {
+                    this.EndTimerAction(world);
+                }
+                else if (details.Equals("association"))
+                {
+                    AToken tokenTo = lObjectTo as AToken;
+
+                    if(lObject != null)
+                    {
+                        AToken tokenFrom = lObject as AToken;
+                        tokenFrom.DisplayText = tokenFrom.Text;
+                    }
+                    tokenTo.DisplayText = string.Empty;
+                }
             }
         }
 

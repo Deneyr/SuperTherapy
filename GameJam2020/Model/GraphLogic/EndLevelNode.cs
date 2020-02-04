@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace GameJam2020.Model.GraphLogic
 {
-    public class TutoLevelNode : LevelNode
+    public class EndLevelNode: LevelNode
     {
-        public TutoLevelNode()
+        public EndLevelNode()
         {
             this.phaseNodes.Add(new TutoPhase());
         }
@@ -36,7 +36,7 @@ namespace GameJam2020.Model.GraphLogic
             answer.Alias = "answer";
             DialogueObject question = DialogueFactory.CreateDialogueFactory(30, "Déplacer", TokenType.FIELD);
             question.Alias = "question";
-            DialogueObject text = DialogueFactory.CreateDialogueFactory(30, "  pour commencer !", TokenType.NORMAL);
+            DialogueObject text = DialogueFactory.CreateDialogueFactory(30, "  pour recommencer !", TokenType.NORMAL);
             text.Alias = "text";
 
             DialogueObject credits = DialogueFactory.CreateDialogueFactory(60, "Pierre Duchateau   Clément Romagny   François Massy", TokenType.NORMAL);

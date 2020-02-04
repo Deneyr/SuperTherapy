@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.Graphics;
 using GameJam2020.Model.Data;
+using NAudio.Wave;
 
 namespace GameJam2020
 {
