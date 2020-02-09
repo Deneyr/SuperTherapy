@@ -139,7 +139,7 @@ namespace GameJam2020.View
                 if(pair.Value is AnswerTokenObject2D)
                 {
                     ATokenObject2D token = pair.Value as ATokenObject2D;
-                    FloatRect bounds = token.TextGlobalBounds;
+                    FloatRect bounds = token.SpriteGlobalBounds;
 
                     if(position.X > bounds.Left && position.X < bounds.Left + bounds.Width
                         && position.Y > bounds.Top && position.Y < bounds.Top + bounds.Height)
@@ -177,18 +177,18 @@ namespace GameJam2020.View
                 if (pair.Value is FieldTokenObject2D)
                 {
                     ATokenObject2D token = pair.Value as ATokenObject2D;
-                    FloatRect bounds = token.TextGlobalBounds;
+                    FloatRect bounds = token.SpriteGlobalBounds;
 
-                    float BoundTop = bounds.Top;
+                    /*float BoundTop = bounds.Top;
                     float BoundHeight = bounds.Height;
                     if ( bounds.Height < 40)
                     {
                         BoundTop -= 40 - bounds.Height;
                         BoundHeight = 40;
-                    }
+                    }*/
 
                     if (position.X > bounds.Left && position.X < bounds.Left + bounds.Width
-                        && position.Y > BoundTop && position.Y < BoundTop + BoundHeight)
+                        && position.Y > bounds.Top && position.Y < bounds.Top + bounds.Height)
                     {
                         return pair.Key;
                     }

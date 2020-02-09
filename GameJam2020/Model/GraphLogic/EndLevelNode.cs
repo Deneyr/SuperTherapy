@@ -58,9 +58,13 @@ namespace GameJam2020.Model.GraphLogic
             text.Alias = "text";
 
             DialogueObject result;
-            if(world.NbHappyPatient > 0)
+            if(world.NbHappyPatient > 1)
             {
                 result = DialogueFactory.CreateDialogueFactory(60, "Vous avez rendu " + world.NbHappyPatient + " patients heureux sur " + world.NbPatient + " !", TokenType.NORMAL);
+            }
+            else if(world.NbHappyPatient > 0)
+            {
+                result = DialogueFactory.CreateDialogueFactory(60, "Vous avez rendu 1 patient heureux sur " + world.NbPatient + " !", TokenType.NORMAL);
             }
             else
             {

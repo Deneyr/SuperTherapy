@@ -1,6 +1,7 @@
 ﻿using GameJam2020.View.Animations;
 using SFML.Graphics;
 using SFML.System;
+using System;
 using System.Collections.Generic;
 
 namespace GameJam2020.View.Objects
@@ -40,15 +41,24 @@ namespace GameJam2020.View.Objects
             this.AddAnimation(zoomAnimation);
         }
 
-        public FloatRect TextGlobalBounds
+        public virtual FloatRect TextGlobalBounds
         {
             get
             {
-                return this.text.GetGlobalBounds();
+                FloatRect bounds = this.text.GetGlobalBounds();
+
+                /*if (bounds.Height < this.text.CharacterSize)
+                {
+                    bounds.Top -= (this.text.CharacterSize - bounds.Height) / 2;
+
+                    bounds.Height = this.text.CharacterSize;
+                }*/
+
+                return bounds;
             }
         }
 
-        public FloatRect SpriteGlobalBounds
+        public virtual FloatRect SpriteGlobalBounds
         {
             get
             {

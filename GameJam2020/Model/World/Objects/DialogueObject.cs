@@ -162,6 +162,8 @@ namespace GameJam2020.Model.World.Objects
             this.currentTokenIndex = -1;
             this.currentTokenRowIndex = 0;
 
+            this.ResetDialogue();
+
             this.speedFactor = speedFactor;
 
             this.isDialogueLaunched = true;

@@ -3,6 +3,7 @@ using GameJam2020.Model.World.Objects;
 using GameJam2020.View;
 using GameJam2020.View.Objects;
 using GameJam2020.View.Textures;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using System;

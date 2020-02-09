@@ -36,3 +36,25 @@ C:\Users\pir77\Documents\visual studio 2015\Projects\SuperTherapy\GameJam2020\ob
 C:\Users\pir77\Documents\Visual Studio 2015\Projects\SuperTherapy\GameJam2020\bin\x86\Release\NAudio.dll
 C:\Users\pir77\Documents\Visual Studio 2015\Projects\SuperTherapy\GameJam2020\bin\x86\Release\NAudio.xml
 C:\Users\pir77\Documents\Visual Studio 2015\Projects\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.csprojResolveAssemblyReference.cache
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\GameJam2020.exe.config
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\GameJam2020.exe
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\GameJam2020.pdb
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\NAudio.dll
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-audio-2.dll
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-graphics-2.dll
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-system-2.dll
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-window-2.dll
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\NAudio.xml
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-audio-2.pdb
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-audio-2.xml
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-graphics-2.pdb
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-graphics-2.xml
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-system-2.pdb
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-system-2.xml
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-window-2.pdb
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\bin\x86\Release\sfmlnet-window-2.xml
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.csprojAssemblyReference.cache
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.csproj.CoreCompileInputs.cache
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.csproj.CopyComplete
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.exe
+D:\Projects\SuperTherapy\SuperTherapy\GameJam2020\obj\x86\Release\GameJam2020.pdb

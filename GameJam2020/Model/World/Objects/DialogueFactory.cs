@@ -14,6 +14,7 @@ namespace GameJam2020.Model.World.Objects
             DialogueObject dialogueObject = new DialogueObject(dialogueLength);
 
             AToken previousToken = null;
+            DialogueToken previousDataToken = null;
             foreach (DialogueToken token in data.DialoguesToken)
             {
                 string[] words;
@@ -34,7 +35,14 @@ namespace GameJam2020.Model.World.Objects
                     switch (token.Type)
                     {
                         case TokenType.NORMAL:
-                            tokenObject = new NormalToken(previousToken, word + " ");
+                            if(previousDataToken != null && (previousDataToken.Type == TokenType.FIELD || previousDataToken.Type == TokenType.ANSWER))
+                            {
+                                tokenObject = new NormalToken(previousToken, " " + word + " ");
+                            }
+                            else
+                            {
+                                tokenObject = new NormalToken(previousToken, word + " ");
+                            }
                             break;
                         case TokenType.SANCTUARY:
                             tokenObject = new SanctuaryToken(previousToken, word + " ");
@@ -58,6 +66,7 @@ namespace GameJam2020.Model.World.Objects
                     dialogueObject.AddToken(tokenObject);
 
                     previousToken = tokenObject;
+                    previousDataToken = token;
                 }
             }
 
