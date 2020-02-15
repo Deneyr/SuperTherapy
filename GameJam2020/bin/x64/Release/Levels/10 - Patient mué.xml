@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LevelData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PatientDialogue>
+    <DialogueTokens>
+      <Token>
+        <Token>.................... !!! .................... .... .................... ... . .. .................... ....... .................... ...</Token>
+        <Type>NORMAL</Type>
+      </Token>
+    </DialogueTokens>
+  </PatientDialogue>
+  <ToubibDialogue>
+    <DialogueTokens>
+	<Token>
+        <Token>Le message est passé et il n'est pas tombé dans l'oreille d'un sourd. J'ai bien compris que votre problème de</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>!!!</Token>
+        <Type>FIELD</Type>
+      </Token>
+	  <Token>
+        <Token>vous empêchait de</Token>
+        <Type>NORMAL</Type>
+      </Token>
+	   <Token>
+        <Token>....</Token>
+        <Type>FIELD</Type>
+      </Token>
+	   <Token>
+        <Token>mais ne vous en faite pas, avec un peu de volonté vous pourrez bientôt</Token>
+        <Type>NORMAL</Type>
+		 </Token>
+		 <Token>
+        <Token>... . ..</Token>
+        <Type>FIELD</Type>
+      </Token>
+		  <Token> 
+        <Token>autant que vous voulez. In fine prenez ces cachets de</Token>
+        <Type>NORMAL</Type>
+		 </Token>
+		 <Token>
+        <Token>.......</Token>
+        <Type>FIELD</Type>
+      </Token>
+		  <Token> 
+        <Token>Parfois un</Token>
+        <Type>NORMAL</Type>
+		 </Token>
+		 <Token>
+        <Token>...</Token>
+        <Type>FIELD</Type>
+      </Token>
+		  <Token> 
+        <Token>vaut plus qu'un long discours.</Token>
+        <Type>NORMAL</Type>
+		 </Token>
+    </DialogueTokens>
+  </ToubibDialogue>
+  <AnswerTokens>
+    <DialogueTokens>
+	  <Token>
+        <Token>!!!</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>???</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>....</Token>
+        <Type>ANSWER</Type>
+      </Token>
+      <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>... . ..</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+      <Token>
+        <Token>... ... ...</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+	  <Token>
+        <Token>... ! ..</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+	  <Token>
+        <Token>... . ..</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+	  <Token>
+        <Token>.......</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+	  <Token>
+        <Token>.</Token>
+        <Type>ANSWER</Type>
+      </Token>
+	  <Token>
+        <Token>_</Token>
+        <Type>NORMAL</Type>
+      </Token>
+	  <Token>
+        <Token>...</Token>
+        <Type>ANSWER</Type>
+      </Token>
+    </DialogueTokens>
+  </AnswerTokens>
+<Timer>200</Timer>
+<PatientSuccessAnswer>... ...!</PatientSuccessAnswer>
+<PatientFailAnswer>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</PatientFailAnswer>
+</LevelData>

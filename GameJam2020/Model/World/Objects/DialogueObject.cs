@@ -59,6 +59,23 @@ namespace GameJam2020.Model.World.Objects
             }
         }
 
+        public float SpeedFactor
+        {
+            get
+            {
+                return this.speedFactor;
+            }
+            set
+            {
+                if (this.isDialogueLaunched)
+                {
+                    this.speedFactor = value;
+
+                    this.tokensList[this.currentTokenRowIndex][this.currentTokenIndex].SpeedFactor = this.speedFactor;
+                }
+            }
+        }
+
         public float GetHeight(float inputHeight)
         {
             int nbRow = Math.Min(3, this.tokensList.Count / 2);
@@ -162,7 +179,7 @@ namespace GameJam2020.Model.World.Objects
             this.currentTokenIndex = -1;
             this.currentTokenRowIndex = 0;
 
-            this.ResetDialogue();
+            //this.ResetDialogue();
 
             this.speedFactor = speedFactor;
 

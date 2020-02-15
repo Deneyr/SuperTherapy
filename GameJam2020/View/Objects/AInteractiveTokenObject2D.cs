@@ -52,6 +52,14 @@ namespace GameJam2020.View.Objects
             }
         }
 
+        public override Vector2f DeltaSpriteText
+        {
+            get
+            {
+                return new Vector2f(-7f, -5f);
+            }
+        }
+
         public override FloatRect SpriteGlobalBounds
         {
             get

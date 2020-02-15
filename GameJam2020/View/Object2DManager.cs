@@ -170,6 +170,25 @@ namespace GameJam2020.View
             return null;
         }
 
+        public AObject getDialogueBubbleAt(Vector2f position)
+        {
+            foreach (KeyValuePair<AObject, AObject2D> pair in this.mappingObjectToObject2D)
+            {
+                if (pair.Value is BubbleObject2D)
+                {
+                    BubbleObject2D timer = pair.Value as BubbleObject2D;
+                    FloatRect bounds = timer.SpriteGlobalBounds;
+
+                    if (position.X > bounds.Left && position.X < bounds.Left + bounds.Width
+                        && position.Y > bounds.Top && position.Y < bounds.Top + bounds.Height)
+                    {
+                        return pair.Key;
+                    }
+                }
+            }
+            return null;
+        }
+
         public AObject getFieldTokenAt(Vector2f position)
         {
             foreach (KeyValuePair<AObject, AObject2D> pair in this.mappingObjectToObject2D)

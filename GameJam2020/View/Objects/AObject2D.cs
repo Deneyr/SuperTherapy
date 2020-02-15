@@ -66,6 +66,14 @@ namespace GameJam2020.View.Objects
             }
         }
 
+        public virtual Vector2f DeltaSpriteText
+        {
+            get
+            {
+                return new Vector2f(this.sprite.Position.X - this.text.Position.X, this.sprite.Position.Y - this.text.Position.Y);
+            }
+        }
+
         public Vector2f Position
         {
             get

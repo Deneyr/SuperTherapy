@@ -221,6 +221,14 @@ namespace GameJam2020.Model.World
             }
         }
 
+        public void OnSpeedUpDialogue(AObject lObject)
+        {
+            if (lObject is BubbleObject)
+            {
+                this.NotifyInternalGameEvent(lObject, null, "speedUpDialogue");
+            }
+        }
+
         public void OnMouseUpOnObject(AObject lAnswer, AObject lField)
         {
             if (lAnswer is AnswerToken)

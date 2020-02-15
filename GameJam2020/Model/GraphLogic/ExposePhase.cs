@@ -95,23 +95,32 @@ namespace GameJam2020.Model.GraphLogic
 
         protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
-            DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
-
-            if (dialogue == lObject)
+            if (details.Equals("endDialogue"))
             {
-                AObject patient = world.GetObjectFromId("patient main");
-                if (this.isSuccess)
-                {
-                    patient.SetAnimationIndex(8);
-                }
-                else
-                {
-                    patient.SetAnimationIndex(7);
-                }
+                DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
 
-                this.timeElapsed = Time.Zero;
-                this.periodPhase = Time.FromSeconds(2);
-                this.moment = ExposePhaseMoment.END_DIALOGUE;
+                if (dialogue == lObject)
+                {
+                    AObject patient = world.GetObjectFromId("patient main");
+                    if (this.isSuccess)
+                    {
+                        patient.SetAnimationIndex(8);
+                    }
+                    else
+                    {
+                        patient.SetAnimationIndex(7);
+                    }
+
+                    this.timeElapsed = Time.Zero;
+                    this.periodPhase = Time.FromSeconds(2);
+                    this.moment = ExposePhaseMoment.END_DIALOGUE;
+                }
+            }
+            else if (details.Equals("speedUpDialogue"))
+            {
+                DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
+
+                dialogue.SpeedFactor = 10;
             }
         }
     }

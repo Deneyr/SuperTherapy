@@ -140,23 +140,40 @@ namespace GameJam2020.Model.GraphLogic
 
         protected override void OnInternalGameEvent(OfficeWorld world, AObject lObject, AObject lObjectTo, string details)
         {
-            DialogueObject dialogue;
-            AObject patient = world.GetObjectFromId("patient main");
+            if (details.Equals("endDialogue"))
+            {
+                DialogueObject dialogue;
+                AObject patient = world.GetObjectFromId("patient main");
 
-            if (this.isSuccess)
-            {
-                dialogue = world.GetObjectFromId("dialogue successAnswer") as DialogueObject;
-            }
-            else
-            {
-                dialogue = world.GetObjectFromId("dialogue failAnswer") as DialogueObject;
-            }
+                if (this.isSuccess)
+                {
+                    dialogue = world.GetObjectFromId("dialogue successAnswer") as DialogueObject;
+                }
+                else
+                {
+                    dialogue = world.GetObjectFromId("dialogue failAnswer") as DialogueObject;
+                }
 
-            if (dialogue == lObject)
+                if (dialogue == lObject)
+                {
+                    this.timeElapsed = Time.Zero;
+                    this.periodPhase = Time.FromSeconds(3);
+                    this.moment = ResolvePhaseMoment.END_DIALOGUE;
+                }
+            }
+            else if (details.Equals("speedUpDialogue"))
             {
-                this.timeElapsed = Time.Zero;
-                this.periodPhase = Time.FromSeconds(3);
-                this.moment = ResolvePhaseMoment.END_DIALOGUE;
+                DialogueObject dialogue;
+                if (this.isSuccess)
+                {
+                    dialogue = world.GetObjectFromId("dialogue successAnswer") as DialogueObject;
+                }
+                else
+                {
+                    dialogue = world.GetObjectFromId("dialogue failAnswer") as DialogueObject;
+                }
+
+                dialogue.SpeedFactor = 10;
             }
         }
     }

@@ -86,9 +86,11 @@ namespace GameJam2020
             if(this.objectFocused != null)
             {
                 AObject2D object2D = this.object2DManager.getObject2DFrom(this.objectFocused);
-                FloatRect rect = object2D.TextGlobalBounds;
+                FloatRect rect = object2D.SpriteGlobalBounds;
 
-                this.officeWorld.OnMouseDragOnObject(this.objectFocused, new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2), new Vector2f(rect.Width / 2, rect.Height / 2));
+                Vector2f deltaSpriteText = object2D.DeltaSpriteText;
+
+                this.officeWorld.OnMouseDragOnObject(this.objectFocused, new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2), new Vector2f(rect.Width / 2 + deltaSpriteText.X, rect.Height / 2 + deltaSpriteText.Y));
             }
         }
 
@@ -119,11 +121,18 @@ namespace GameJam2020
             {
                 AObject lObject = this.object2DManager.getAnswerTokenAt(new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
 
-                if(lObject != null)
+                if (lObject != null)
                 {
                     this.officeWorld.OnMouseDownOnObject(lObject);
 
                     this.objectFocused = lObject;
+                }
+
+                lObject = this.object2DManager.getDialogueBubbleAt(new Vector2f(e.X - this.resolutionScreen.X / 2, e.Y - this.resolutionScreen.Y / 2));
+
+                if (lObject != null)
+                {
+                    this.officeWorld.OnSpeedUpDialogue(lObject);
                 }
             }
         }

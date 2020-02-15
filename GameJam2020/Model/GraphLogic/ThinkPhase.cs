@@ -75,7 +75,7 @@ namespace GameJam2020.Model.GraphLogic
                 {
                     case ThinkPhaseMoment.START:
                         DialogueObject dialogue = world.GetObjectFromId("dialogue toubib") as DialogueObject;
-                        dialogue.LaunchDialogue(3);
+                        dialogue.LaunchDialogue(6);
 
                         AObject queueDream = world.GetObjectFromId("queueDream main");
                         queueDream.SetKinematicParameters(new Vector2f(100f, 100f), new Vector2f(0f, 0f));
@@ -91,7 +91,7 @@ namespace GameJam2020.Model.GraphLogic
 
                         DialogueObject dialogueAnswer = world.GetObjectFromId("dialogue answer") as DialogueObject;
                         dialogueAnswer.SetKinematicParameters(new Vector2f(-550f, 200f), new Vector2f(0f, 0f));
-                        dialogueAnswer.LaunchDialogue(4);
+                        dialogueAnswer.LaunchDialogue(6);
 
                         this.timeElapsed = Time.Zero;
                         this.periodPhase = Time.FromSeconds(world.CurrentLevel.Data.Timer);

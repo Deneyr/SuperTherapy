@@ -42,6 +42,7 @@ namespace GameJam2020.Model.Events
         DOOR_KNOCK,
         DOOR_OPEN,
         VALIDATION,
-        END_TIMER
+        END_TIMER,
+        SPEED_UP_DIALOGUE
     }
 }

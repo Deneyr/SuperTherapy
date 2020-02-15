@@ -23,8 +23,6 @@ namespace GameJam2020.Model.World.Objects
         private AToken previousToken;
         private AToken nextToken;
 
-        private float widthDialogue;
-
         public AToken(AToken previousToken, string id, string text) : base(id)
         {
             this.previousToken = previousToken;
@@ -69,6 +67,18 @@ namespace GameJam2020.Model.World.Objects
             set
             {
                 this.previousToken = value;
+            }
+        }
+
+        public float SpeedFactor
+        {
+            get
+            {
+                return this.speedFactor;
+            }
+            set
+            {
+                this.speedFactor = value;
             }
         }
 
